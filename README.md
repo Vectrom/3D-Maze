@@ -1,5 +1,4 @@
 # 3D-Maze
 
 
-
-piu piu
+Project made for university course called Fundamentals of Computer Graphics
