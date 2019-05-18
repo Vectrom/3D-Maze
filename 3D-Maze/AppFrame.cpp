@@ -1,8 +1,5 @@
 #include "AppFrame.h"
-
-static const int kDefaultWindowWidth = 1280;
-static const int kDefaultWindowHeight = 720;
-static const int kCanvasMargin = 50;
+#include "Settings.h"
 
 AppFrame::AppFrame(const wxString & title, const wxPoint & pos, const wxSize & size) :
 	wxFrame(NULL, wxID_ANY, title, pos, size),

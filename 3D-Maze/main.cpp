@@ -1,10 +1,7 @@
 #include <wx/wx.h>
 #include <SFML/Graphics.hpp>
 #include "AppFrame.h"
-
-static const int kDefaultWindowWidth = 1280;
-static const int kDefaultWindowHeight = 720;
-static const int kCanvasMargin = 50;
+#include "Settings.h"
 
 class App : public wxApp {
 public:

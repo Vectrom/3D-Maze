@@ -1,6 +1,5 @@
 #include "Canvas.h"
-
-static const int kCanvasMargin = 50;
+#include "Settings.h"
 
 Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, long style) :
 	wxSfmlCanvas(parent, id, position, size, style) {
