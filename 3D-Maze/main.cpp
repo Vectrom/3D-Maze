@@ -1,12 +1,12 @@
 #include <wx/wx.h>
 #include <SFML/Graphics.hpp>
-#include "AppFrame.h"
+#include "PanelFrame.h"
 #include "Settings.h"
 
 class App : public wxApp {
 public:
 	virtual bool OnInit() {
-		auto frame = new AppFrame("SFML Canvas Demo", wxPoint(100, 100), wxSize(kDefaultWindowWidth, kDefaultWindowHeight));
+		auto frame = new PanelFrame(nullptr);
 		frame->Show(true);
 		return true;
 	}
