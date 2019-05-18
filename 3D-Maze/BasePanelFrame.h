@@ -22,20 +22,24 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Class BaseFrame
+/// Class BasePanelFrame
 ///////////////////////////////////////////////////////////////////////////////
-class BaseFrame : public wxFrame
+class BasePanelFrame : public wxFrame
 {
 	private:
 
 	protected:
 		wxPanel* _drawingPanel;
 
+		// Virtual event handlers, overide them in your derived class
+		virtual void FrameOnClose( wxCloseEvent& event ) { event.Skip(); }
+
+
 	public:
 
-		BaseFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1024,800 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		BasePanelFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1024,800 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
-		~BaseFrame();
+		~BasePanelFrame();
 
 };
 

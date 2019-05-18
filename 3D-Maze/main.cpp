@@ -1,13 +1,13 @@
 #include <wx/wx.h>
 #include <SFML/Graphics.hpp>
-#include "PanelFrame.h"
+#include "MenuFrame.h"
 #include "Settings.h"
 
 class App : public wxApp {
 public:
 	virtual bool OnInit() {
-		auto frame = new PanelFrame(nullptr);
-		frame->Show(true);
+		auto menu = new MenuFrame(nullptr);
+		menu->Show(true);
 		return true;
 	}
 };
