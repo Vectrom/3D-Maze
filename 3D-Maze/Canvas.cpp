@@ -1,5 +1,4 @@
 #include "Canvas.h"
-#include "Settings.h"
 
 Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, long style) :
 	wxSfmlCanvas(parent, id, position, size, style) {
@@ -14,8 +13,8 @@ void Canvas::onUpdate() {
 void Canvas::onResize(wxSizeEvent & event) {
 	auto size = event.GetSize();
 
-	auto newCanvasWidth = size.x - (2 * kCanvasMargin);
-	auto newCanvasHeight = size.y - (2 * kCanvasMargin);
+	auto newCanvasWidth = size.x;
+	auto newCanvasHeight = size.y;
 
 	// Resize Canvas window
 	this->setwxWindowSize({ newCanvasWidth, newCanvasHeight });

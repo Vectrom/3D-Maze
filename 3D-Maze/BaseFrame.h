@@ -22,20 +22,20 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Class baseFrame
+/// Class BaseFrame
 ///////////////////////////////////////////////////////////////////////////////
-class baseFrame : public wxFrame
+class BaseFrame : public wxFrame
 {
 	private:
 
 	protected:
-		wxPanel* drawingPanel;
+		wxPanel* _drawingPanel;
 
 	public:
 
-		baseFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1024,800 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		BaseFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1024,800 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
-		~baseFrame();
+		~BaseFrame();
 
 };
 
