@@ -5,13 +5,14 @@
 // PLEASE DO *NOT* EDIT THIS FILE!
 ///////////////////////////////////////////////////////////////////////////
 
-#include "BaseFrame.h"
+#include "BasePanelFrame.h"
 
 ///////////////////////////////////////////////////////////////////////////
 
-BaseFrame::BaseFrame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
+BasePanelFrame::BasePanelFrame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	this->Hide();
 
 	wxBoxSizer* panelBoxSizer;
 	panelBoxSizer = new wxBoxSizer( wxVERTICAL );
@@ -24,8 +25,14 @@ BaseFrame::BaseFrame( wxWindow* parent, wxWindowID id, const wxString& title, co
 	this->Layout();
 
 	this->Centre( wxBOTH );
+
+	// Connect Events
+	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( BasePanelFrame::FrameOnClose ) );
 }
 
-BaseFrame::~BaseFrame()
+BasePanelFrame::~BasePanelFrame()
 {
+	// Disconnect Events
+	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( BasePanelFrame::FrameOnClose ) );
+
 }
