@@ -12,6 +12,7 @@ public:
 	PanelFrame(wxWindow* parent);
 	void onResize(wxSizeEvent& event);
 	void FrameOnClose(wxCloseEvent& event);
+
 private:
 	std::unique_ptr<Canvas>  _canvas;
 	wxWindow *_parent;
