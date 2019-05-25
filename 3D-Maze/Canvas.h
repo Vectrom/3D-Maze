@@ -18,7 +18,7 @@ private:
 
 	double time = 0.; //time of current frame
 	double timer = 0.;
-	double delay = 0.1;
+	double delay = 0.01;
 	//double oldTime = 0; //time of previous frame
 	
 };
