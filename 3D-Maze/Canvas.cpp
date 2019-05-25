@@ -33,10 +33,13 @@ int worldMap[mapWidth][mapHeight] =
 
 Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, long style) :
 	wxSfmlCanvas(parent, id, position, size, style) {
-	clock.restart().asMilliseconds();
+	clock.restart();
 }
 
 void Canvas::onUpdate() {
+	time = clock.getElapsedTime().asSeconds();
+	clock.restart();
+	timer += time;
 	sf::Event event;
 	clear(sf::Color::Black);
 	for (int x = 0; x < this->GetSize().x; x++)
@@ -132,70 +135,46 @@ void Canvas::onUpdate() {
 	}
 
 	//timing for input and FPS counter
-	oldTime = time;
-	//time = getTicks();
-	time = clock.getElapsedTime().asSeconds();
-	double frameTime = (time - oldTime); //frameTime is the time this frame has taken, in seconds
+	//oldTime = time;
+	////time = getTicks();
+	//time = clock.getElapsedTime().asSeconds();
+	//double frameTime = (time - oldTime); //frameTime is the time this frame has taken, in seconds
 
 	//speed modifiers
-	double moveSpeed = 3.0; //the constant value is in squares/second
-	double rotSpeed = 1.0; //the constant value is in radians/second
+	double moveSpeed = .1; //the constant value is in squares/second
+	double rotSpeed = .02; //the constant value is in radians/second
+	if (timer > delay) {
+		timer = 0.;
+		while (this->pollEvent(event)) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+				double oldDirX = dirX;
+				dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
+				dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
+				double oldPlaneX = planeX;
+				planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
+				planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+			}
 
-	while (this->pollEvent(event)) {
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-			double oldDirX = dirX;
-			dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-			dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-			double oldPlaneX = planeX;
-			planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-			planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
-		} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-			double oldDirX = dirX;
-			dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-			dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-			double oldPlaneX = planeX;
-			planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-			planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
-		} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-			if (!worldMap[int(posX + dirX * moveSpeed)][int(posY)]) posX += dirX * moveSpeed;
-			if (!worldMap[int(posX)][int(posY + dirY * moveSpeed)]) posY += dirY * moveSpeed;
-		} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-			if (!worldMap[int(posX - dirX * moveSpeed)][int(posY)]) posX -= dirX * moveSpeed;
-			if (!worldMap[int(posX)][int(posY - dirY * moveSpeed)]) posY -= dirY * moveSpeed;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+				double oldDirX = dirX;
+				dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
+				dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
+				double oldPlaneX = planeX;
+				planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
+				planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+				if (!worldMap[int(posX + dirX * moveSpeed)][int(posY)]) posX += dirX * moveSpeed;
+				if (!worldMap[int(posX)][int(posY + dirY * moveSpeed)]) posY += dirY * moveSpeed;
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+				if (!worldMap[int(posX - dirX * moveSpeed)][int(posY)]) posX -= dirX * moveSpeed;
+				if (!worldMap[int(posX)][int(posY - dirY * moveSpeed)]) posY -= dirY * moveSpeed;
+			}
 		}
 	}
-
-		//double oldDirX;
-		//double oldPlaneX;
-		//if (sf::Keyboard::isKeyPressed) {
-		//	switch (event.key.code) {
-		//		case sf::Keyboard::Up:
-		//			if (worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
-		//			if (worldMap[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
-		//			break;
-		//		case sf::Keyboard::Down:
-		//			if (worldMap[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
-		//			if (worldMap[int(posX)][int(posY - dirY * moveSpeed)] == false) posY -= dirY * moveSpeed;
-		//			break;
-		//		case sf::Keyboard::Right:
-		//			//both camera direction and camera plane must be rotated
-		//			oldDirX = dirX;
-		//			dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-		//			dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-		//			oldPlaneX = planeX;
-		//			planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-		//			planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
-		//			break;
-		//		case sf::Keyboard::Left:
-		//			//both camera direction and camera plane must be rotated
-		//			oldDirX = dirX;
-		//			dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-		//			dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-		//			oldPlaneX = planeX;
-		//			planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-		//			planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
-		//	}
-		//}
 }
 
 
