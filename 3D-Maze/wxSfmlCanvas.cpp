@@ -1,8 +1,7 @@
 #include "wxSfmlCanvas.h"
 
 wxSfmlCanvas::wxSfmlCanvas(wxWindow *parent, wxWindowID windowId, const wxPoint &position, const wxSize &size, long style)
-	:
-	wxControl(parent, windowId, position, size, style) {
+	: wxControl(parent, windowId, position, size, style) {
 	createRenderWindow();
 }
 
