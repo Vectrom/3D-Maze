@@ -9,8 +9,8 @@ BaseMenuFrame( parent )
 }
 
 void MenuFrame::_playButtonOnButtonClick( wxCommandEvent& event ) {
-	auto menu = new PanelFrame(this);
-	menu->Show(true);
+	auto gamePanel = new PanelFrame(this);
+	gamePanel->Show(true);
 	this->Show(false);
 }
 

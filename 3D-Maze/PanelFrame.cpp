@@ -1,7 +1,7 @@
 #include "PanelFrame.h"
 
 PanelFrame::PanelFrame(wxWindow* parent) :
-BasePanelFrame(parent), _parent(parent), _canvas(new Canvas(_drawingPanel, wxID_ANY, wxPoint(0, 0), wxSize(_drawingPanel->GetSize()))) {
+BasePanelFrame(parent), _parent(parent), _canvas(new Canvas(this, wxID_ANY, wxPoint(0, 0), wxSize(this->GetSize()))) {
 	Bind(wxEVT_SIZE, &PanelFrame::onResize, this);
 }
 
