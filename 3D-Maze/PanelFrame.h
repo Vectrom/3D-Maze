@@ -12,6 +12,7 @@ public:
 	PanelFrame(wxWindow* parent);
 	void onResize(wxSizeEvent& event);
 	void FrameOnClose(wxCloseEvent& event);
+	void loadWorldMap(const std::vector<std::vector<char>> &worldMap);
 
 private:
 	std::unique_ptr<Canvas>  _canvas;

@@ -15,6 +15,10 @@ void PanelFrame::FrameOnClose(wxCloseEvent& event) {
 	this->Destroy();
 }
 
+void PanelFrame::loadWorldMap(const std::vector<std::vector<char>>& worldMap) {
+	_canvas->loadWorldMap(worldMap);
+}
+
 wxBEGIN_EVENT_TABLE(wxSfmlCanvas, wxControl)
 EVT_IDLE(wxSfmlCanvas::onIdle)
 EVT_PAINT(wxSfmlCanvas::onPaint)

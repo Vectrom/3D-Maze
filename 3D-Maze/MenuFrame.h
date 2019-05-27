@@ -1,6 +1,9 @@
 #pragma once
 
 #include "BaseMenuFrame.h"
+#include "PanelFrame.h"
+#include <vector>
+#include <memory>
 
 class MenuFrame : public BaseMenuFrame {
 public:
@@ -12,4 +15,8 @@ protected:
 	void _createBoardButtonOnButtonClick(wxCommandEvent& event);
 	void _exitButtonOnButtonClick(wxCommandEvent& event);
 
+private:
+	std::vector<std::vector<char>> _worldMap;
+	bool _mapCreated;
+	PanelFrame  *_gamePanel;
 };

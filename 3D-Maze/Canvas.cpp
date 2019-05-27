@@ -1,35 +1,35 @@
 #include "Canvas.h"
 #include <SFML/Graphics.hpp>
-#define mapWidth 24
-#define mapHeight 24
-
-int worldMap[mapWidth][mapHeight] =
-{
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
+//#define mapWidth 24
+//#define mapHeight 24
+//
+//int worldMap[mapWidth][mapHeight] =
+//{
+//  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+//  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+//  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
+//  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+//  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+//};
 
 Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, long style) :
 	wxSfmlCanvas(parent, id, position, size, style) {
@@ -69,13 +69,13 @@ void Canvas::onUpdate() {
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-				if (!worldMap[int(posX + dirX * moveSpeed)][int(posY)]) posX += dirX * moveSpeed;
-				if (!worldMap[int(posX)][int(posY + dirY * moveSpeed)]) posY += dirY * moveSpeed;
+				if (_worldMap[int(posX + dirX * moveSpeed)][int(posY)] == ' ') posX += dirX * moveSpeed;
+				if (_worldMap[int(posX)][int(posY + dirY * moveSpeed)] == ' ') posY += dirY * moveSpeed;
 			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-				if (!worldMap[int(posX - dirX * moveSpeed)][int(posY)]) posX -= dirX * moveSpeed;
-				if (!worldMap[int(posX)][int(posY - dirY * moveSpeed)]) posY -= dirY * moveSpeed;
+				if (_worldMap[int(posX - dirX * moveSpeed)][int(posY)] == ' ') posX -= dirX * moveSpeed;
+				if (_worldMap[int(posX)][int(posY - dirY * moveSpeed)] == ' ') posY -= dirY * moveSpeed;
 			}
 		}
 	}
@@ -140,7 +140,7 @@ void Canvas::onUpdate() {
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			if (worldMap[mapX][mapY]) hit = 1;
+			if (_worldMap[mapX][mapY] != ' ') hit = 1;
 		}
 
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
@@ -158,12 +158,11 @@ void Canvas::onUpdate() {
 
 		//choose wall color
 		sf::Color color;
-		switch (worldMap[mapX][mapY])
+		switch (_worldMap[mapX][mapY])
 		{
-			case 1:  color = sf::Color::Red;    break;
-			case 2:  color = sf::Color::Green;  break;
-			case 3:  color = sf::Color::Blue;   break;
-			case 4:  color = sf::Color::White;  break;
+			case 'X':  color = sf::Color::Red;    break;
+			case 'Y':  color = sf::Color::Green;  break;
+			case 'Z':  color = sf::Color::Blue;   break;
 			default: color = sf::Color::Yellow; break;
 		}
 
@@ -179,6 +178,9 @@ void Canvas::onUpdate() {
 	}
 }
 
+void Canvas::loadWorldMap(const std::vector<std::vector<char>>& worldMap) {
+	_worldMap = worldMap;
+}
 
 void Canvas::onResize(wxSizeEvent & event) {
 	auto size = event.GetSize();
