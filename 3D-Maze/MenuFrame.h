@@ -14,9 +14,9 @@ protected:
 	void _loadBoardButtonOnButtonClick(wxCommandEvent& event);
 	void _createBoardButtonOnButtonClick(wxCommandEvent& event);
 	void _exitButtonOnButtonClick(wxCommandEvent& event);
+	bool validateTextMaze(const std::string &str);
 
 private:
 	std::vector<std::vector<char>> _worldMap;
 	bool _mapCreated;
-	PanelFrame  *_gamePanel;
 };

@@ -9,16 +9,16 @@ _mapCreated(false)
 
 void MenuFrame::_playButtonOnButtonClick( wxCommandEvent& event ) {
 	if (_mapCreated) {
-		_gamePanel = new PanelFrame(this);
-		_gamePanel->loadWorldMap(_worldMap);
-		_gamePanel->Show(true);
+		auto gamePanel = new PanelFrame(this);
+		gamePanel->loadWorldMap(_worldMap);
+		gamePanel->Show(true);
 		this->Show(false);
 	}
 }
 
 void MenuFrame::_loadBoardButtonOnButtonClick( wxCommandEvent& event ) {
 	wxString filePath;
-	wxFileDialog fileDialog(this);
+	wxFileDialog fileDialog(this, _("Open txt file"), "", "", "txt files (*.txt)|*.txt", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 
 	// show file dialog and get the path to the file that was selected.
 	if (fileDialog.ShowModal() != wxID_OK) 
@@ -26,19 +26,31 @@ void MenuFrame::_loadBoardButtonOnButtonClick( wxCommandEvent& event ) {
 	filePath.Clear();
 	filePath = fileDialog.GetPath();
 
-
 	// open the file
 	wxTextFile txtFile;
 	txtFile.Open(filePath);
 
+	// clear vector when loads new map
+	if (!_worldMap.empty()) {
+		_worldMap.clear();
+	}
+
+	// load first line
 	std::string str = txtFile.GetFirstLine().ToStdString();
 	_worldMap.push_back(std::vector<char>(str.begin(), str.end()));
+	if (this->validateTextMaze(str) == false) {
+		return;
+	}
 
 	// read all lines one by one until the end of the file
 	while (!txtFile.Eof()) {
 		str = txtFile.GetNextLine().ToStdString();
-		std::vector<char> line(str.begin(), str.end());
-		_worldMap.push_back(line);
+		if (!str.empty()) {
+			_worldMap.push_back(std::vector<char>(str.begin(), str.end()));
+			if (!this->validateTextMaze(str)) {
+				return;
+			}
+		}
 	}
 	_mapCreated = true;
 }
@@ -49,5 +61,14 @@ void MenuFrame::_createBoardButtonOnButtonClick( wxCommandEvent& event ) {
 
 void MenuFrame::_exitButtonOnButtonClick( wxCommandEvent& event ) {
 	this->Destroy();
+}
+
+bool MenuFrame::validateTextMaze(const std::string &str) {
+	if (str.front() == ' ' || str.back() == ' ') {
+		_mapCreated = false;
+		return false;
+		//TODO: add some push notification or info
+	}
+	return true;
 }
 
