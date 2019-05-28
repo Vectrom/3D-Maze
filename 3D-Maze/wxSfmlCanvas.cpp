@@ -19,11 +19,3 @@ void wxSfmlCanvas::onPaint(wxPaintEvent & event) {
 void wxSfmlCanvas::createRenderWindow() {
 	sf::RenderWindow::create(GetHandle());
 }
-
-void wxSfmlCanvas::setwxWindowSize(const wxSize& size) {
-	this->SetSize(size);
-}
-
-void wxSfmlCanvas::setRenderWindowSize(const sf::Vector2u& size) {
-	this->setSize(size);
-}

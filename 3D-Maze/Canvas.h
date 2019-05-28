@@ -20,12 +20,11 @@ public:
 
 private:
 	sf::Clock _clock;
-
-	sf::Vector2<double> _direction; //initial direction vector
+	sf::Vector2<double> _direction; 
 	sf::Vector2<double> _playerPosition;
 	sf::Vector2<double> _end;
 	sf::Vector2<double> _plane;
-	double _time = 0.; //time of current frame
+	double _time = 0.; 
 	double _oldTime = 0.;
 };
 

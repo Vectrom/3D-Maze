@@ -33,6 +33,7 @@ void Canvas::onUpdate() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 		move(moveSpeed, -1);
 	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 		move(moveSpeed, 1);
 	}
@@ -45,8 +46,8 @@ void Canvas::onResize(wxSizeEvent &event) {
 	auto newCanvasWidth = size.x;
 	auto newCanvasHeight = size.y;
 
-	this->setwxWindowSize({ newCanvasWidth, newCanvasHeight });
-	this->setRenderWindowSize({ (unsigned int)newCanvasWidth, (unsigned int)newCanvasHeight });
+	this->SetSize({ newCanvasWidth, newCanvasHeight });
+	createRenderWindow();
 }
 
 void Canvas::setStartEnd() {

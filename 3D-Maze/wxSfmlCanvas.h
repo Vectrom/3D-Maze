@@ -10,8 +10,6 @@ public:
 	void onPaint(wxPaintEvent& event);
 	void onEraseBackground(wxEraseEvent& event) {} 	// Explicitly overriding prevents wxWidgets from drawing, which could result in flicker
 	void createRenderWindow();
-	void setwxWindowSize(const wxSize& size);
-	void setRenderWindowSize(const sf::Vector2u& size);
 	virtual void onUpdate() {};
 	virtual ~wxSfmlCanvas() = default;
 
