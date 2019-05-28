@@ -1,5 +1,7 @@
 #pragma once
+#include <vector>
 
-namespace Settings {
-	double _fov = 66.0;
+struct Settings {
+	static double fov;
+	static std::vector<std::vector<char>> worldMap;
 };

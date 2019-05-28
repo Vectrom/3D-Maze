@@ -1,5 +1,6 @@
-#include "MenuFrame.h"
 #include <wx/textfile.h>
+#include "MenuFrame.h"
+#include "Settings.h"
 
 MenuFrame::MenuFrame(wxWindow* parent)
 :
@@ -9,7 +10,7 @@ _mapCreated(false)
 
 void MenuFrame::_playButtonOnButtonClick( wxCommandEvent& event ) {
 	if (_mapCreated) {
-		auto gamePanel = new PanelFrame(this, _worldMap);
+		auto gamePanel = new PanelFrame(this);
 		gamePanel->Show(true);
 		this->Show(false);
 	}
@@ -30,13 +31,13 @@ void MenuFrame::_loadBoardButtonOnButtonClick( wxCommandEvent& event ) {
 	txtFile.Open(filePath);
 
 	// clear vector when loads new map
-	if (!_worldMap.empty()) {
-		_worldMap.clear();
+	if (!Settings::worldMap.empty()) {
+		Settings::worldMap.clear();
 	}
 
 	// load first line
 	std::string str = txtFile.GetFirstLine().ToStdString();
-	_worldMap.push_back(std::vector<char>(str.begin(), str.end()));
+	Settings::worldMap.push_back(std::vector<char>(str.begin(), str.end()));
 	if (this->validateTextMaze(str) == false) {
 		return;
 	}
@@ -45,7 +46,7 @@ void MenuFrame::_loadBoardButtonOnButtonClick( wxCommandEvent& event ) {
 	while (!txtFile.Eof()) {
 		str = txtFile.GetNextLine().ToStdString();
 		if (!str.empty()) {
-			_worldMap.push_back(std::vector<char>(str.begin(), str.end()));
+			Settings::worldMap.push_back(std::vector<char>(str.begin(), str.end()));
 			if (!this->validateTextMaze(str)) {
 				return;
 			}

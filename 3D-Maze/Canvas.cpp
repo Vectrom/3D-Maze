@@ -2,13 +2,12 @@
 #include "Canvas.h"
 #include "Settings.h"
 
-Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, const std::vector<std::vector<char>> &worldMap, long style) :
-	wxSfmlCanvas(parent, id, position, size, style), 
-	_worldMap(worldMap ) {
+Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, long style) :
+	wxSfmlCanvas(parent, id, position, size, style) {
 	_clock.restart();
 	setStartEnd();
 	_direction = sf::Vector2<double>(-1., 0.);
-	_plane = sf::Vector2<double>(0., tan(Settings::_fov/2 * M_PI/180));
+	_plane = sf::Vector2<double>(0., tan(Settings::fov/2 * M_PI/180));
 }
 
 void Canvas::onUpdate() {
@@ -43,26 +42,24 @@ void Canvas::onUpdate() {
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 		sf::Vector2i possibleNewPosition(int(_playerPosition.x + _direction.x * moveSpeed), int(_playerPosition.y + _direction.y * moveSpeed));
-		if (_worldMap[possibleNewPosition.x][int(_playerPosition.y)] == ' ' || 
-			_worldMap[possibleNewPosition.x][int(_playerPosition.y)] == 'S') _playerPosition.x += _direction.x * moveSpeed;
-		if (_worldMap[int(_playerPosition.x)][possibleNewPosition.y] == ' ' ||
-			_worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'S') _playerPosition.y += _direction.y * moveSpeed;
+		if (Settings::worldMap[possibleNewPosition.x][int(_playerPosition.y)] == ' ' || 
+			Settings::worldMap[possibleNewPosition.x][int(_playerPosition.y)] == 'S') _playerPosition.x += _direction.x * moveSpeed;
+		if (Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == ' ' ||
+			Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'S') _playerPosition.y += _direction.y * moveSpeed;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 		sf::Vector2i possibleNewPosition(int(_playerPosition.x - _direction.x * moveSpeed), int(_playerPosition.y - _direction.y * moveSpeed));
-		if (_worldMap[possibleNewPosition.x][int(_playerPosition.y)] == ' ' ||
-			_worldMap[possibleNewPosition.x][int(_playerPosition.y)] == 'S') _playerPosition.x -= _direction.x * moveSpeed;
-		if (_worldMap[int(_playerPosition.x)][possibleNewPosition.y] == ' ' ||
-			_worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'S') _playerPosition.y -= _direction.y * moveSpeed;
+		if (Settings::worldMap[possibleNewPosition.x][int(_playerPosition.y)] == ' ' ||
+			Settings::worldMap[possibleNewPosition.x][int(_playerPosition.y)] == 'S') _playerPosition.x -= _direction.x * moveSpeed;
+		if (Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == ' ' ||
+			Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'S') _playerPosition.y -= _direction.y * moveSpeed;
 	}
 
 	drawMaze();
 }
 
-void Canvas::loadWorldMap(const std::vector<std::vector<char>>& worldMap) {
-	_worldMap = worldMap;
-}
+
 
 void Canvas::onResize(wxSizeEvent & event) {
 	auto size = event.GetSize();
@@ -76,13 +73,13 @@ void Canvas::onResize(wxSizeEvent & event) {
 }
 
 void Canvas::setStartEnd() {
-	for (int i = 0; i < static_cast<int>(_worldMap.size()); i++) {
-		for (int j = 0; j < static_cast<int>(_worldMap[i].size()); j++) {
-			if (_worldMap[i][j] == 'S') {
+	for (int i = 0; i < static_cast<int>(Settings::worldMap.size()); i++) {
+		for (int j = 0; j < static_cast<int>(Settings::worldMap[i].size()); j++) {
+			if (Settings::worldMap[i][j] == 'S') {
 				_playerPosition.x = i;
 				_playerPosition.y = j;
 			}
-			else if (_worldMap[i][j] == 'E') {
+			else if (Settings::worldMap[i][j] == 'E') {
 				_end.x = i;
 				_end.y = j;
 			}
@@ -145,7 +142,7 @@ void Canvas::drawMaze() {
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			if (_worldMap[mapBox.x][mapBox.y] != ' ' && _worldMap[mapBox.x][mapBox.y] != 'S') hit = 1;
+			if (Settings::worldMap[mapBox.x][mapBox.y] != ' ' && Settings::worldMap[mapBox.x][mapBox.y] != 'S') hit = 1;
 		}
 
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
@@ -166,7 +163,7 @@ void Canvas::drawMaze() {
 		if (side == 1)
 			denominator = 2;
 		sf::Color color;
-		switch (_worldMap[mapBox.x][mapBox.y]) {
+		switch (Settings::worldMap[mapBox.x][mapBox.y]) {
 		case 'X':  color = sf::Color(255 / denominator, 0, 0);    break;
 		case 'Y':  color = sf::Color(0, 255 / denominator, 0);  break;
 		case 'Z':  color = sf::Color(0, 0, 255 / denominator);   break;

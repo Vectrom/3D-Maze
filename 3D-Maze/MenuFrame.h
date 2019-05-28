@@ -17,6 +17,5 @@ protected:
 	bool validateTextMaze(const std::string &str);
 
 private:
-	std::vector<std::vector<char>> _worldMap;
 	bool _mapCreated;
 };

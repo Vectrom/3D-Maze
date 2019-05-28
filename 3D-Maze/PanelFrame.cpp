@@ -1,7 +1,7 @@
 #include "PanelFrame.h"
 
-PanelFrame::PanelFrame(wxWindow* parent, const std::vector<std::vector<char>> &worldMap) :
-BasePanelFrame(parent), _parent(parent), _canvas(new Canvas(_drawingPanel, wxID_ANY, wxPoint(0, 0), wxSize(_drawingPanel->GetSize()), worldMap)) {
+PanelFrame::PanelFrame(wxWindow* parent) :
+BasePanelFrame(parent), _parent(parent), _canvas(new Canvas(_drawingPanel, wxID_ANY, wxPoint(0, 0), wxSize(_drawingPanel->GetSize()))) {
 	Bind(wxEVT_SIZE, &PanelFrame::onResize, this);
 }
 
@@ -13,10 +13,6 @@ void PanelFrame::onResize(wxSizeEvent & event) {
 void PanelFrame::FrameOnClose(wxCloseEvent& event) {
 	_parent->Show(true);
 	this->Destroy();
-}
-
-void PanelFrame::loadWorldMap(const std::vector<std::vector<char>>& worldMap) {
-	_canvas->loadWorldMap(worldMap);
 }
 
 wxBEGIN_EVENT_TABLE(wxSfmlCanvas, wxControl)
