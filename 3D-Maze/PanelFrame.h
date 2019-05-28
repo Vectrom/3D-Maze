@@ -11,7 +11,7 @@ class PanelFrame : public BasePanelFrame {
 public:
 	PanelFrame(wxWindow* parent);
 	void onResize(wxSizeEvent& event);
-	void FrameOnClose(wxCloseEvent& event);
+	void frameOnClose(wxCloseEvent& event);
 
 private:
 	std::unique_ptr<Canvas>  _canvas;

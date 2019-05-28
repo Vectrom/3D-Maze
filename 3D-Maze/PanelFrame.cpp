@@ -10,7 +10,7 @@ void PanelFrame::onResize(wxSizeEvent & event) {
 	event.Skip();
 }
 
-void PanelFrame::FrameOnClose(wxCloseEvent& event) {
+void PanelFrame::frameOnClose(wxCloseEvent& event) {
 	_parent->Show(true);
 	this->Destroy();
 }

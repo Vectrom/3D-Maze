@@ -2,6 +2,7 @@
 
 #include "BaseMenuFrame.h"
 #include "PanelFrame.h"
+#include "BoardFrame.h"
 #include <vector>
 #include <memory>
 

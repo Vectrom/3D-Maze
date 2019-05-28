@@ -27,12 +27,12 @@ BasePanelFrame::BasePanelFrame( wxWindow* parent, wxWindowID id, const wxString&
 	this->Centre( wxBOTH );
 
 	// Connect Events
-	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( BasePanelFrame::FrameOnClose ) );
+	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( BasePanelFrame::frameOnClose ) );
 }
 
 BasePanelFrame::~BasePanelFrame()
 {
 	// Disconnect Events
-	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( BasePanelFrame::FrameOnClose ) );
+	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( BasePanelFrame::frameOnClose ) );
 
 }

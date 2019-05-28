@@ -56,7 +56,9 @@ void MenuFrame::_loadBoardButtonOnButtonClick( wxCommandEvent& event ) {
 }
 
 void MenuFrame::_createBoardButtonOnButtonClick( wxCommandEvent& event ) {
-// TODO: Implement _createBoardButtonOnButtonClick
+	auto boardFrame = new BoardFrame(this);
+	boardFrame->Show(true);
+	this->Show(false);
 }
 
 void MenuFrame::_exitButtonOnButtonClick( wxCommandEvent& event ) {

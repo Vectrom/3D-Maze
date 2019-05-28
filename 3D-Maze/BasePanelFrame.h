@@ -32,7 +32,7 @@ class BasePanelFrame : public wxFrame
 		wxPanel* _drawingPanel;
 
 		// Virtual event handlers, overide them in your derived class
-		virtual void FrameOnClose( wxCloseEvent& event ) { event.Skip(); }
+		virtual void frameOnClose( wxCloseEvent& event ) { event.Skip(); }
 
 
 	public:
