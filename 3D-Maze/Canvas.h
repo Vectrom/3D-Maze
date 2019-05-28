@@ -14,6 +14,9 @@ public:
 	void drawMaze();
 	void move(double moveSpeed, int multiplier);
 	void rotate(double rotSpeed, int multiplier);
+	void calculateStepAndSideDist(sf::Vector2<double> &sideDistance, sf::Vector2<int> &step, const sf::Vector2<double> &deltaDistance, const sf::Vector2<int> &mapBox, const sf::Vector2<double> &rayDirection);
+	void findCollision(sf::Vector2<double> &sideDistance, const sf::Vector2<int> &step, const sf::Vector2<double> &deltaDistance, sf::Vector2<int> &mapBox, int &hit, int &side);
+	sf::Color pickColor(const sf::Vector2<int> &mapBox, int side);
 
 private:
 	sf::Clock _clock;
