@@ -13,6 +13,7 @@ public:
 	virtual void onUpdate();	
 	void loadWorldMap(const std::vector<std::vector<char>> &worldMap);
 	void setStartEnd();
+	void drawMaze();
 
 private:
 	sf::Clock _clock;

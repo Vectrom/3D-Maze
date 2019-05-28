@@ -43,23 +43,58 @@ void Canvas::onUpdate() {
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		if (_worldMap[int(_playerPosition.x + _direction.x * moveSpeed)][int(_playerPosition.y)] == ' ' || 
-			_worldMap[int(_playerPosition.x + _direction.x * moveSpeed)][int(_playerPosition.y)] == 'S') _playerPosition.x += _direction.x * moveSpeed;
-		if (_worldMap[int(_playerPosition.x)][int(_playerPosition.y + _direction.y * moveSpeed)] == ' ' || 
-			_worldMap[int(_playerPosition.x)][int(_playerPosition.y + _direction.y * moveSpeed)] == 'S') _playerPosition.y += _direction.y * moveSpeed;
+		sf::Vector2i possibleNewPosition(int(_playerPosition.x + _direction.x * moveSpeed), int(_playerPosition.y + _direction.y * moveSpeed));
+		if (_worldMap[possibleNewPosition.x][int(_playerPosition.y)] == ' ' || 
+			_worldMap[possibleNewPosition.x][int(_playerPosition.y)] == 'S') _playerPosition.x += _direction.x * moveSpeed;
+		if (_worldMap[int(_playerPosition.x)][possibleNewPosition.y] == ' ' ||
+			_worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'S') _playerPosition.y += _direction.y * moveSpeed;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		if (_worldMap[int(_playerPosition.x - _direction.x * moveSpeed)][int(_playerPosition.y)] == ' ' || 
-			_worldMap[int(_playerPosition.x - _direction.x * moveSpeed)][int(_playerPosition.y)] == 'S') _playerPosition.x -= _direction.x * moveSpeed;
-		if (_worldMap[int(_playerPosition.x)][int(_playerPosition.y - _direction.y * moveSpeed)] == ' ' || 
-			_worldMap[int(_playerPosition.x)][int(_playerPosition.y - _direction.y * moveSpeed)] == 'S') _playerPosition.y -= _direction.y * moveSpeed;
+		sf::Vector2i possibleNewPosition(int(_playerPosition.x - _direction.x * moveSpeed), int(_playerPosition.y - _direction.y * moveSpeed));
+		if (_worldMap[possibleNewPosition.x][int(_playerPosition.y)] == ' ' ||
+			_worldMap[possibleNewPosition.x][int(_playerPosition.y)] == 'S') _playerPosition.x -= _direction.x * moveSpeed;
+		if (_worldMap[int(_playerPosition.x)][possibleNewPosition.y] == ' ' ||
+			_worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'S') _playerPosition.y -= _direction.y * moveSpeed;
 	}
 
+	drawMaze();
+}
+
+void Canvas::loadWorldMap(const std::vector<std::vector<char>>& worldMap) {
+	_worldMap = worldMap;
+}
+
+void Canvas::onResize(wxSizeEvent & event) {
+	auto size = event.GetSize();
+
+	auto newCanvasWidth = size.x;
+	auto newCanvasHeight = size.y;
+
+	// Resize Canvas window
+	this->setwxWindowSize({ newCanvasWidth, newCanvasHeight });
+	this->setRenderWindowSize({ (unsigned int)newCanvasWidth, (unsigned int)newCanvasHeight });
+}
+
+void Canvas::setStartEnd() {
+	for (int i = 0; i < static_cast<int>(_worldMap.size()); i++) {
+		for (int j = 0; j < static_cast<int>(_worldMap[i].size()); j++) {
+			if (_worldMap[i][j] == 'S') {
+				_playerPosition.x = i;
+				_playerPosition.y = j;
+			}
+			else if (_worldMap[i][j] == 'E') {
+				_end.x = i;
+				_end.y = j;
+			}
+		}
+	}	
+}
+
+void Canvas::drawMaze() {
 	clear(sf::Color::Black);
 
-	for (int x = 0; x < this->GetSize().x; x++)
-	{
+	for (int x = 0; x < this->GetSize().x; x++) {
 		//calculate ray position and direction
 		double cameraX = 2 * x / double(this->GetSize().x) - 1; //x-coordinate in camera space
 		sf::Vector2<double> rayDirection(_direction.x + _plane.x * cameraX, _direction.y + _plane.y * cameraX);
@@ -88,7 +123,7 @@ void Canvas::onUpdate() {
 		else {
 			step.x = 1;
 			sideDistance.x = (mapBox.x + 1.0 - _playerPosition.x) * deltaDistance.x;
-		} 
+		}
 		if (rayDirection.y < 0) {
 			step.y = -1;
 			sideDistance.y = (_playerPosition.y - mapBox.y) * deltaDistance.y;
@@ -129,14 +164,14 @@ void Canvas::onUpdate() {
 
 		//choose wall color
 		int denominator = 1;
-		if (side == 1) 
-			denominator = 2; 
+		if (side == 1)
+			denominator = 2;
 		sf::Color color;
 		switch (_worldMap[mapBox.x][mapBox.y]) {
-			case 'X':  color = sf::Color(255 / denominator, 0, 0);    break;
-			case 'Y':  color = sf::Color(0, 255 / denominator, 0);  break;
-			case 'Z':  color = sf::Color(0, 0, 255 / denominator);   break;
-			default: color = sf::Color::Yellow; break;
+		case 'X':  color = sf::Color(255 / denominator, 0, 0);    break;
+		case 'Y':  color = sf::Color(0, 255 / denominator, 0);  break;
+		case 'Z':  color = sf::Color(0, 0, 255 / denominator);   break;
+		default: color = sf::Color::Yellow; break;
 		}
 
 		//draw the pixels of the stripe as a vertical line
@@ -146,35 +181,4 @@ void Canvas::onUpdate() {
 		};
 		draw(line, 2, sf::Lines);
 	}
-}
-
-void Canvas::loadWorldMap(const std::vector<std::vector<char>>& worldMap) {
-	_worldMap = worldMap;
-}
-
-void Canvas::onResize(wxSizeEvent & event) {
-	auto size = event.GetSize();
-
-	auto newCanvasWidth = size.x;
-	auto newCanvasHeight = size.y;
-
-	// Resize Canvas window
-	this->setwxWindowSize({ newCanvasWidth, newCanvasHeight });
-	this->setRenderWindowSize({ (unsigned int)newCanvasWidth, (unsigned int)newCanvasHeight });
-}
-
-void Canvas::setStartEnd() {
-	int tmp = _worldMap.size();
-	for (int i = 0; i < _worldMap.size(); i++) {
-		for (int j = 0; j < _worldMap[i].size(); j++) {
-			if (_worldMap[i][j] == 'S') {
-				_playerPosition.x = i;
-				_playerPosition.y = j;
-			}
-			else if (_worldMap[i][j] == 'E') {
-				_end.x = i;
-				_end.y = j;
-			}
-		}
-	}	
 }
