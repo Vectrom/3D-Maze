@@ -19,6 +19,9 @@
 #include <wx/colour.h>
 #include <wx/settings.h>
 #include <wx/sizer.h>
+#include <wx/stattext.h>
+#include <wx/slider.h>
+#include <wx/checkbox.h>
 #include <wx/frame.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -36,17 +39,22 @@ class BaseMenuFrame : public wxFrame
 		wxButton* _loadBoardButton;
 		wxButton* _createBoardButton;
 		wxButton* _exitButton;
+		wxStaticText* _FOVText;
+		wxSlider* m_slider1;
+		wxCheckBox* __minimapCheckBox;
 
 		// Virtual event handlers, overide them in your derived class
 		virtual void _playButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void _loadBoardButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void _createBoardButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void _exitButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void m_slider1OnScroll( wxScrollEvent& event ) { event.Skip(); }
+		virtual void __minimapCheckBoxOnCheckBox( wxCommandEvent& event ) { event.Skip(); }
 
 
 	public:
 
-		BaseMenuFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 200,600 ), long style = wxCAPTION|wxCLOSE_BOX|wxSYSTEM_MENU|wxTAB_TRAVERSAL );
+		BaseMenuFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 327,310 ), long style = wxCAPTION|wxCLOSE_BOX|wxSYSTEM_MENU|wxTAB_TRAVERSAL );
 
 		~BaseMenuFrame();
 
