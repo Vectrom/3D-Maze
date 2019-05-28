@@ -15,6 +15,7 @@ protected:
 	void _loadBoardButtonOnButtonClick(wxCommandEvent& event);
 	void _createBoardButtonOnButtonClick(wxCommandEvent& event);
 	void _exitButtonOnButtonClick(wxCommandEvent& event);
+	void _FOVSliderOnScroll(wxScrollEvent& event);
 	bool validateTextMaze(const std::string &str);
 
 private:

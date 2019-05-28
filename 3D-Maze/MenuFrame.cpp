@@ -65,6 +65,13 @@ void MenuFrame::_exitButtonOnButtonClick( wxCommandEvent& event ) {
 	this->Destroy();
 }
 
+void MenuFrame::_FOVSliderOnScroll(wxScrollEvent & event) {
+	int position = event.GetPosition();
+	Settings::fov = position;
+	_FOVText->SetLabel("FOV: " + std::to_string(position));
+
+}
+
 bool MenuFrame::validateTextMaze(const std::string &str) {
 	if (str.front() == ' ' || str.back() == ' ') {
 		_mapCreated = false;
