@@ -9,7 +9,7 @@
 
 class PanelFrame : public BasePanelFrame {
 public:
-	PanelFrame(wxWindow* parent);
+	PanelFrame(wxWindow* parent, const std::vector<std::vector<char>> &worldMap);
 	void onResize(wxSizeEvent& event);
 	void FrameOnClose(wxCloseEvent& event);
 	void loadWorldMap(const std::vector<std::vector<char>> &worldMap);

@@ -4,7 +4,7 @@ X                      X
 X                      X
 X     YYYYY    Z Z Z   X
 X     Y   Y            X
-X     Y   Y    Z   Z   X
+X     Y   Y    Z S Z   X
 X     Y   Y            X
 X     YYYYY    Z Z Z   X
 X                      X
@@ -15,7 +15,7 @@ X                      X
 X                      X
 X                      X
 X                 XXXXXX
-X                 X
+X                 E
 X                 XXXXXX
 X                      X
 X                      X

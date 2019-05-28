@@ -2,51 +2,51 @@
 #include <SFML/Graphics.hpp>
 
 
-Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, long style) :
-	wxSfmlCanvas(parent, id, position, size, style) {
-	clock.restart();
+Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, const std::vector<std::vector<char>> &worldMap, long style) :
+	wxSfmlCanvas(parent, id, position, size, style), 
+	_worldMap(worldMap ) {
+	_clock.restart();
+	setStartEnd();
 }
 
 void Canvas::onUpdate() {
-	sf::Event event;
-
-	time = clock.getElapsedTime().asSeconds();
-	clock.restart();
+	_time = _clock.getElapsedTime().asSeconds();
+	_clock.restart();
 
 	//speed modifiers
-	double moveSpeed = time * 4.; //the constant value is in squares/second
-	double rotSpeed = time * 1.7; //the constant value is in radians/second
+	double moveSpeed = _time * 4.; //the constant value is in squares/second
+	double rotSpeed = _time * 1.7; //the constant value is in radians/second
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
-		moveSpeed = time * 7.;
+		moveSpeed = _time * 7.;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		double oldDirX = dirX;
-		dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-		dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-		double oldPlaneX = planeX;
-		planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-		planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+		double oldDirX = _dirX;
+		_dirX = _dirX * cos(rotSpeed) - _dirY * sin(rotSpeed);
+		_dirY = oldDirX * sin(rotSpeed) + _dirY * cos(rotSpeed);
+		double oldPlaneX = _planeX;
+		_planeX = _planeX * cos(rotSpeed) - _planeY * sin(rotSpeed);
+		_planeY = oldPlaneX * sin(rotSpeed) + _planeY * cos(rotSpeed);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		double oldDirX = dirX;
-		dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-		dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-		double oldPlaneX = planeX;
-		planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-		planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+		double oldDirX = _dirX;
+		_dirX = _dirX * cos(-rotSpeed) - _dirY * sin(-rotSpeed);
+		_dirY = oldDirX * sin(-rotSpeed) + _dirY * cos(-rotSpeed);
+		double oldPlaneX = _planeX;
+		_planeX = _planeX * cos(-rotSpeed) - _planeY * sin(-rotSpeed);
+		_planeY = oldPlaneX * sin(-rotSpeed) + _planeY * cos(-rotSpeed);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		if (_worldMap[int(posX + dirX * moveSpeed)][int(posY)] == ' ') posX += dirX * moveSpeed;
-		if (_worldMap[int(posX)][int(posY + dirY * moveSpeed)] == ' ') posY += dirY * moveSpeed;
+		if (_worldMap[int(_posX + _dirX * moveSpeed)][int(_posY)] == ' ') _posX += _dirX * moveSpeed;
+		if (_worldMap[int(_posX)][int(_posY + _dirY * moveSpeed)] == ' ') _posY += _dirY * moveSpeed;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		if (_worldMap[int(posX - dirX * moveSpeed)][int(posY)] == ' ') posX -= dirX * moveSpeed;
-		if (_worldMap[int(posX)][int(posY - dirY * moveSpeed)] == ' ') posY -= dirY * moveSpeed;
+		if (_worldMap[int(_posX - _dirX * moveSpeed)][int(_posY)] == ' ') _posX -= _dirX * moveSpeed;
+		if (_worldMap[int(_posX)][int(_posY - _dirY * moveSpeed)] == ' ') _posY -= _dirY * moveSpeed;
 	}
 
 	clear(sf::Color::Black);
@@ -55,12 +55,12 @@ void Canvas::onUpdate() {
 	{
 		//calculate ray position and direction
 		double cameraX = 2 * x / double(this->GetSize().x) - 1; //x-coordinate in camera space
-		double rayDirX = dirX + planeX * cameraX;
-		double rayDirY = dirY + planeY * cameraX;
+		double rayDirX = _dirX + _planeX * cameraX;
+		double rayDirY = _dirY + _planeY * cameraX;
 
 		//which box of the map we're in
-		int mapX = int(posX);
-		int mapY = int(posY);
+		int mapX = int(_posX);
+		int mapY = int(_posY);
 
 		//length of ray from current position to next x or y-side
 		double sideDistX;
@@ -81,19 +81,19 @@ void Canvas::onUpdate() {
 		//calculate step and initial sideDist
 		if (rayDirX < 0) {
 			stepX = -1;
-			sideDistX = (posX - mapX) * deltaDistX;
+			sideDistX = (_posX - mapX) * deltaDistX;
 		}
 		else {
 			stepX = 1;
-			sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+			sideDistX = (mapX + 1.0 - _posX) * deltaDistX;
 		} 
 		if (rayDirY < 0) {
 			stepY = -1;
-			sideDistY = (posY - mapY) * deltaDistY;
+			sideDistY = (_posY - mapY) * deltaDistY;
 		}
 		else {
 			stepY = 1;
-			sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+			sideDistY = (mapY + 1.0 - _posY) * deltaDistY;
 		}
 		//perform DDA
 		while (hit == 0) {
@@ -113,8 +113,8 @@ void Canvas::onUpdate() {
 		}
 
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
-		if (side == 0) perpWallDist = (mapX - posX + (1 - stepX) / 2) / rayDirX;
-		else           perpWallDist = (mapY - posY + (1 - stepY) / 2) / rayDirY;
+		if (side == 0) perpWallDist = (mapX - _posX + (1 - stepX) / 2) / rayDirX;
+		else           perpWallDist = (mapY - _posY + (1 - stepY) / 2) / rayDirY;
 
 		//Calculate height of line to draw on screen
 		int lineHeight = (int)(this->GetSize().y / perpWallDist);
@@ -130,8 +130,7 @@ void Canvas::onUpdate() {
 		if (side == 1) 
 			denominator = 2; 
 		sf::Color color;
-		switch (_worldMap[mapX][mapY])
-		{
+		switch (_worldMap[mapX][mapY]) {
 			case 'X':  color = sf::Color(255 / denominator, 0, 0);    break;
 			case 'Y':  color = sf::Color(0, 255 / denominator, 0);  break;
 			case 'Z':  color = sf::Color(0, 0, 255 / denominator);   break;
@@ -160,4 +159,20 @@ void Canvas::onResize(wxSizeEvent & event) {
 	// Resize Canvas window
 	this->setwxWindowSize({ newCanvasWidth, newCanvasHeight });
 	this->setRenderWindowSize({ (unsigned int)newCanvasWidth, (unsigned int)newCanvasHeight });
+}
+
+void Canvas::setStartEnd() {
+	int tmp = _worldMap.size();
+	for (int i = 0; i < _worldMap.size(); i++) {
+		for (int j = 0; j < _worldMap[i].size(); j++) {
+			if (_worldMap[i][j] == 'S') {
+				_posX = i;
+				_posY = j;
+			}
+			else if (_worldMap[i][j] == 'E') {
+				_endX = i;
+				_endY = j;
+			}
+		}
+	}	
 }

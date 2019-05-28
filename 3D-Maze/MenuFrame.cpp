@@ -9,8 +9,7 @@ _mapCreated(false)
 
 void MenuFrame::_playButtonOnButtonClick( wxCommandEvent& event ) {
 	if (_mapCreated) {
-		auto gamePanel = new PanelFrame(this);
-		gamePanel->loadWorldMap(_worldMap);
+		auto gamePanel = new PanelFrame(this, _worldMap);
 		gamePanel->Show(true);
 		this->Show(false);
 	}

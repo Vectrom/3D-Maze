@@ -1,7 +1,7 @@
 #include "PanelFrame.h"
 
-PanelFrame::PanelFrame(wxWindow* parent) :
-BasePanelFrame(parent), _parent(parent), _canvas(new Canvas(_drawingPanel, wxID_ANY, wxPoint(0, 0), wxSize(_drawingPanel->GetSize()))) {
+PanelFrame::PanelFrame(wxWindow* parent, const std::vector<std::vector<char>> &worldMap) :
+BasePanelFrame(parent), _parent(parent), _canvas(new Canvas(_drawingPanel, wxID_ANY, wxPoint(0, 0), wxSize(_drawingPanel->GetSize()), worldMap)) {
 	Bind(wxEVT_SIZE, &PanelFrame::onResize, this);
 }
 
