@@ -18,10 +18,10 @@ private:
 	sf::Clock _clock;
 	std::vector<std::vector<char>> _worldMap;
 
-	double _posX, _posY;  //x and y start position
-	double _endX, _endY;
-	double _dirX = -1., _dirY = 0.; //initial direction vector
-	double _planeX = 0., _planeY = 0.66; //the 2d raycaster version of camera plane
+	sf::Vector2<double> _direction; //initial direction vector
+	sf::Vector2<double> _playerPosition;
+	sf::Vector2<double> _end;
+	sf::Vector2<double> _plane;
 	double _time = 0.; //time of current frame
 };
 

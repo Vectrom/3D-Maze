@@ -7,6 +7,9 @@ Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, 
 	_worldMap(worldMap ) {
 	_clock.restart();
 	setStartEnd();
+
+	_direction = sf::Vector2<double>(-1., 0.);
+	_plane = sf::Vector2<double>(0., 0.66);
 }
 
 void Canvas::onUpdate() {
@@ -22,31 +25,35 @@ void Canvas::onUpdate() {
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		double oldDirX = _dirX;
-		_dirX = _dirX * cos(rotSpeed) - _dirY * sin(rotSpeed);
-		_dirY = oldDirX * sin(rotSpeed) + _dirY * cos(rotSpeed);
-		double oldPlaneX = _planeX;
-		_planeX = _planeX * cos(rotSpeed) - _planeY * sin(rotSpeed);
-		_planeY = oldPlaneX * sin(rotSpeed) + _planeY * cos(rotSpeed);
+		double oldDirX = _direction.x;
+		_direction.x = _direction.x * cos(rotSpeed) - _direction.y * sin(rotSpeed);
+		_direction.y = oldDirX * sin(rotSpeed) + _direction.y * cos(rotSpeed);
+		double oldPlaneX = _plane.x;
+		_plane.x = _plane.x * cos(rotSpeed) - _plane.y * sin(rotSpeed);
+		_plane.y = oldPlaneX * sin(rotSpeed) + _plane.y * cos(rotSpeed);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		double oldDirX = _dirX;
-		_dirX = _dirX * cos(-rotSpeed) - _dirY * sin(-rotSpeed);
-		_dirY = oldDirX * sin(-rotSpeed) + _dirY * cos(-rotSpeed);
-		double oldPlaneX = _planeX;
-		_planeX = _planeX * cos(-rotSpeed) - _planeY * sin(-rotSpeed);
-		_planeY = oldPlaneX * sin(-rotSpeed) + _planeY * cos(-rotSpeed);
+		double oldDirX = _direction.x;
+		_direction.x = _direction.x * cos(-rotSpeed) - _direction.y * sin(-rotSpeed);
+		_direction.y = oldDirX * sin(-rotSpeed) + _direction.y * cos(-rotSpeed);
+		double oldPlaneX = _plane.x;
+		_plane.x = _plane.x * cos(-rotSpeed) - _plane.y * sin(-rotSpeed);
+		_plane.y = oldPlaneX * sin(-rotSpeed) + _plane.y * cos(-rotSpeed);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		if (_worldMap[int(_posX + _dirX * moveSpeed)][int(_posY)] == ' ' || _worldMap[int(_posX + _dirX * moveSpeed)][int(_posY)] == 'S') _posX += _dirX * moveSpeed;
-		if (_worldMap[int(_posX)][int(_posY + _dirY * moveSpeed)] == ' ' || _worldMap[int(_posX)][int(_posY + _dirY * moveSpeed)] == 'S') _posY += _dirY * moveSpeed;
+		if (_worldMap[int(_playerPosition.x + _direction.x * moveSpeed)][int(_playerPosition.y)] == ' ' || 
+			_worldMap[int(_playerPosition.x + _direction.x * moveSpeed)][int(_playerPosition.y)] == 'S') _playerPosition.x += _direction.x * moveSpeed;
+		if (_worldMap[int(_playerPosition.x)][int(_playerPosition.y + _direction.y * moveSpeed)] == ' ' || 
+			_worldMap[int(_playerPosition.x)][int(_playerPosition.y + _direction.y * moveSpeed)] == 'S') _playerPosition.y += _direction.y * moveSpeed;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		if (_worldMap[int(_posX - _dirX * moveSpeed)][int(_posY)] == ' ' || _worldMap[int(_posX - _dirX * moveSpeed)][int(_posY)] == 'S') _posX -= _dirX * moveSpeed;
-		if (_worldMap[int(_posX)][int(_posY - _dirY * moveSpeed)] == ' ' || _worldMap[int(_posX)][int(_posY - _dirY * moveSpeed)] == 'S') _posY -= _dirY * moveSpeed;
+		if (_worldMap[int(_playerPosition.x - _direction.x * moveSpeed)][int(_playerPosition.y)] == ' ' || 
+			_worldMap[int(_playerPosition.x - _direction.x * moveSpeed)][int(_playerPosition.y)] == 'S') _playerPosition.x -= _direction.x * moveSpeed;
+		if (_worldMap[int(_playerPosition.x)][int(_playerPosition.y - _direction.y * moveSpeed)] == ' ' || 
+			_worldMap[int(_playerPosition.x)][int(_playerPosition.y - _direction.y * moveSpeed)] == 'S') _playerPosition.y -= _direction.y * moveSpeed;
 	}
 
 	clear(sf::Color::Black);
@@ -55,66 +62,61 @@ void Canvas::onUpdate() {
 	{
 		//calculate ray position and direction
 		double cameraX = 2 * x / double(this->GetSize().x) - 1; //x-coordinate in camera space
-		double rayDirX = _dirX + _planeX * cameraX;
-		double rayDirY = _dirY + _planeY * cameraX;
+		sf::Vector2<double> rayDirection(_direction.x + _plane.x * cameraX, _direction.y + _plane.y * cameraX);
 
 		//which box of the map we're in
-		int mapX = int(_posX);
-		int mapY = int(_posY);
+		sf::Vector2<int> mapBox(static_cast<int>(_playerPosition.x), static_cast<int>(_playerPosition.y));
 
 		//length of ray from current position to next x or y-side
-		double sideDistX;
-		double sideDistY;
+		sf::Vector2<double> sideDistance;
 
 		//length of ray from one x or y-side to next x or y-side
-		double deltaDistX = std::abs(1 / rayDirX);
-		double deltaDistY = std::abs(1 / rayDirY);
+		sf::Vector2<double> deltaDistance(std::abs(1 / rayDirection.x), std::abs(1 / rayDirection.y));
 		double perpWallDist;
 
 		//what direction to step in x or y-direction (either +1 or -1)
-		int stepX;
-		int stepY;
+		sf::Vector2<int> step;
 
 		int hit = 0; //was there a wall hit?
 		int side; //was a NS or a EW wall hit?
 
 		//calculate step and initial sideDist
-		if (rayDirX < 0) {
-			stepX = -1;
-			sideDistX = (_posX - mapX) * deltaDistX;
+		if (rayDirection.x < 0) {
+			step.x = -1;
+			sideDistance.x = (_playerPosition.x - mapBox.x) * deltaDistance.x;
 		}
 		else {
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - _posX) * deltaDistX;
+			step.x = 1;
+			sideDistance.x = (mapBox.x + 1.0 - _playerPosition.x) * deltaDistance.x;
 		} 
-		if (rayDirY < 0) {
-			stepY = -1;
-			sideDistY = (_posY - mapY) * deltaDistY;
+		if (rayDirection.y < 0) {
+			step.y = -1;
+			sideDistance.y = (_playerPosition.y - mapBox.y) * deltaDistance.y;
 		}
 		else {
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - _posY) * deltaDistY;
+			step.y = 1;
+			sideDistance.y = (mapBox.y + 1.0 - _playerPosition.y) * deltaDistance.y;
 		}
 		//perform DDA
 		while (hit == 0) {
 			//jump to next map square, OR in x-direction, OR in y-direction
-			if (sideDistX < sideDistY) {
-				sideDistX += deltaDistX;
-				mapX += stepX;
+			if (sideDistance.x < sideDistance.y) {
+				sideDistance.x += deltaDistance.x;
+				mapBox.x += step.x;
 				side = 0;
 			}
 			else {
-				sideDistY += deltaDistY;
-				mapY += stepY;
+				sideDistance.y += deltaDistance.y;
+				mapBox.y += step.y;
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			if (_worldMap[mapX][mapY] != ' ' && _worldMap[mapX][mapY] != 'S') hit = 1;
+			if (_worldMap[mapBox.x][mapBox.y] != ' ' && _worldMap[mapBox.x][mapBox.y] != 'S') hit = 1;
 		}
 
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
-		if (side == 0) perpWallDist = (mapX - _posX + (1 - stepX) / 2) / rayDirX;
-		else           perpWallDist = (mapY - _posY + (1 - stepY) / 2) / rayDirY;
+		if (side == 0) perpWallDist = (mapBox.x - _playerPosition.x + (1 - step.x) / 2) / rayDirection.x;
+		else           perpWallDist = (mapBox.y - _playerPosition.y + (1 - step.y) / 2) / rayDirection.y;
 
 		//Calculate height of line to draw on screen
 		int lineHeight = (int)(this->GetSize().y / perpWallDist);
@@ -130,7 +132,7 @@ void Canvas::onUpdate() {
 		if (side == 1) 
 			denominator = 2; 
 		sf::Color color;
-		switch (_worldMap[mapX][mapY]) {
+		switch (_worldMap[mapBox.x][mapBox.y]) {
 			case 'X':  color = sf::Color(255 / denominator, 0, 0);    break;
 			case 'Y':  color = sf::Color(0, 255 / denominator, 0);  break;
 			case 'Z':  color = sf::Color(0, 0, 255 / denominator);   break;
@@ -166,12 +168,12 @@ void Canvas::setStartEnd() {
 	for (int i = 0; i < _worldMap.size(); i++) {
 		for (int j = 0; j < _worldMap[i].size(); j++) {
 			if (_worldMap[i][j] == 'S') {
-				_posX = i;
-				_posY = j;
+				_playerPosition.x = i;
+				_playerPosition.y = j;
 			}
 			else if (_worldMap[i][j] == 'E') {
-				_endX = i;
-				_endY = j;
+				_end.x = i;
+				_end.y = j;
 			}
 		}
 	}	
