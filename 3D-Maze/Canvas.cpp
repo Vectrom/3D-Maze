@@ -11,57 +11,38 @@ Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, 
 }
 
 void Canvas::onUpdate() {
+	_oldTime = _time;
 	_time = _clock.getElapsedTime().asSeconds();
-	_clock.restart();
+	double frameTime = (_time - _oldTime) / 2;
+	//_clock.restart();
 
-	//speed modifiers
-	double moveSpeed = _time * 4.; //the constant value is in squares/second
-	double rotSpeed = _time * 1.7; //the constant value is in radians/second
+	double moveSpeed = frameTime * 5.; //the constant value is in squares/second
+	double rotSpeed = frameTime * 3.; //the constant value is in radians/second
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
-		moveSpeed = _time * 7.;
+		moveSpeed *= 2.;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		double oldDirX = _direction.x;
-		_direction.x = _direction.x * cos(rotSpeed) - _direction.y * sin(rotSpeed);
-		_direction.y = oldDirX * sin(rotSpeed) + _direction.y * cos(rotSpeed);
-		double oldPlaneX = _plane.x;
-		_plane.x = _plane.x * cos(rotSpeed) - _plane.y * sin(rotSpeed);
-		_plane.y = oldPlaneX * sin(rotSpeed) + _plane.y * cos(rotSpeed);
+		rotate(rotSpeed, 1);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		double oldDirX = _direction.x;
-		_direction.x = _direction.x * cos(-rotSpeed) - _direction.y * sin(-rotSpeed);
-		_direction.y = oldDirX * sin(-rotSpeed) + _direction.y * cos(-rotSpeed);
-		double oldPlaneX = _plane.x;
-		_plane.x = _plane.x * cos(-rotSpeed) - _plane.y * sin(-rotSpeed);
-		_plane.y = oldPlaneX * sin(-rotSpeed) + _plane.y * cos(-rotSpeed);
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		sf::Vector2i possibleNewPosition(int(_playerPosition.x + _direction.x * moveSpeed), int(_playerPosition.y + _direction.y * moveSpeed));
-		if (Settings::worldMap[possibleNewPosition.x][int(_playerPosition.y)] == ' ' || 
-			Settings::worldMap[possibleNewPosition.x][int(_playerPosition.y)] == 'S') _playerPosition.x += _direction.x * moveSpeed;
-		if (Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == ' ' ||
-			Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'S') _playerPosition.y += _direction.y * moveSpeed;
+		rotate(rotSpeed, -1);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		sf::Vector2i possibleNewPosition(int(_playerPosition.x - _direction.x * moveSpeed), int(_playerPosition.y - _direction.y * moveSpeed));
-		if (Settings::worldMap[possibleNewPosition.x][int(_playerPosition.y)] == ' ' ||
-			Settings::worldMap[possibleNewPosition.x][int(_playerPosition.y)] == 'S') _playerPosition.x -= _direction.x * moveSpeed;
-		if (Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == ' ' ||
-			Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'S') _playerPosition.y -= _direction.y * moveSpeed;
+		move(moveSpeed, -1);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+		move(moveSpeed, 1);
 	}
 
 	drawMaze();
 }
 
 
-
-void Canvas::onResize(wxSizeEvent & event) {
+void Canvas::onResize(wxSizeEvent &event) {
 	auto size = event.GetSize();
 
 	auto newCanvasWidth = size.x;
@@ -177,4 +158,21 @@ void Canvas::drawMaze() {
 		};
 		draw(line, 2, sf::Lines);
 	}
+}
+
+void Canvas::move(double moveSpeed, int multiplier) {
+	sf::Vector2i possibleNewPosition(int(_playerPosition.x + multiplier * _direction.x * moveSpeed), int(_playerPosition.y + multiplier * _direction.y * moveSpeed));
+	if (Settings::worldMap[possibleNewPosition.x][int(_playerPosition.y)] == ' ' ||
+		Settings::worldMap[possibleNewPosition.x][int(_playerPosition.y)] == 'S') _playerPosition.x += multiplier * _direction.x * moveSpeed;
+	if (Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == ' ' ||
+		Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'S') _playerPosition.y += multiplier * _direction.y * moveSpeed;
+}
+
+void Canvas::rotate(double rotSpeed, int multiplier) {
+	double oldDirX = _direction.x;
+	_direction.x = _direction.x * cos(multiplier * rotSpeed) - _direction.y * sin(multiplier * rotSpeed);
+	_direction.y = oldDirX * sin(multiplier * rotSpeed) + _direction.y * cos(multiplier * rotSpeed);
+	double oldPlaneX = _plane.x;
+	_plane.x = _plane.x * cos(multiplier * rotSpeed) - _plane.y * sin(multiplier * rotSpeed);
+	_plane.y = oldPlaneX * sin(multiplier * rotSpeed) + _plane.y * cos(multiplier * rotSpeed);
 }

@@ -12,6 +12,8 @@ public:
 	virtual void onUpdate();	
 	void setStartEnd();
 	void drawMaze();
+	void move(double moveSpeed, int multiplier);
+	void rotate(double rotSpeed, int multiplier);
 
 private:
 	sf::Clock _clock;
@@ -21,5 +23,6 @@ private:
 	sf::Vector2<double> _end;
 	sf::Vector2<double> _plane;
 	double _time = 0.; //time of current frame
+	double _oldTime = 0.;
 };
 
