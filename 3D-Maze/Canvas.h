@@ -5,7 +5,6 @@
 #include <utility>
 #include "wxSfmlCanvas.h"
 
-
 class Canvas : public wxSfmlCanvas {
 public:
 	Canvas(wxWindow* parent, wxWindowID id, wxPoint position, wxSize size, const std::vector<std::vector<char>> &worldMap, long style = 0);

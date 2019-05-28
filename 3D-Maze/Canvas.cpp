@@ -1,15 +1,14 @@
-#include "Canvas.h"
 #include <SFML/Graphics.hpp>
-
+#include "Canvas.h"
+#include "Settings.h"
 
 Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, const std::vector<std::vector<char>> &worldMap, long style) :
 	wxSfmlCanvas(parent, id, position, size, style), 
 	_worldMap(worldMap ) {
 	_clock.restart();
 	setStartEnd();
-
 	_direction = sf::Vector2<double>(-1., 0.);
-	_plane = sf::Vector2<double>(0., 0.66);
+	_plane = sf::Vector2<double>(0., tan(Settings::_fov/2 * M_PI/180));
 }
 
 void Canvas::onUpdate() {
