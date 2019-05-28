@@ -40,13 +40,13 @@ void Canvas::onUpdate() {
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		if (_worldMap[int(_posX + _dirX * moveSpeed)][int(_posY)] == ' ') _posX += _dirX * moveSpeed;
-		if (_worldMap[int(_posX)][int(_posY + _dirY * moveSpeed)] == ' ') _posY += _dirY * moveSpeed;
+		if (_worldMap[int(_posX + _dirX * moveSpeed)][int(_posY)] == ' ' || _worldMap[int(_posX + _dirX * moveSpeed)][int(_posY)] == 'S') _posX += _dirX * moveSpeed;
+		if (_worldMap[int(_posX)][int(_posY + _dirY * moveSpeed)] == ' ' || _worldMap[int(_posX)][int(_posY + _dirY * moveSpeed)] == 'S') _posY += _dirY * moveSpeed;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		if (_worldMap[int(_posX - _dirX * moveSpeed)][int(_posY)] == ' ') _posX -= _dirX * moveSpeed;
-		if (_worldMap[int(_posX)][int(_posY - _dirY * moveSpeed)] == ' ') _posY -= _dirY * moveSpeed;
+		if (_worldMap[int(_posX - _dirX * moveSpeed)][int(_posY)] == ' ' || _worldMap[int(_posX - _dirX * moveSpeed)][int(_posY)] == 'S') _posX -= _dirX * moveSpeed;
+		if (_worldMap[int(_posX)][int(_posY - _dirY * moveSpeed)] == ' ' || _worldMap[int(_posX)][int(_posY - _dirY * moveSpeed)] == 'S') _posY -= _dirY * moveSpeed;
 	}
 
 	clear(sf::Color::Black);
@@ -109,7 +109,7 @@ void Canvas::onUpdate() {
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			if (_worldMap[mapX][mapY] != ' ') hit = 1;
+			if (_worldMap[mapX][mapY] != ' ' && _worldMap[mapX][mapY] != 'S') hit = 1;
 		}
 
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
