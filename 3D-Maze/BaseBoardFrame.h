@@ -38,11 +38,11 @@ class BaseBoardFrame : public wxFrame
 		wxTextCtrl* _xBoxesText;
 		wxTextCtrl* _yBoxesText;
 		wxButton* _setSizeButton;
-		wxBitmapButton* _startButton;
-		wxBitmapButton* _endButton;
 		wxBitmapButton* _redButton;
 		wxBitmapButton* _greenButton;
 		wxBitmapButton* _blueButton;
+		wxBitmapButton* _startButton;
+		wxBitmapButton* _endButton;
 		wxButton* _loadButton;
 		wxButton* _saveButton;
 		wxPanel* _boardPanel;
@@ -50,11 +50,11 @@ class BaseBoardFrame : public wxFrame
 		// Virtual event handlers, overide them in your derived class
 		virtual void frameOnClose( wxCloseEvent& event ) { event.Skip(); }
 		virtual void setSizeButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
-		virtual void startButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
-		virtual void endButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void redButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void greenButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void blueButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void startButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void endButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void loadButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void saveButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 
