@@ -126,17 +126,17 @@ void Canvas::onUpdate() {
 		if (drawEnd >= this->GetSize().y) drawEnd = this->GetSize().y - 1;
 
 		//choose wall color
+		int denominator = 1;
+		if (side == 1) 
+			denominator = 2; 
 		sf::Color color;
 		switch (_worldMap[mapX][mapY])
 		{
-			case 'X':  color = sf::Color::Red;    break;
-			case 'Y':  color = sf::Color::Green;  break;
-			case 'Z':  color = sf::Color::Blue;   break;
+			case 'X':  color = sf::Color(255 / denominator, 0, 0);    break;
+			case 'Y':  color = sf::Color(0, 255 / denominator, 0);  break;
+			case 'Z':  color = sf::Color(0, 0, 255 / denominator);   break;
 			default: color = sf::Color::Yellow; break;
 		}
-
-		//give x and y sides different brightness
-		//if (side == 1) { color = color / 2; }
 
 		//draw the pixels of the stripe as a vertical line
 		sf::Vertex line[] = {
