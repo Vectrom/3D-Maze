@@ -12,43 +12,41 @@ void Canvas::onUpdate() {
 
 	time = clock.getElapsedTime().asSeconds();
 	clock.restart();
-	timer += time;
 
 	//speed modifiers
-	double moveSpeed = time * 15.0; //the constant value is in squares/second
-	double rotSpeed = time * 4.; //the constant value is in radians/second
+	double moveSpeed = time * 4.; //the constant value is in squares/second
+	double rotSpeed = time * 1.7; //the constant value is in radians/second
 
-	while (this->pollEvent(event)) {
-		if (timer > delay) {
-			timer = 0.;
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-				double oldDirX = dirX;
-				dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-				dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-				double oldPlaneX = planeX;
-				planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-				planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
-			}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
+		moveSpeed = time * 7.;
+	}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-				double oldDirX = dirX;
-				dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-				dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-				double oldPlaneX = planeX;
-				planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-				planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
-			}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+		double oldDirX = dirX;
+		dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
+		dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
+		double oldPlaneX = planeX;
+		planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
+		planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+	}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-				if (_worldMap[int(posX + dirX * moveSpeed)][int(posY)] == ' ') posX += dirX * moveSpeed;
-				if (_worldMap[int(posX)][int(posY + dirY * moveSpeed)] == ' ') posY += dirY * moveSpeed;
-			}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		double oldDirX = dirX;
+		dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
+		dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
+		double oldPlaneX = planeX;
+		planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
+		planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+	}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-				if (_worldMap[int(posX - dirX * moveSpeed)][int(posY)] == ' ') posX -= dirX * moveSpeed;
-				if (_worldMap[int(posX)][int(posY - dirY * moveSpeed)] == ' ') posY -= dirY * moveSpeed;
-			}
-		}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+		if (_worldMap[int(posX + dirX * moveSpeed)][int(posY)] == ' ') posX += dirX * moveSpeed;
+		if (_worldMap[int(posX)][int(posY + dirY * moveSpeed)] == ' ') posY += dirY * moveSpeed;
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+		if (_worldMap[int(posX - dirX * moveSpeed)][int(posY)] == ' ') posX -= dirX * moveSpeed;
+		if (_worldMap[int(posX)][int(posY - dirY * moveSpeed)] == ' ') posY -= dirY * moveSpeed;
 	}
 
 	clear(sf::Color::Black);
