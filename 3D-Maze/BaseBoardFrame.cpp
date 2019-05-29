@@ -11,7 +11,7 @@
 
 BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
-	this->SetSizeHints( wxSize( 800,600 ), wxSize( 800,600 ) );
+	this->SetSizeHints( wxSize( 800,600 ), wxSize( -1,-1 ) );
 	this->SetForegroundColour( wxColour( 153, 115, 0 ) );
 	this->SetBackgroundColour( wxColour( 153, 77, 0 ) );
 
@@ -40,7 +40,7 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_controlsSizer->Add( _setSizeButton, 0, wxALIGN_CENTER|wxALL, 5 );
 
 
-	_controlsSizer->Add( 120, 0, 1, wxEXPAND, 5 );
+	_controlsSizer->Add( 120, 0, 6, wxEXPAND, 5 );
 
 	wxBoxSizer* _colorBoxesSizer;
 	_colorBoxesSizer = new wxBoxSizer( wxVERTICAL );
@@ -94,7 +94,7 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_controlsSizer->Add( _colorBoxesSizer, 1, wxALIGN_BOTTOM|wxEXPAND, 5 );
 
 
-	_controlsSizer->Add( 120, 0, 1, wxEXPAND, 5 );
+	_controlsSizer->Add( 120, 0, 6, wxEXPAND, 5 );
 
 	wxBoxSizer* _SLSizer;
 	_SLSizer = new wxBoxSizer( wxVERTICAL );
@@ -103,16 +103,16 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_loadButton->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOWTEXT ) );
 	_loadButton->SetBackgroundColour( wxColour( 153, 115, 0 ) );
 
-	_SLSizer->Add( _loadButton, 0, wxALIGN_CENTER|wxALL, 5 );
+	_SLSizer->Add( _loadButton, 0, wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
 	_saveButton = new wxButton( this, wxID_ANY, wxT("Load board"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
 	_saveButton->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOWTEXT ) );
 	_saveButton->SetBackgroundColour( wxColour( 153, 115, 0 ) );
 
-	_SLSizer->Add( _saveButton, 0, wxALIGN_CENTER|wxALL, 5 );
+	_SLSizer->Add( _saveButton, 0, wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
 
-	_controlsSizer->Add( _SLSizer, 1, wxALIGN_CENTER|wxEXPAND, 5 );
+	_controlsSizer->Add( _SLSizer, 1, wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxEXPAND, 5 );
 
 
 	_mainSizer->Add( _controlsSizer, 0, wxEXPAND, 5 );
@@ -126,7 +126,7 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_boardSizer->Add( _boardPanel, 1, wxEXPAND | wxALL, 5 );
 
 
-	_mainSizer->Add( _boardSizer, 1, wxEXPAND, 5 );
+	_mainSizer->Add( _boardSizer, 1, wxALIGN_CENTER|wxEXPAND, 5 );
 
 
 	this->SetSizer( _mainSizer );
@@ -148,7 +148,6 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_loadButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::loadButtonOnButtonClick ), NULL, this );
 	_saveButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::saveButtonOnButtonClick ), NULL, this );
 	_boardPanel->Connect( wxEVT_LEFT_DOWN, wxMouseEventHandler( BaseBoardFrame::onLeftDown ), NULL, this );
-	_boardPanel->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( BaseBoardFrame::update ), NULL, this );
 }
 
 BaseBoardFrame::~BaseBoardFrame()
@@ -167,6 +166,5 @@ BaseBoardFrame::~BaseBoardFrame()
 	_loadButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::loadButtonOnButtonClick ), NULL, this );
 	_saveButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::saveButtonOnButtonClick ), NULL, this );
 	_boardPanel->Disconnect( wxEVT_LEFT_DOWN, wxMouseEventHandler( BaseBoardFrame::onLeftDown ), NULL, this );
-	_boardPanel->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( BaseBoardFrame::update ), NULL, this );
 
 }

@@ -15,8 +15,6 @@ BaseBoardFrame( parent ), _parent(parent) {
 
 	_currentImg = _redImg;
 	prepareBoard();
-	Refresh();
-	Update();
 }
 
 void BoardFrame::frameOnClose(wxCloseEvent& event) {
@@ -24,10 +22,14 @@ void BoardFrame::frameOnClose(wxCloseEvent& event) {
 	this->Destroy();
 }
 
+void BoardFrame::updateVariables() {
+	_panelSize = wxSize(_boardPanel->GetSize().x, _boardPanel->GetSize().y);
+	_boxSize = wxSize(_panelSize.x / _amountOfBoxes.x, _panelSize.y / _amountOfBoxes.y);
+	_translation = wxPoint((_panelSize.x - _boxSize.x * _amountOfBoxes.x) / 2, (_panelSize.y - _boxSize.y * _amountOfBoxes.y) / 2);
+}
+
 void BoardFrame::prepareBoard() {
-	wxSize panelSize(_boardPanel->GetSize().x, _boardPanel->GetSize().y);
-	_boxSize = wxSize(panelSize.x / _amountOfBoxes.x, panelSize.y / _amountOfBoxes.y);
-	_translation = wxPoint((panelSize.x - _boxSize.x * _amountOfBoxes.x) / 2, (panelSize.y - _boxSize.y * _amountOfBoxes.y) / 2);
+	updateVariables();
 	_board.clear();
 	for (int x = 0; x < _amountOfBoxes.x; x++) {
 		std::vector<BoardBox> row;
@@ -36,6 +38,7 @@ void BoardFrame::prepareBoard() {
 		}
 		_board.push_back(row);
 	}
+	draw();
 }
 
 void BoardFrame::draw() {
@@ -51,10 +54,12 @@ void BoardFrame::draw() {
 
 void BoardFrame::onResize(wxSizeEvent& event) {
 	Layout();
-	draw();
-}
-
-void BoardFrame::update(wxUpdateUIEvent& event) {
+	updateVariables();
+	for (int x = 0; x < _amountOfBoxes.x; x++) {
+		for (int y = 0; y < _amountOfBoxes.y; y++) {
+			_board[x][y]._position = wxPoint(x * _boxSize.x, y * _boxSize.y);
+		}
+	}
 	draw();
 }
 
@@ -67,6 +72,7 @@ void BoardFrame::onLeftDown(wxMouseEvent& event) {
 			if (_board[x][y]._position.x + _translation.x < clickPosition.x && _board[x][y]._position.y + _translation.y < clickPosition.y &&
 				_board[x][y]._position.x + _boxSize.x + _translation.x > clickPosition.x && _board[x][y]._position.y + _boxSize.y + _translation.y > clickPosition.y) {
 				_board[x][y]._img = _currentImg;
+				draw();
 				return;
 			}
 		}

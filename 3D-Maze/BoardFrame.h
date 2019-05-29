@@ -17,11 +17,11 @@ protected:
 	void loadButtonOnButtonClick(wxCommandEvent& event);
 	void saveButtonOnButtonClick(wxCommandEvent& event);
 	void frameOnClose(wxCloseEvent& event);
-	void update(wxUpdateUIEvent& event);
 	void onResize(wxSizeEvent& event);
 	void onLeftDown(wxMouseEvent& event);
 	void onMotion(wxMouseEvent& event);
 	void prepareBoard();
+	void updateVariables();
 	void draw();
 
 private:
@@ -33,8 +33,9 @@ private:
 	wxImage _endImg;
 	wxImage _floorImg;
 	wxImage _currentImg;
-	wxSize _amountOfBoxes;
+	wxSize _panelSize;
 	wxSize _boxSize;
+	wxSize _amountOfBoxes;
 	wxPoint _translation;
 
 	struct BoardBox {
