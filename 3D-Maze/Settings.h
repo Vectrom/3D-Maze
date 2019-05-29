@@ -2,11 +2,24 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
+enum direction {
+	Up,
+	Down,
+	Left,
+	Right
+};
+
 struct Settings {
 	static double FOV;
 	static std::vector<std::vector<char>> worldMap;
 
-	static bool validateMaze();
+	//static bool validateMaze();
 	static void getStartEnd(sf::Vector2<double> &start, sf::Vector2<double> &end);
-	static bool hasNeighborBelow(int x, int y);
+	//static bool hasNeighborBelow(int x, int y);
+
+	static bool validateMaze();
+	static void neighborDown(int &x, int &y, direction &dir);
+	static void neighborUp(int &x, int &y, direction &dir);
+	static void neighborLeft(int &x, int &y, direction &dir);
+	static void neighborRight(int &x, int &y, direction &dir);
 };
