@@ -11,7 +11,7 @@ Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, 
 	_timeText = new sf::Text("Time: 0", _font, 40);
 	_timeText->setFillColor(sf::Color::Yellow);
 	draw(*_timeText);
-	setStartEnd();
+	Settings::setStartEnd(_playerPosition, _end);
 	_direction = sf::Vector2<double>(-1., 0.);
 	_plane = sf::Vector2<double>(0., tan(Settings::FOV/2 * M_PI/180));
 
@@ -62,21 +62,6 @@ void Canvas::onResize(wxSizeEvent &event) {
 
 	this->SetSize({ newCanvasWidth, newCanvasHeight });
 	createRenderWindow();
-}
-
-void Canvas::setStartEnd() {
-	for (int i = 0; i < static_cast<int>(Settings::worldMap.size()); i++) {
-		for (int j = 0; j < static_cast<int>(Settings::worldMap[i].size()); j++) {
-			if (Settings::worldMap[i][j] == 'S') {
-				_playerPosition.x = i;
-				_playerPosition.y = j;
-			}
-			else if (Settings::worldMap[i][j] == 'E') {
-				_end.x = i;
-				_end.y = j;
-			}
-		}
-	}	
 }
 
 void Canvas::drawMaze() {

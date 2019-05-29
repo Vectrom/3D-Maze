@@ -11,7 +11,7 @@ public:
 	~Canvas();
 	void onResize(wxSizeEvent& event);
 	virtual void onUpdate();	
-	void setStartEnd();
+	//void setStartEnd();
 	void drawMaze();
 	void move(double moveSpeed, int multiplier);
 	void rotate(double rotSpeed, int multiplier);

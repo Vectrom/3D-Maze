@@ -37,9 +37,8 @@ void MenuFrame::_loadBoardButtonOnButtonClick( wxCommandEvent& event ) {
 
 	// load first line
 	std::string str = txtFile.GetFirstLine().ToStdString();
-	Settings::worldMap.push_back(std::vector<char>(str.begin(), str.end()));
-	if (this->validateTextMaze(str) == false) {
-		return;
+	if (!str.empty()) {
+		Settings::worldMap.push_back(std::vector<char>(str.begin(), str.end()));
 	}
 
 	// read all lines one by one until the end of the file
@@ -47,11 +46,9 @@ void MenuFrame::_loadBoardButtonOnButtonClick( wxCommandEvent& event ) {
 		str = txtFile.GetNextLine().ToStdString();
 		if (!str.empty()) {
 			Settings::worldMap.push_back(std::vector<char>(str.begin(), str.end()));
-			if (!this->validateTextMaze(str)) {
-				return;
-			}
 		}
 	}
+
 	_mapCreated = true;
 }
 
@@ -71,13 +68,3 @@ void MenuFrame::_FOVSliderOnScroll(wxScrollEvent & event) {
 	_FOVText->SetLabel("FOV: " + std::to_string(position));
 
 }
-
-bool MenuFrame::validateTextMaze(const std::string &str) {
-	if (str.front() == ' ' || str.back() == ' ') {
-		_mapCreated = false;
-		return false;
-		//TODO: add some push notification or info
-	}
-	return true;
-}
-
