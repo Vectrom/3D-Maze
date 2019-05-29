@@ -7,10 +7,18 @@
 Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, long style) :
 	wxSfmlCanvas(parent, id, position, size, style) {
 	_clock.restart();
+	_font.loadFromFile("andina.ttf");
+	_timeText = new sf::Text("Time: 0", _font, 40);
+	_timeText->setColor(sf::Color::Yellow);
+	draw(*_timeText);
 	setStartEnd();
 	_direction = sf::Vector2<double>(-1., 0.);
 	_plane = sf::Vector2<double>(0., tan(Settings::FOV/2 * M_PI/180));
 
+}
+
+Canvas::~Canvas() {
+	delete _timeText;
 }
 
 void Canvas::onUpdate() {
@@ -21,6 +29,8 @@ void Canvas::onUpdate() {
 	double moveSpeed = frameTime * 5.; 
 	double rotSpeed = frameTime * 3.; 
 
+	_timeText->setString(prepareTimeString(_time));
+	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
 		moveSpeed *= 2.;
 	}
@@ -42,6 +52,7 @@ void Canvas::onUpdate() {
 	}
 
 	drawMaze();
+	draw(*_timeText);
 }
 
 void Canvas::onResize(wxSizeEvent &event) {
@@ -120,7 +131,7 @@ void Canvas::move(double moveSpeed, int multiplier) {
 	if (Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == ' ' ||
 		Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'S') _playerPosition.y += multiplier * _direction.y * moveSpeed;
 	if (Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'E') {
-		int answer = wxMessageBox("You Won", "Confirm", wxOK, this);
+		int answer = wxMessageBox("Congratulations! You won! " + prepareTimeString(_time), "WINNER", wxOK, this);
 		if (answer == wxOK) {
 			dynamic_cast<PanelFrame *>(this->GetParent()->GetParent())->frameOnClose(wxCloseEvent());
 		}
@@ -191,4 +202,18 @@ sf::Color Canvas::pickColor(const sf::Vector2<int>& mapBox, int side) {
 		break;
 	}
 	return color;
+}
+
+std::string Canvas::prepareTimeString(double time) {
+	std::string textTime = "Time: ";
+	int minutes = static_cast<int>(time) / 60;
+	int seconds = static_cast<int>(time) % 60;
+	if (minutes < 10)
+		textTime += "0";
+	textTime += std::to_string(minutes) + ":";
+	if (seconds < 10)
+		textTime += "0";
+	textTime += std::to_string(seconds);
+
+	return textTime;
 }
