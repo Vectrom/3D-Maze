@@ -859,7 +859,7 @@
                                 <property name="aui_position"></property>
                                 <property name="aui_row"></property>
                                 <property name="best_size"></property>
-                                <property name="bg">153,115,0</property>
+                                <property name="bg">153,77,0</property>
                                 <property name="caption"></property>
                                 <property name="caption_visible">1</property>
                                 <property name="center_pane">0</property>
@@ -900,6 +900,8 @@
                                 <property name="window_extra_style"></property>
                                 <property name="window_name"></property>
                                 <property name="window_style">wxTAB_TRAVERSAL</property>
+                                <event name="OnLeftDown">onLeftDown</event>
+                                <event name="OnUpdateUI">update</event>
                             </object>
                         </object>
                     </object>

@@ -121,7 +121,7 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_boardSizer = new wxBoxSizer( wxVERTICAL );
 
 	_boardPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	_boardPanel->SetBackgroundColour( wxColour( 153, 115, 0 ) );
+	_boardPanel->SetBackgroundColour( wxColour( 153, 77, 0 ) );
 
 	_boardSizer->Add( _boardPanel, 1, wxEXPAND | wxALL, 5 );
 
@@ -145,6 +145,7 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_endButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::endButtonOnButtonClick ), NULL, this );
 	_loadButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::loadButtonOnButtonClick ), NULL, this );
 	_saveButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::saveButtonOnButtonClick ), NULL, this );
+	_boardPanel->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( BaseBoardFrame::update ), NULL, this );
 }
 
 BaseBoardFrame::~BaseBoardFrame()
@@ -159,5 +160,6 @@ BaseBoardFrame::~BaseBoardFrame()
 	_endButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::endButtonOnButtonClick ), NULL, this );
 	_loadButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::loadButtonOnButtonClick ), NULL, this );
 	_saveButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::saveButtonOnButtonClick ), NULL, this );
+	_boardPanel->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( BaseBoardFrame::update ), NULL, this );
 
 }
