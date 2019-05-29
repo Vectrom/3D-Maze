@@ -1,13 +1,24 @@
+#include <algorithm>
 #include "Settings.h"
 
 double Settings::FOV = 66.0;
 std::vector<std::vector<char>> Settings::worldMap;
 
 bool Settings::validateMaze() {
-	return true;
+	bool isStart = false, isEnd = false;
+
+	for (int i = 0; i < static_cast<int>(Settings::worldMap.size()); i++) {
+		for (int j = 0; j < static_cast<int>(Settings::worldMap[i].size()); j++) {
+			if (Settings::worldMap[i][j] == 'E') isStart = true;
+			if (Settings::worldMap[i][j] == 'S') isEnd = true;
+			if (!hasNeighborBelow(i, j)) return false;
+		}
+	}
+
+	return isStart && isEnd;
 }
 
-void Settings::setStartEnd(sf::Vector2<double>& start, sf::Vector2<double>& end) {
+void Settings::getStartEnd(sf::Vector2<double>& start, sf::Vector2<double>& end) {
 	for (int i = 0; i < static_cast<int>(Settings::worldMap.size()); i++) {
 		for (int j = 0; j < static_cast<int>(Settings::worldMap[i].size()); j++) {
 			if (Settings::worldMap[i][j] == 'S') {
@@ -20,4 +31,20 @@ void Settings::setStartEnd(sf::Vector2<double>& start, sf::Vector2<double>& end)
 			}
 		}
 	}
+}
+
+bool Settings::hasNeighborBelow(int x, int y) {
+	std::vector<char> signs = { 'X', 'Y', 'Z', 'E', 'S' };
+	if (x > 0) {
+		if (std::find(signs.begin(), signs.end(), Settings::worldMap[x - 1][y]) != signs.end() || 
+			std::find(signs.begin(), signs.end(), Settings::worldMap[x - 1][y + 1]) != signs.end()) {
+			return true;
+		}
+	}
+	if (std::find(signs.begin(), signs.end(), Settings::worldMap[x][y + 1]) != signs.end() || 
+		std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y]) != signs.end() || 
+		std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y + 1]) != signs.end()) {
+		return true;
+	}
+	return false;
 }

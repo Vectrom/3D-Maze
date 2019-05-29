@@ -11,10 +11,9 @@ Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, 
 	_timeText = new sf::Text("Time: 0", _font, 40);
 	_timeText->setFillColor(sf::Color::Yellow);
 	draw(*_timeText);
-	Settings::setStartEnd(_playerPosition, _end);
+	Settings::getStartEnd(_playerPosition, _end);
 	_direction = sf::Vector2<double>(-1., 0.);
 	_plane = sf::Vector2<double>(0., tan(Settings::FOV/2 * M_PI/180));
-
 }
 
 Canvas::~Canvas() {
