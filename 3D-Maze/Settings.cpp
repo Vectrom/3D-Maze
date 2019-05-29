@@ -4,21 +4,6 @@
 double Settings::FOV = 66.0;
 std::vector<std::vector<char>> Settings::worldMap;
 
-//bool Settings::validateMaze() {
-//	bool isStart = false, isEnd = false;
-//	std::vector<char> signs = { 'X', 'Y', 'Z' };
-//
-//	for (int i = 0; i < static_cast<int>(Settings::worldMap.size()); i++) {
-//		for (int j = 0; j < static_cast<int>(Settings::worldMap[i].size()); j++) {
-//			if (Settings::worldMap[i][j] == 'E') isStart = true;
-//			if (Settings::worldMap[i][j] == 'S') isEnd = true;
-//			if (std::find(signs.begin(), signs.end(), Settings::worldMap[i][j]) != signs.end() && !hasNeighborBelow(i, j)) return false;
-//		}
-//	}
-//
-//	return isStart && isEnd;
-//}
-
 void Settings::getStartEnd(sf::Vector2<double>& start, sf::Vector2<double>& end) {
 	for (int i = 0; i < static_cast<int>(Settings::worldMap.size()); i++) {
 		for (int j = 0; j < static_cast<int>(Settings::worldMap[i].size()); j++) {
@@ -34,16 +19,6 @@ void Settings::getStartEnd(sf::Vector2<double>& start, sf::Vector2<double>& end)
 	}
 }
 
-//bool Settings::hasNeighborBelow(int x, int y) {
-//	std::vector<char> signs = { 'X', 'Y', 'Z', 'E', 'S' };
-//	if (x > 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x - 1][y]) != signs.end()) return true;
-//	if (x > 0 && y + 1 < Settings::worldMap[x].size() && std::find(signs.begin(), signs.end(), Settings::worldMap[x - 1][y + 1]) != signs.end())return true;
-//	if (x + 1 < Settings::worldMap.size() && std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y]) != signs.end()) return true;
-//	if (x + 1 < Settings::worldMap.size() && y + 1 < Settings::worldMap[x].size() && std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y + 1]) != signs.end()) return true;
-//	if (y + 1 < Settings::worldMap[x].size() && std::find(signs.begin(), signs.end(), Settings::worldMap[x][y + 1]) != signs.end()) return true;
-//	return false;
-//}
-
 bool Settings::validateMaze() {
 	bool isStart = false, isEnd = false;
 	std::vector<char> signs = { 'X', 'Y', 'Z', 'E', 'S' };
@@ -54,6 +29,7 @@ bool Settings::validateMaze() {
 	while (searchingFirst) {
 		if (std::find(signs.begin(), signs.end(), Settings::worldMap[x][y]) != signs.end()) {
 			searchingFirst = false;
+			break;
 		}
 		if (y + 1 < Settings::worldMap[x].size()) {
 			y++;
@@ -70,24 +46,31 @@ bool Settings::validateMaze() {
 	}
 	
 	direction dir = Left; 
-
+	int firstX = x, firstY = y;
 	while (checkingMazeFrame) {
+		if (x == -1) {
+			return false;
+		}
 		switch (dir) {
 		case Up:
+			neighborUp(x, y, dir);
 			break;
 		case Down:
-
+			neighborDown(x, y, dir);
 			break;
 		case Left:
+			neighborLeft(x, y, dir);
 			break;
 		case Right:
+			neighborRight(x, y, dir);
 			break;
-		default:
-			break;
+		}
+		if (x == firstX && y == firstY) {
+			return true;
 		}
 	}
 
-	return true;
+	return false;
 }
 
 void Settings::neighborDown(int & x, int & y, direction &dir) {
@@ -127,17 +110,17 @@ void Settings::neighborUp(int & x, int & y, direction &dir) {
 		dir = Right;
 		return;
 	}
-	if (x + 1 < Settings::worldMap.size() && y - 1 < 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y + 1]) != signs.end()) {
+	if (x + 1 < Settings::worldMap.size() && y < 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y - 1]) != signs.end()) {
 		x += 1;
 		y -= 1;
 		dir = Right;
 		return;
 	}
-	if (y - 1 > 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x][y + 1]) != signs.end()) {
+	if (y > 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x][y - 1]) != signs.end()) {
 		y -= 1;
 		return;
 	}
-	if (x > 0 && y - 1 < 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x - 1][y + 1]) != signs.end()) {
+	if (x > 0 && y > 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x - 1][y - 1]) != signs.end()) {
 		x -= 1;
 		y -= 1;
 		return;
@@ -152,12 +135,12 @@ void Settings::neighborUp(int & x, int & y, direction &dir) {
 
 void Settings::neighborLeft(int & x, int & y, direction &dir) {
 	std::vector<char> signs = { 'X', 'Y', 'Z', 'E', 'S' };
-	if (y - 1 > 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x][y + 1]) != signs.end()) {
+	if (y > 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x][y - 1]) != signs.end()) {
 		y -= 1;
 		dir = Up;
 		return;
 	}
-	if (x > 0 && y - 1 < 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x - 1][y + 1]) != signs.end()) {
+	if (x > 0 && y > 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x - 1][y - 1]) != signs.end()) {
 		x -= 1;
 		y -= 1;
 		dir = Up;
@@ -197,12 +180,12 @@ void Settings::neighborRight(int & x, int & y, direction &dir) {
 		x += 1;
 		return;
 	}
-	if (x + 1 < Settings::worldMap.size() && y - 1 < 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y + 1]) != signs.end()) {
+	if (x + 1 < Settings::worldMap.size() && y > 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y - 1]) != signs.end()) {
 		x += 1;
 		y -= 1;
 		return;
 	}
-	if (y - 1 > 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x][y + 1]) != signs.end()) {
+	if (y > 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x][y - 1]) != signs.end()) {
 		y -= 1;
 		dir = Up;
 		return;
