@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
+#include <wx/msgdlg.h> 
 #include "Canvas.h"
 #include "Settings.h"
+#include "PanelFrame.h"
 
 Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, long style) :
 	wxSfmlCanvas(parent, id, position, size, style) {
@@ -8,6 +10,7 @@ Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, 
 	setStartEnd();
 	_direction = sf::Vector2<double>(-1., 0.);
 	_plane = sf::Vector2<double>(0., tan(Settings::FOV/2 * M_PI/180));
+
 }
 
 void Canvas::onUpdate() {
@@ -116,6 +119,12 @@ void Canvas::move(double moveSpeed, int multiplier) {
 		Settings::worldMap[possibleNewPosition.x][int(_playerPosition.y)] == 'S') _playerPosition.x += multiplier * _direction.x * moveSpeed;
 	if (Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == ' ' ||
 		Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'S') _playerPosition.y += multiplier * _direction.y * moveSpeed;
+	if (Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'E') {
+		int answer = wxMessageBox("You Won", "Confirm", wxOK, this);
+		if (answer == wxOK) {
+			dynamic_cast<PanelFrame *>(this->GetParent()->GetParent())->frameOnClose(wxCloseEvent());
+		}
+	}
 }
 
 void Canvas::rotate(double rotSpeed, int multiplier) {
