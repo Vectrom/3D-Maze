@@ -40,52 +40,52 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_controlsSizer->Add( _setSizeButton, 0, wxALIGN_CENTER|wxALL, 5 );
 
 
-	_controlsSizer->Add( 0, 0, 1, wxEXPAND, 5 );
+	_controlsSizer->Add( 120, 0, 1, wxEXPAND, 5 );
 
 	wxBoxSizer* _colorBoxesSizer;
 	_colorBoxesSizer = new wxBoxSizer( wxVERTICAL );
 
 	_redButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|0 );
 
-	_redButton->SetBitmap( wxBitmap( wxT("Textures/Red.bmp"), wxBITMAP_TYPE_ANY ) );
-	_redButton->SetBitmapPressed( wxBitmap( wxT("Textures/RedPressed.bmp"), wxBITMAP_TYPE_ANY ) );
-	_redButton->SetBitmapCurrent( wxBitmap( wxT("Textures/RedCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
+	_redButton->SetBitmap( wxBitmap( wxT("Textures/Red.png"), wxBITMAP_TYPE_ANY ) );
+	_redButton->SetBitmapPressed( wxBitmap( wxT("Textures/RedPressed.png"), wxBITMAP_TYPE_ANY ) );
+	_redButton->SetBitmapCurrent( wxBitmap( wxT("Textures/RedCurrent.png"), wxBITMAP_TYPE_ANY ) );
 	_redButton->SetMinSize( wxSize( 50,50 ) );
 
 	_colorBoxesSizer->Add( _redButton, 0, wxALIGN_CENTER|wxALL, 5 );
 
 	_greenButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|0 );
 
-	_greenButton->SetBitmap( wxBitmap( wxT("Textures/Green.bmp"), wxBITMAP_TYPE_ANY ) );
-	_greenButton->SetBitmapPressed( wxBitmap( wxT("Textures/GreenPressed.bmp"), wxBITMAP_TYPE_ANY ) );
-	_greenButton->SetBitmapCurrent( wxBitmap( wxT("Textures/GreenCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
+	_greenButton->SetBitmap( wxBitmap( wxT("Textures/Green.png"), wxBITMAP_TYPE_ANY ) );
+	_greenButton->SetBitmapPressed( wxBitmap( wxT("Textures/GreenPressed.png"), wxBITMAP_TYPE_ANY ) );
+	_greenButton->SetBitmapCurrent( wxBitmap( wxT("Textures/GreenCurrent.png"), wxBITMAP_TYPE_ANY ) );
 	_greenButton->SetMinSize( wxSize( 50,50 ) );
 
 	_colorBoxesSizer->Add( _greenButton, 0, wxALIGN_CENTER|wxALL, 5 );
 
 	_blueButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|0 );
 
-	_blueButton->SetBitmap( wxBitmap( wxT("Textures/Blue.bmp"), wxBITMAP_TYPE_ANY ) );
-	_blueButton->SetBitmapPressed( wxBitmap( wxT("Textures/BluePressed.bmp"), wxBITMAP_TYPE_ANY ) );
-	_blueButton->SetBitmapCurrent( wxBitmap( wxT("Textures/BlueCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
+	_blueButton->SetBitmap( wxBitmap( wxT("Textures/Blue.png"), wxBITMAP_TYPE_ANY ) );
+	_blueButton->SetBitmapPressed( wxBitmap( wxT("Textures/BluePressed.png"), wxBITMAP_TYPE_ANY ) );
+	_blueButton->SetBitmapCurrent( wxBitmap( wxT("Textures/BlueCurrent.png"), wxBITMAP_TYPE_ANY ) );
 	_blueButton->SetMinSize( wxSize( 50,50 ) );
 
 	_colorBoxesSizer->Add( _blueButton, 0, wxALIGN_CENTER|wxALL, 5 );
 
 	_startButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxSize( -1,-1 ), wxBU_AUTODRAW|0 );
 
-	_startButton->SetBitmap( wxBitmap( wxT("Textures/Start.bmp"), wxBITMAP_TYPE_ANY ) );
-	_startButton->SetBitmapPressed( wxBitmap( wxT("Textures/StartPressed.bmp"), wxBITMAP_TYPE_ANY ) );
-	_startButton->SetBitmapCurrent( wxBitmap( wxT("Textures/StartCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
+	_startButton->SetBitmap( wxBitmap( wxT("Textures/Start.png"), wxBITMAP_TYPE_ANY ) );
+	_startButton->SetBitmapPressed( wxBitmap( wxT("Textures/StartPressed.png"), wxBITMAP_TYPE_ANY ) );
+	_startButton->SetBitmapCurrent( wxBitmap( wxT("Textures/StartCurrent.png"), wxBITMAP_TYPE_ANY ) );
 	_startButton->SetMinSize( wxSize( 50,50 ) );
 
 	_colorBoxesSizer->Add( _startButton, 0, wxALIGN_CENTER|wxALL, 5 );
 
 	_endButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|0 );
 
-	_endButton->SetBitmap( wxBitmap( wxT("Textures/Jews'End.bmp"), wxBITMAP_TYPE_ANY ) );
-	_endButton->SetBitmapPressed( wxBitmap( wxT("Textures/Jew'sEndPressed.bmp"), wxBITMAP_TYPE_ANY ) );
-	_endButton->SetBitmapCurrent( wxBitmap( wxT("Textures/Jews'EndCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
+	_endButton->SetBitmap( wxBitmap( wxT("Textures/End.png"), wxBITMAP_TYPE_ANY ) );
+	_endButton->SetBitmapPressed( wxBitmap( wxT("Textures/EndPressed.png"), wxBITMAP_TYPE_ANY ) );
+	_endButton->SetBitmapCurrent( wxBitmap( wxT("Textures/EndCurrent.png"), wxBITMAP_TYPE_ANY ) );
 	_endButton->SetMinSize( wxSize( 50,50 ) );
 
 	_colorBoxesSizer->Add( _endButton, 0, wxALIGN_CENTER|wxALL, 5 );
@@ -94,7 +94,7 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_controlsSizer->Add( _colorBoxesSizer, 1, wxALIGN_BOTTOM|wxEXPAND, 5 );
 
 
-	_controlsSizer->Add( 0, 0, 1, wxEXPAND, 5 );
+	_controlsSizer->Add( 120, 0, 1, wxEXPAND, 5 );
 
 	wxBoxSizer* _SLSizer;
 	_SLSizer = new wxBoxSizer( wxVERTICAL );
@@ -131,12 +131,14 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 
 	this->SetSizer( _mainSizer );
 	this->Layout();
-	_mainSizer->Fit( this );
 
 	this->Centre( wxBOTH );
 
 	// Connect Events
 	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( BaseBoardFrame::frameOnClose ) );
+	this->Connect( wxEVT_LEFT_DOWN, wxMouseEventHandler( BaseBoardFrame::onLeftDown ) );
+	this->Connect( wxEVT_MOTION, wxMouseEventHandler( BaseBoardFrame::onMotion ) );
+	this->Connect( wxEVT_SIZE, wxSizeEventHandler( BaseBoardFrame::onResize ) );
 	_setSizeButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::setSizeButtonOnButtonClick ), NULL, this );
 	_redButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::redButtonOnButtonClick ), NULL, this );
 	_greenButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::greenButtonOnButtonClick ), NULL, this );
@@ -145,6 +147,7 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_endButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::endButtonOnButtonClick ), NULL, this );
 	_loadButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::loadButtonOnButtonClick ), NULL, this );
 	_saveButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::saveButtonOnButtonClick ), NULL, this );
+	_boardPanel->Connect( wxEVT_LEFT_DOWN, wxMouseEventHandler( BaseBoardFrame::onLeftDown ), NULL, this );
 	_boardPanel->Connect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( BaseBoardFrame::update ), NULL, this );
 }
 
@@ -152,6 +155,9 @@ BaseBoardFrame::~BaseBoardFrame()
 {
 	// Disconnect Events
 	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( BaseBoardFrame::frameOnClose ) );
+	this->Disconnect( wxEVT_LEFT_DOWN, wxMouseEventHandler( BaseBoardFrame::onLeftDown ) );
+	this->Disconnect( wxEVT_MOTION, wxMouseEventHandler( BaseBoardFrame::onMotion ) );
+	this->Disconnect( wxEVT_SIZE, wxSizeEventHandler( BaseBoardFrame::onResize ) );
 	_setSizeButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::setSizeButtonOnButtonClick ), NULL, this );
 	_redButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::redButtonOnButtonClick ), NULL, this );
 	_greenButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::greenButtonOnButtonClick ), NULL, this );
@@ -160,6 +166,7 @@ BaseBoardFrame::~BaseBoardFrame()
 	_endButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::endButtonOnButtonClick ), NULL, this );
 	_loadButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::loadButtonOnButtonClick ), NULL, this );
 	_saveButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::saveButtonOnButtonClick ), NULL, this );
+	_boardPanel->Disconnect( wxEVT_LEFT_DOWN, wxMouseEventHandler( BaseBoardFrame::onLeftDown ), NULL, this );
 	_boardPanel->Disconnect( wxEVT_UPDATE_UI, wxUpdateUIEventHandler( BaseBoardFrame::update ), NULL, this );
 
 }

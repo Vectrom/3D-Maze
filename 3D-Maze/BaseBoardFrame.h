@@ -49,6 +49,9 @@ class BaseBoardFrame : public wxFrame
 
 		// Virtual event handlers, overide them in your derived class
 		virtual void frameOnClose( wxCloseEvent& event ) { event.Skip(); }
+		virtual void onLeftDown( wxMouseEvent& event ) { event.Skip(); }
+		virtual void onMotion( wxMouseEvent& event ) { event.Skip(); }
+		virtual void onResize( wxSizeEvent& event ) { event.Skip(); }
 		virtual void setSizeButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void redButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void greenButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
@@ -62,7 +65,7 @@ class BaseBoardFrame : public wxFrame
 
 	public:
 
-		BaseBoardFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		BaseBoardFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 800,600 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
 		~BaseBoardFrame();
 
