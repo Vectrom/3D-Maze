@@ -67,7 +67,7 @@ void MenuFrame::_exitButtonOnButtonClick( wxCommandEvent& event ) {
 
 void MenuFrame::_FOVSliderOnScroll(wxScrollEvent & event) {
 	int position = event.GetPosition();
-	Settings::fov = position;
+	Settings::FOV = position;
 	_FOVText->SetLabel("FOV: " + std::to_string(position));
 
 }

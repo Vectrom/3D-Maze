@@ -7,7 +7,7 @@ Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, 
 	_clock.restart();
 	setStartEnd();
 	_direction = sf::Vector2<double>(-1., 0.);
-	_plane = sf::Vector2<double>(0., tan(Settings::fov/2 * M_PI/180));
+	_plane = sf::Vector2<double>(0., tan(Settings::FOV/2 * M_PI/180));
 }
 
 void Canvas::onUpdate() {
@@ -15,8 +15,8 @@ void Canvas::onUpdate() {
 	_time = _clock.getElapsedTime().asSeconds();
 	double frameTime = (_time - _oldTime) / 2;
 
-	double moveSpeed = frameTime * 5.; //the constant value is in squares/second
-	double rotSpeed = frameTime * 3.; //the constant value is in radians/second
+	double moveSpeed = frameTime * 5.; 
+	double rotSpeed = frameTime * 3.; 
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
 		moveSpeed *= 2.;

@@ -2,6 +2,6 @@
 #include <vector>
 
 struct Settings {
-	static double fov;
+	static double FOV;
 	static std::vector<std::vector<char>> worldMap;
 };
