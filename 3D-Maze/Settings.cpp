@@ -35,16 +35,10 @@ void Settings::getStartEnd(sf::Vector2<double>& start, sf::Vector2<double>& end)
 
 bool Settings::hasNeighborBelow(int x, int y) {
 	std::vector<char> signs = { 'X', 'Y', 'Z', 'E', 'S' };
-	if (x > 0) {
-		if (std::find(signs.begin(), signs.end(), Settings::worldMap[x - 1][y]) != signs.end() || 
-			std::find(signs.begin(), signs.end(), Settings::worldMap[x - 1][y + 1]) != signs.end()) {
-			return true;
-		}
-	}
-	if (std::find(signs.begin(), signs.end(), Settings::worldMap[x][y + 1]) != signs.end() || 
-		std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y]) != signs.end() || 
-		std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y + 1]) != signs.end()) {
-		return true;
-	}
+	if (x > 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x - 1][y]) != signs.end()) return true;
+	if (x > 0 && y + 1 < Settings::worldMap[x].size() && std::find(signs.begin(), signs.end(), Settings::worldMap[x - 1][y + 1]) != signs.end())return true;
+	if (x + 1 < Settings::worldMap.size() && std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y]) != signs.end()) return true;
+	if (x + 1 < Settings::worldMap.size() && y + 1 < Settings::worldMap[x].size() && std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y + 1]) != signs.end()) return true;
+	if (y + 1 < Settings::worldMap[x].size() && std::find(signs.begin(), signs.end(), Settings::worldMap[x][y + 1]) != signs.end()) return true;
 	return false;
 }
