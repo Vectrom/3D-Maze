@@ -31,6 +31,7 @@ private:
 	wxImage _floorImg;
 	wxImage _currentImg;
 	wxSize _amountOfBoxes;
+	wxPoint _translation;
 
 	struct BoardBox {
 		BoardBox(wxBitmap bmp, wxPoint pos) : _bmp(bmp), _position(pos) {}

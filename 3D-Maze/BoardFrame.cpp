@@ -4,7 +4,6 @@
 BoardFrame::BoardFrame( wxWindow* parent ) : 
 BaseBoardFrame( parent ), _parent(parent) {
 	_amountOfBoxes = wxSize(10, 10);
-
 	// loading images
 	_redImg.LoadFile(wxT("Textures/Red.bmp"), wxBITMAP_TYPE_ANY);
 	_greenImg.LoadFile(wxT("Textures/Green.bmp"), wxBITMAP_TYPE_ANY);
@@ -27,6 +26,7 @@ void BoardFrame::frameOnClose(wxCloseEvent& event) {
 void BoardFrame::prepareBoard() {
 	wxSize panelSize(_boardPanel->GetSize().x, _boardPanel->GetSize().y);
 	wxSize boxSize(panelSize.x / _amountOfBoxes.x, panelSize.y / _amountOfBoxes.y);
+	_translation = wxPoint((panelSize.x - boxSize.x * _amountOfBoxes.x) / 2, (panelSize.y - boxSize.y * _amountOfBoxes.y) / 2);
 	_board.clear();
 	for (int x = 0; x < _amountOfBoxes.x; x++) {
 		std::vector<BoardBox> row;
@@ -43,7 +43,7 @@ void BoardFrame::draw() {
 	buffDC.Clear();
 	for (int x = 0; x < _amountOfBoxes.x; x++) {
 		for (int y = 0; y < _amountOfBoxes.y; y++) {
-			buffDC.DrawBitmap(_board[x][y]._bmp, _board[x][y]._position);
+			buffDC.DrawBitmap(_board[x][y]._bmp, _board[x][y]._position + _translation);
 		}
 	}
 }
