@@ -115,7 +115,7 @@ void Canvas::move(double moveSpeed, int multiplier) {
 	if (Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == ' ' ||
 		Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'S') _playerPosition.y += multiplier * _direction.y * moveSpeed;
 	if (Settings::worldMap[int(_playerPosition.x)][possibleNewPosition.y] == 'E' || Settings::worldMap[possibleNewPosition.x][int(_playerPosition.y)] == 'E') {
-		int answer = wxMessageBox("Congratulations! You won! " + prepareTimeString(_time), "WINNER", wxOK, this);
+		int answer = wxMessageBox("Congratulations! You won! " + prepareTimeString(_time), "Winner", wxOK, this);
 		if (answer == wxOK) {
 			dynamic_cast<PanelFrame *>(this->GetParent()->GetParent())->frameOnClose(wxCloseEvent());
 		}

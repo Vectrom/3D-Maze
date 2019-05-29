@@ -14,6 +14,9 @@ void MenuFrame::_playButtonOnButtonClick( wxCommandEvent& event ) {
 		gamePanel->Show(true);
 		this->Show(false);
 	}
+	else {
+		wxMessageBox("Please choose file with correct scheme!", "No maze scheme loaded", wxCENTRE | wxICON_ERROR | wxOK, this);
+	}
 }
 
 void MenuFrame::_loadBoardButtonOnButtonClick( wxCommandEvent& event ) {
@@ -50,6 +53,9 @@ void MenuFrame::_loadBoardButtonOnButtonClick( wxCommandEvent& event ) {
 	}
 
 	_mapCreated = Settings::validateMaze();
+	if (!_mapCreated) {
+		wxMessageBox("Invalid maze scheme! Please choose file with correct scheme!", "Maze scheme fail", wxCENTRE | wxICON_ERROR | wxOK , this);
+	}
 }
 
 void MenuFrame::_createBoardButtonOnButtonClick( wxCommandEvent& event ) {
