@@ -49,7 +49,7 @@ void MenuFrame::_loadBoardButtonOnButtonClick( wxCommandEvent& event ) {
 		}
 	}
 
-	_mapCreated = true;
+	_mapCreated = Settings::validateMaze();
 }
 
 void MenuFrame::_createBoardButtonOnButtonClick( wxCommandEvent& event ) {

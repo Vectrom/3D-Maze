@@ -6,12 +6,12 @@ std::vector<std::vector<char>> Settings::worldMap;
 
 bool Settings::validateMaze() {
 	bool isStart = false, isEnd = false;
-
+	std::vector<char> signs = { 'X', 'Y', 'Z' };
 	for (int i = 0; i < static_cast<int>(Settings::worldMap.size()); i++) {
 		for (int j = 0; j < static_cast<int>(Settings::worldMap[i].size()); j++) {
 			if (Settings::worldMap[i][j] == 'E') isStart = true;
 			if (Settings::worldMap[i][j] == 'S') isEnd = true;
-			if (!hasNeighborBelow(i, j)) return false;
+			if (std::find(signs.begin(), signs.end(), Settings::worldMap[i][j]) != signs.end() && !hasNeighborBelow(i, j)) return false;
 		}
 	}
 
