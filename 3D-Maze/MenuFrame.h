@@ -16,7 +16,4 @@ protected:
 	void _createBoardButtonOnButtonClick(wxCommandEvent& event);
 	void _exitButtonOnButtonClick(wxCommandEvent& event);
 	void _FOVSliderOnScroll(wxScrollEvent& event);
-
-private:
-	bool _mapCreated;
 };

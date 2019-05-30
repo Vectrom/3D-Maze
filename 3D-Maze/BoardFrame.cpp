@@ -144,6 +144,10 @@ void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
 	// show file dialog and get the path to the file that was selected.
 	if (fileDialog.ShowModal() != wxID_OK)
 		return;
+
+	// disabling play button 
+	Settings::_mapCreated = false;
+
 	filePath.Clear();
 	filePath = fileDialog.GetPath();
 
