@@ -49,8 +49,6 @@ class BaseBoardFrame : public wxFrame
 
 		// Virtual event handlers, overide them in your derived class
 		virtual void frameOnClose( wxCloseEvent& event ) { event.Skip(); }
-		virtual void onLeftDown( wxMouseEvent& event ) { event.Skip(); }
-		virtual void onMotion( wxMouseEvent& event ) { event.Skip(); }
 		virtual void onResize( wxSizeEvent& event ) { event.Skip(); }
 		virtual void setSizeButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void redButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
@@ -60,6 +58,9 @@ class BaseBoardFrame : public wxFrame
 		virtual void endButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void saveButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void loadButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void onLeftDown( wxMouseEvent& event ) { event.Skip(); }
+		virtual void onMotion( wxMouseEvent& event ) { event.Skip(); }
+		virtual void onRightDown( wxMouseEvent& event ) { event.Skip(); }
 
 
 	public:

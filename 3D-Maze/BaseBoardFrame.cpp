@@ -136,8 +136,6 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 
 	// Connect Events
 	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( BaseBoardFrame::frameOnClose ) );
-	this->Connect( wxEVT_LEFT_DOWN, wxMouseEventHandler( BaseBoardFrame::onLeftDown ) );
-	this->Connect( wxEVT_MOTION, wxMouseEventHandler( BaseBoardFrame::onMotion ) );
 	this->Connect( wxEVT_SIZE, wxSizeEventHandler( BaseBoardFrame::onResize ) );
 	_setSizeButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::setSizeButtonOnButtonClick ), NULL, this );
 	_redButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::redButtonOnButtonClick ), NULL, this );
@@ -148,14 +146,14 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_loadButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::saveButtonOnButtonClick ), NULL, this );
 	_saveButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::loadButtonOnButtonClick ), NULL, this );
 	_boardPanel->Connect( wxEVT_LEFT_DOWN, wxMouseEventHandler( BaseBoardFrame::onLeftDown ), NULL, this );
+	_boardPanel->Connect( wxEVT_MOTION, wxMouseEventHandler( BaseBoardFrame::onMotion ), NULL, this );
+	_boardPanel->Connect( wxEVT_RIGHT_DOWN, wxMouseEventHandler( BaseBoardFrame::onRightDown ), NULL, this );
 }
 
 BaseBoardFrame::~BaseBoardFrame()
 {
 	// Disconnect Events
 	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( BaseBoardFrame::frameOnClose ) );
-	this->Disconnect( wxEVT_LEFT_DOWN, wxMouseEventHandler( BaseBoardFrame::onLeftDown ) );
-	this->Disconnect( wxEVT_MOTION, wxMouseEventHandler( BaseBoardFrame::onMotion ) );
 	this->Disconnect( wxEVT_SIZE, wxSizeEventHandler( BaseBoardFrame::onResize ) );
 	_setSizeButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::setSizeButtonOnButtonClick ), NULL, this );
 	_redButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::redButtonOnButtonClick ), NULL, this );
@@ -166,5 +164,7 @@ BaseBoardFrame::~BaseBoardFrame()
 	_loadButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::saveButtonOnButtonClick ), NULL, this );
 	_saveButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::loadButtonOnButtonClick ), NULL, this );
 	_boardPanel->Disconnect( wxEVT_LEFT_DOWN, wxMouseEventHandler( BaseBoardFrame::onLeftDown ), NULL, this );
+	_boardPanel->Disconnect( wxEVT_MOTION, wxMouseEventHandler( BaseBoardFrame::onMotion ), NULL, this );
+	_boardPanel->Disconnect( wxEVT_RIGHT_DOWN, wxMouseEventHandler( BaseBoardFrame::onRightDown ), NULL, this );
 
 }

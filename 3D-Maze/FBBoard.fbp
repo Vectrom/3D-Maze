@@ -55,8 +55,6 @@
             <property name="window_style">wxTAB_TRAVERSAL</property>
             <property name="xrc_skip_sizer">1</property>
             <event name="OnClose">frameOnClose</event>
-            <event name="OnLeftDown">onLeftDown</event>
-            <event name="OnMotion">onMotion</event>
             <event name="OnSize">onResize</event>
             <object class="wxBoxSizer" expanded="1">
                 <property name="minimum_size"></property>
@@ -904,6 +902,8 @@
                                 <property name="window_name"></property>
                                 <property name="window_style">wxTAB_TRAVERSAL</property>
                                 <event name="OnLeftDown">onLeftDown</event>
+                                <event name="OnMotion">onMotion</event>
+                                <event name="OnRightDown">onRightDown</event>
                             </object>
                         </object>
                     </object>

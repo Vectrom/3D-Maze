@@ -86,20 +86,34 @@ void BoardFrame::onLeftDown(wxMouseEvent& event) {
 	}
 }
 
-void BoardFrame::onMotion(wxMouseEvent& event) {
-	//if (event.LeftIsDown()) {
-	//	wxPoint mousePosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
-	//	for (int x = 0; x < _amountOfBoxes.x; x++) {
-	//		for (int y = 0; y < _amountOfBoxes.y; y++) {
-	//			if (_board[x][y]._position.x < mousePosition.x && _board[x][y]._position.y < mousePosition.y &&
-	//				_board[x][y]._position.x + _boxSize.x > mousePosition.x && _board[x][y]._position.y + _boxSize.y > mousePosition.y) {
-	//				_board[x][y]._img = _currentImg;
-	//				return;
-	//			}
-	//		}
-	//	}
-	//}
+void BoardFrame::onRightDown(wxMouseEvent& event) {
+	wxPoint clickPosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
+	for (int x = 0; x < _amountOfBoxes.x; x++) {
+		for (int y = 0; y < _amountOfBoxes.y; y++) {
+			if (_board[x][y]._position.x + _translation.x < clickPosition.x && _board[x][y]._position.y + _translation.y < clickPosition.y &&
+				_board[x][y]._position.x + _boxSize.x + _translation.x > clickPosition.x && _board[x][y]._position.y + _boxSize.y + _translation.y > clickPosition.y) {
+				_board[x][y]._img = _floorImg;
+				draw();
+				return;
+			}
+		}
+	}
 }
+
+//void BoardFrame::onMotion(wxMouseEvent& event) {
+//	//if (event.LeftIsDown()) {
+//	//	wxPoint mousePosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
+//	//	for (int x = 0; x < _amountOfBoxes.x; x++) {
+//	//		for (int y = 0; y < _amountOfBoxes.y; y++) {
+//	//			if (_board[x][y]._position.x < mousePosition.x && _board[x][y]._position.y < mousePosition.y &&
+//	//				_board[x][y]._position.x + _boxSize.x > mousePosition.x && _board[x][y]._position.y + _boxSize.y > mousePosition.y) {
+//	//				_board[x][y]._img = _currentImg;
+//	//				return;
+//	//			}
+//	//		}
+//	//	}
+//	//}
+//}
 
 void BoardFrame::setSizeButtonOnButtonClick(wxCommandEvent& event) {
 	long x, y;

@@ -56,9 +56,9 @@ void Canvas::onUpdate() {
 }
 
 void Canvas::drawBackground() {
-	clear(sf::Color(29.8, 36.5, 40));
+	clear(sf::Color(13, 13, 13, 200));
 	sf::RectangleShape ceil(sf::Vector2f(this->GetSize().x, this->GetSize().y / 2));
-	ceil.setFillColor(sf::Color(53, 137, 182));
+	ceil.setFillColor(sf::Color(126, 204, 220, 50));
 	draw(ceil);
 }
 
@@ -179,13 +179,13 @@ sf::Color Canvas::pickColor(const sf::Vector2<int>& mapBox, int side) {
 	sf::Color color;
 	switch (Settings::worldMap[mapBox.x][mapBox.y]) {
 	case 'X':
-		color = sf::Color(255 / denominator, 0, 0);
+		color = sf::Color(100 / denominator, 0, 0);
 		break;
 	case 'Y':
-		color = sf::Color(0, 255 / denominator, 0);
+		color = sf::Color(0, 100 / denominator, 0);
 		break;
 	case 'Z':
-		color = sf::Color(0, 0, 255 / denominator);
+		color = sf::Color(0, 0, 100 / denominator);
 		break;
 	default:
 		color = sf::Color::Yellow;
