@@ -20,11 +20,12 @@ protected:
 	void onResize(wxSizeEvent& event);
 	void onLeftDown(wxMouseEvent& event);
 	void onRightDown(wxMouseEvent& event);
-	//void onMotion(wxMouseEvent& event);
+	void onMotion(wxMouseEvent& event);
 	void prepareBoard();
 	void updatePosition();
 	void updateVariables();
 	void draw();
+	bool computeIndex(wxPoint &index, const wxPoint &position);
 
 private:
 	wxWindow *_parent;

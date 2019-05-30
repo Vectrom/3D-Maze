@@ -8,6 +8,7 @@
 BoardFrame::BoardFrame( wxWindow* parent ) : 
 BaseBoardFrame( parent ), _parent(parent) {
 	_amountOfBoxes = wxSize(10, 10);
+
 	// loading images
 	_redImg.LoadFile(wxT("Textures/RedWall.png"), wxBITMAP_TYPE_ANY);
 	_greenImg.LoadFile(wxT("Textures/GreenWall.png"), wxBITMAP_TYPE_ANY);
@@ -31,6 +32,17 @@ void BoardFrame::updateVariables() {
 	_translation = wxPoint((_panelSize.x - _boxSize.x * _amountOfBoxes.x) / 2, (_panelSize.y - _boxSize.y * _amountOfBoxes.y) / 2);
 }
 
+void BoardFrame::draw() {
+	wxClientDC DC(_boardPanel);
+	wxBufferedDC buffDC(&DC);
+	buffDC.Clear();
+	for (int x = 0; x < _amountOfBoxes.x; x++) {
+		for (int y = 0; y < _amountOfBoxes.y; y++) {
+			buffDC.DrawBitmap(_board[x][y]._img.Scale(_boxSize.x, _boxSize.y), _board[x][y]._position + _translation);
+		}
+	}
+}
+
 void BoardFrame::prepareBoard() {
 	updateVariables();
 	_board.clear();
@@ -42,17 +54,6 @@ void BoardFrame::prepareBoard() {
 		_board.push_back(row);
 	}
 	draw();
-}
-
-void BoardFrame::draw() {
-	wxClientDC DC(_boardPanel);
-	wxBufferedDC buffDC(&DC);
-	buffDC.Clear();
-	for (int x = 0; x < _amountOfBoxes.x; x++) {
-		for (int y = 0; y < _amountOfBoxes.y; y++) {
-			buffDC.DrawBitmap(_board[x][y]._img.Scale(_boxSize.x, _boxSize.y), _board[x][y]._position + _translation);
-		}
-	}
 }
 
 void BoardFrame::updatePosition() {
@@ -70,50 +71,51 @@ void BoardFrame::onResize(wxSizeEvent& event) {
 	draw();
 }
 
+bool BoardFrame::computeIndex(wxPoint &index, const wxPoint &position) {
+	if (position.x >= _amountOfBoxes.x * _boxSize.x + _translation.x || position.y >= _amountOfBoxes.y * _boxSize.y + _translation.y || position.x <= _translation.x || position.y <= _translation.y) return false;
+	index = wxPoint(static_cast<int>((position.x - _translation.x) / _boxSize.x), static_cast<int>((position.y - _translation.y) / _boxSize.y));
+	if (index.x > _amountOfBoxes.x - 1 || index.y > _amountOfBoxes.y - 1) return false;
+	return true;
+}
+
 void BoardFrame::onLeftDown(wxMouseEvent& event) {
-	wxPoint clickPosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
-	//_board[static_cast<int>((clickPosition.x - _translation.x) / _boxSize.x)][static_cast<int>((clickPosition.y - _translation.y)/ _boxSize.y)]._img = _currentImg;
-	
-	for (int x = 0; x < _amountOfBoxes.x; x++) {
-		for (int y = 0; y < _amountOfBoxes.y; y++) {
-			if (_board[x][y]._position.x + _translation.x < clickPosition.x && _board[x][y]._position.y + _translation.y < clickPosition.y &&
-				_board[x][y]._position.x + _boxSize.x + _translation.x > clickPosition.x && _board[x][y]._position.y + _boxSize.y + _translation.y > clickPosition.y) {
-				_board[x][y]._img = _currentImg;
-				draw();
-				return;
-			}
-		}
-	}
+	wxPoint mousePosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
+	wxPoint index;
+	if (!computeIndex(index, mousePosition)) return;
+	_board[index.x][index.y]._img = _currentImg;
+	draw();
 }
 
 void BoardFrame::onRightDown(wxMouseEvent& event) {
-	wxPoint clickPosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
-	for (int x = 0; x < _amountOfBoxes.x; x++) {
-		for (int y = 0; y < _amountOfBoxes.y; y++) {
-			if (_board[x][y]._position.x + _translation.x < clickPosition.x && _board[x][y]._position.y + _translation.y < clickPosition.y &&
-				_board[x][y]._position.x + _boxSize.x + _translation.x > clickPosition.x && _board[x][y]._position.y + _boxSize.y + _translation.y > clickPosition.y) {
-				_board[x][y]._img = _floorImg;
-				draw();
-				return;
-			}
-		}
-	}
+	wxPoint mousePosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
+	wxPoint index;
+	if (!computeIndex(index, mousePosition)) return;
+	_board[index.x][index.y]._img = _floorImg;
+	draw();
 }
 
-//void BoardFrame::onMotion(wxMouseEvent& event) {
-//	//if (event.LeftIsDown()) {
-//	//	wxPoint mousePosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
-//	//	for (int x = 0; x < _amountOfBoxes.x; x++) {
-//	//		for (int y = 0; y < _amountOfBoxes.y; y++) {
-//	//			if (_board[x][y]._position.x < mousePosition.x && _board[x][y]._position.y < mousePosition.y &&
-//	//				_board[x][y]._position.x + _boxSize.x > mousePosition.x && _board[x][y]._position.y + _boxSize.y > mousePosition.y) {
-//	//				_board[x][y]._img = _currentImg;
-//	//				return;
-//	//			}
-//	//		}
-//	//	}
-//	//}
-//}
+void BoardFrame::onMotion(wxMouseEvent& event) {
+	wxPoint mousePosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
+	wxPoint index;
+	if (!computeIndex(index, mousePosition)) return;
+
+	if (event.LeftIsDown()) {
+		_board[index.x][index.y]._img = _currentImg;
+		//for (int x = 0; x < _amountOfBoxes.x; x++) {
+		//	for (int y = 0; y < _amountOfBoxes.y; y++) {
+		//		if (_board[x][y]._position.x < mousePosition.x + _translation.x && _board[x][y]._position.y + _translation.y < mousePosition.y &&
+		//			_board[x][y]._position.x + _boxSize.x > mousePosition.x && _board[x][y]._position.y + _boxSize.y > mousePosition.y) {
+		//			_board[x][y]._img = _currentImg;
+		//		}
+		//	}
+		//}
+		draw();
+	}
+	else if (event.RightIsDown()) {
+		_board[index.x][index.y]._img = _floorImg;
+		draw();
+	}
+}
 
 void BoardFrame::setSizeButtonOnButtonClick(wxCommandEvent& event) {
 	long x, y;
