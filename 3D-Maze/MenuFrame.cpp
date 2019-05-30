@@ -44,20 +44,6 @@ void MenuFrame::_loadBoardButtonOnButtonClick( wxCommandEvent& event ) {
 		}
 	}
 
-	//// load first line
-	//std::string str = txtFile.GetFirstLine().ToStdString();
-	//if (!str.empty()) {
-	//	Settings::worldMap.push_back(std::vector<char>(str.begin(), str.end()));
-	//}
-
-	//// read all lines one by one until the end of the file
-	//while (!txtFile.Eof()) {
-	//	str = txtFile.GetNextLine().ToStdString();
-	//	if (!str.empty()) {
-	//		Settings::worldMap.push_back(std::vector<char>(str.begin(), str.end()));
-	//	}
-	//}
-
 	_mapCreated = Settings::validateMaze();
 	if (!_mapCreated) {
 		wxMessageBox("Invalid maze scheme! Please choose file with correct scheme!", "Maze scheme fail", wxCENTRE | wxICON_ERROR | wxOK , this);

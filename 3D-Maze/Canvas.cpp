@@ -50,8 +50,16 @@ void Canvas::onUpdate() {
 		move(moveSpeed, 1);
 	}
 
+	drawBackground();
 	drawMaze();
 	draw(*_timeText);
+}
+
+void Canvas::drawBackground() {
+	clear(sf::Color(29.8, 36.5, 40));
+	sf::RectangleShape ceil(sf::Vector2f(this->GetSize().x, this->GetSize().y / 2));
+	ceil.setFillColor(sf::Color(53, 137, 182));
+	draw(ceil);
 }
 
 void Canvas::onResize(wxSizeEvent &event) {
@@ -64,8 +72,6 @@ void Canvas::onResize(wxSizeEvent &event) {
 }
 
 void Canvas::drawMaze() {
-	clear(sf::Color::Black);
-
 	for (int x = 0; x < this->GetSize().x; x++) {
 		double cameraX = 2 * x / static_cast<double>(this->GetSize().x) - 1;
 		sf::Vector2<double> rayDirection(_direction.x + _plane.x * cameraX, _direction.y + _plane.y * cameraX);
