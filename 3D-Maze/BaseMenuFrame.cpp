@@ -60,13 +60,6 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	_FOVSlider = new wxSlider( this, wxID_ANY, 66, 45, 120, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL );
 	_optionsSizer->Add( _FOVSlider, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
-	__minimapCheckBox = new wxCheckBox( this, wxID_ANY, wxT("Minimapa"), wxDefaultPosition, wxDefaultSize, 0 );
-	__minimapCheckBox->SetValue(true);
-	__minimapCheckBox->SetFont( wxFont( 9, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial") ) );
-	__minimapCheckBox->SetForegroundColour( wxColour( 255, 255, 255 ) );
-
-	_optionsSizer->Add( __minimapCheckBox, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
-
 
 	menuSizer->Add( _optionsSizer, 1, wxEXPAND, 5 );
 
@@ -90,7 +83,6 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	_FOVSlider->Connect( wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler( BaseMenuFrame::_FOVSliderOnScroll ), NULL, this );
 	_FOVSlider->Connect( wxEVT_SCROLL_THUMBRELEASE, wxScrollEventHandler( BaseMenuFrame::_FOVSliderOnScroll ), NULL, this );
 	_FOVSlider->Connect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( BaseMenuFrame::_FOVSliderOnScroll ), NULL, this );
-	__minimapCheckBox->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( BaseMenuFrame::__minimapCheckBoxOnCheckBox ), NULL, this );
 }
 
 BaseMenuFrame::~BaseMenuFrame()
@@ -109,6 +101,5 @@ BaseMenuFrame::~BaseMenuFrame()
 	_FOVSlider->Disconnect( wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler( BaseMenuFrame::_FOVSliderOnScroll ), NULL, this );
 	_FOVSlider->Disconnect( wxEVT_SCROLL_THUMBRELEASE, wxScrollEventHandler( BaseMenuFrame::_FOVSliderOnScroll ), NULL, this );
 	_FOVSlider->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( BaseMenuFrame::_FOVSliderOnScroll ), NULL, this );
-	__minimapCheckBox->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( BaseMenuFrame::__minimapCheckBoxOnCheckBox ), NULL, this );
 
 }

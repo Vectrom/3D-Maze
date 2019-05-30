@@ -14,10 +14,12 @@ Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, 
 	Settings::getStartEnd(_playerPosition, _end);
 	_direction = sf::Vector2<double>(-1., 0.);
 	_plane = sf::Vector2<double>(0., tan(Settings::FOV/2 * M_PI/180));
+	_minimap = new MinimapPanel(this);
 }
 
 Canvas::~Canvas() {
 	delete _timeText;
+	delete _minimap;
 }
 
 void Canvas::onUpdate() {
@@ -50,6 +52,15 @@ void Canvas::onUpdate() {
 		move(moveSpeed, 1);
 	}
 
+	sf::Event event;
+
+	while (this->pollEvent(event)) {
+		if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::M) {
+			_minimap->Show(!_isActiveMinimap);
+			_isActiveMinimap = !_isActiveMinimap;
+		}
+	}
+
 	drawBackground();
 	drawMaze();
 	draw(*_timeText);
@@ -69,6 +80,8 @@ void Canvas::onResize(wxSizeEvent &event) {
 
 	this->SetSize({ newCanvasWidth, newCanvasHeight });
 	createRenderWindow();
+
+	_minimap->SetPosition(wxPoint(this->GetSize().x - _minimap->GetSize().x, 0));
 }
 
 void Canvas::drawMaze() {

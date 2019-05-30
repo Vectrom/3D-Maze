@@ -21,7 +21,6 @@
 #include <wx/sizer.h>
 #include <wx/stattext.h>
 #include <wx/slider.h>
-#include <wx/checkbox.h>
 #include <wx/frame.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -41,7 +40,6 @@ class BaseMenuFrame : public wxFrame
 		wxButton* _exitButton;
 		wxStaticText* _FOVText;
 		wxSlider* _FOVSlider;
-		wxCheckBox* __minimapCheckBox;
 
 		// Virtual event handlers, overide them in your derived class
 		virtual void _playButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
@@ -49,7 +47,6 @@ class BaseMenuFrame : public wxFrame
 		virtual void _createBoardButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void _exitButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void _FOVSliderOnScroll( wxScrollEvent& event ) { event.Skip(); }
-		virtual void __minimapCheckBoxOnCheckBox( wxCommandEvent& event ) { event.Skip(); }
 
 
 	public:

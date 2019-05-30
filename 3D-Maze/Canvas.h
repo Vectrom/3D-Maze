@@ -4,6 +4,7 @@
 #include <vector>
 #include <utility>
 #include "wxSfmlCanvas.h"
+#include "MinimapPanel.h"
 
 class Canvas : public wxSfmlCanvas {
 public:
@@ -30,5 +31,6 @@ private:
 	sf::Text* _timeText;
 	double _time = 0.; 
 	double _oldTime = 0.;
+	MinimapPanel*  _minimap;
+	bool _isActiveMinimap = false;
 };
-
