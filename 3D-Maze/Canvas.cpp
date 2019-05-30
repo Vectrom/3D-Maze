@@ -67,9 +67,9 @@ void Canvas::onUpdate() {
 }
 
 void Canvas::drawBackground() {
-	clear(sf::Color(13, 13, 13, 200));
+	clear(Settings::floor);
 	sf::RectangleShape ceil(sf::Vector2f(this->GetSize().x, this->GetSize().y / 2));
-	ceil.setFillColor(sf::Color(126, 204, 220, 50));
+	ceil.setFillColor(Settings::ceil);
 	draw(ceil);
 }
 
@@ -186,22 +186,19 @@ void Canvas::findCollision(sf::Vector2<double>& sideDistance, const sf::Vector2<
 }
 
 sf::Color Canvas::pickColor(const sf::Vector2<int>& mapBox, int side) {
-	int denominator = 1;
-	if (side == 1)
-		denominator = 2;
 	sf::Color color;
 	switch (Settings::worldMap[mapBox.x][mapBox.y]) {
 	case 'X':
-		color = sf::Color(100 / denominator, 0, 0);
+		color = Settings::wallX[side];
 		break;
 	case 'Y':
-		color = sf::Color(0, 100 / denominator, 0);
+		color = Settings::wallY[side];
 		break;
 	case 'Z':
-		color = sf::Color(0, 0, 100 / denominator);
+		color = Settings::wallZ[side];
 		break;
 	default:
-		color = sf::Color(247, 202,	68);
+		color = Settings::exit;
 		break;
 	}
 	return color;

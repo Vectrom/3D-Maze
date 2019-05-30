@@ -45,7 +45,7 @@ private:
 	bool _isStart;
 	bool _isEnd;
 
-	static enum SIGN {FLOOR = ' ', RED = 'X', GREEN = 'Y', BLUE = 'Z', END = 'E', START = 'S'};
+	enum SIGN {FLOOR = ' ', RED = 'X', GREEN = 'Y', BLUE = 'Z', END = 'E', START = 'S'};
 
 	struct BoardBox {
 		BoardBox(wxImage img, char sign = SIGN::FLOOR, wxPoint pos = wxPoint(0, 0)) : _img(img), _sign(sign), _position(pos) {}

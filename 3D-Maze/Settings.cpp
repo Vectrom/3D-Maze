@@ -1,11 +1,19 @@
 #include <algorithm>
 #include "Settings.h"
 
-bool Settings::mapCreated;
+bool Settings::mapCreated = false;
 double Settings::FOV = 66.0;
 std::vector<std::vector<char>> Settings::worldMap;
 sf::Vector2<double> Settings::start;
 sf::Vector2<double> Settings::end;
+sf::Color Settings::wallX[2] = { sf::Color(100, 0, 0), sf::Color(50, 0, 0) };
+sf::Color Settings::wallY[2] = { sf::Color(0, 100, 0), sf::Color(0, 50, 0) };
+sf::Color Settings::wallZ[2] = { sf::Color(0, 0, 100), sf::Color(0, 0, 50) };
+sf::Color Settings::ceil(54, 51, 51);
+sf::Color Settings::floor(39, 33, 33);
+sf::Color Settings::exit(247, 202, 68);
+
+std::vector<char> signs = { 'X', 'Y', 'Z', 'E', 'S' };
 
 void Settings::getStartEnd(sf::Vector2<double>& start, sf::Vector2<double>& end) {
 	start.x = Settings::start.x;
@@ -34,7 +42,6 @@ bool Settings::checkStartEnd() {
 }
 
 bool Settings::validateMaze() {
-	std::vector<char> signs = { 'X', 'Y', 'Z', 'E', 'S' };
 	bool searchingFirst = true;
 	bool checkingMazeFrame = true;
 
@@ -87,7 +94,6 @@ bool Settings::validateMaze() {
 }
 
 void Settings::neighborDown(int & x, int & y, direction &dir) {
-	std::vector<char> signs = { 'X', 'Y', 'Z', 'E', 'S' };
 	if (x > 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x - 1][y]) != signs.end()) {
 		x -= 1;
 		dir = Left;
@@ -117,7 +123,6 @@ void Settings::neighborDown(int & x, int & y, direction &dir) {
 }
 
 void Settings::neighborUp(int & x, int & y, direction &dir) {
-	std::vector<char> signs = { 'X', 'Y', 'Z', 'E', 'S' };
 	if (x + 1 < Settings::worldMap.size() && std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y]) != signs.end()) {
 		x += 1;
 		dir = Right;
@@ -147,7 +152,6 @@ void Settings::neighborUp(int & x, int & y, direction &dir) {
 }
 
 void Settings::neighborLeft(int & x, int & y, direction &dir) {
-	std::vector<char> signs = { 'X', 'Y', 'Z', 'E', 'S' };
 	if (y > 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x][y - 1]) != signs.end()) {
 		y -= 1;
 		dir = Up;
@@ -177,7 +181,6 @@ void Settings::neighborLeft(int & x, int & y, direction &dir) {
 }
 
 void Settings::neighborRight(int & x, int & y, direction &dir) {
-	std::vector<char> signs = { 'X', 'Y', 'Z', 'E', 'S' };
 	if (y + 1 < Settings::worldMap[x].size() && std::find(signs.begin(), signs.end(), Settings::worldMap[x][y + 1]) != signs.end()) {
 		y += 1;
 		dir = Down;
