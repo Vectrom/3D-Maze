@@ -58,8 +58,8 @@ class BaseBoardFrame : public wxFrame
 		virtual void blueButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void startButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void endButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
-		virtual void loadButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void saveButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void loadButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 
 
 	public:

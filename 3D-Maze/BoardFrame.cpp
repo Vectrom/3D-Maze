@@ -1,6 +1,9 @@
 #include "BoardFrame.h"
 #include <wx/dcbuffer.h>
 #include <wx/msgdlg.h> 
+#include <wx/filedlg.h>
+#include <wx/textfile.h>
+#include "Settings.h"
 
 BoardFrame::BoardFrame( wxWindow* parent ) : 
 BaseBoardFrame( parent ), _parent(parent) {
@@ -52,14 +55,18 @@ void BoardFrame::draw() {
 	}
 }
 
-void BoardFrame::onResize(wxSizeEvent& event) {
-	Layout();
+void BoardFrame::updatePosition() {
 	updateVariables();
 	for (int x = 0; x < _amountOfBoxes.x; x++) {
 		for (int y = 0; y < _amountOfBoxes.y; y++) {
 			_board[x][y]._position = wxPoint(x * _boxSize.x, y * _boxSize.y);
 		}
 	}
+}
+
+void BoardFrame::onResize(wxSizeEvent& event) {
+	Layout();
+	updatePosition();
 	draw();
 }
 
@@ -131,7 +138,77 @@ void BoardFrame::blueButtonOnButtonClick(wxCommandEvent& event) {
 }
 
 void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
+	wxString filePath;
+	wxFileDialog fileDialog(this, _("Open txt file"), "", "", "txt files (*.txt)|*.txt", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 
+	// show file dialog and get the path to the file that was selected.
+	if (fileDialog.ShowModal() != wxID_OK)
+		return;
+	filePath.Clear();
+	filePath = fileDialog.GetPath();
+
+	// open the file
+	wxTextFile txtFile;
+	txtFile.Open(filePath);
+
+	_board.clear();
+
+	// TODO: MERGE VALIDATION
+	////////////////////////////////////////////////////////////// TEMPORARY ////////////////////////////////////////////////////////////////////////////////
+	if (!Settings::worldMap.empty()) {
+		Settings::worldMap.clear();
+	}
+
+	for (std::string str = txtFile.GetFirstLine().ToStdString(); !txtFile.Eof(); str = txtFile.GetNextLine().ToStdString()) {
+		if (!str.empty()) {
+			Settings::worldMap.push_back(std::vector<char>(str.begin(), str.end()));
+		}
+	}
+
+	if (!Settings::validateMaze()) {
+		wxMessageBox("Invalid maze scheme! Please choose file with correct scheme!", "Maze scheme fail", wxCENTRE | wxICON_ERROR | wxOK, this);
+		return;
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// loading map
+	for (std::string str = txtFile.GetFirstLine().ToStdString(); !txtFile.Eof(); str = txtFile.GetNextLine().ToStdString()) {
+		if (!str.empty()) {
+			std::vector<BoardBox> row;
+			for (char &ele : str) {
+				switch (ele) {
+				case 'X':
+					row.push_back(BoardBox(_redImg));
+					break;
+				case 'Y':
+					row.push_back(BoardBox(_greenImg));
+					break;
+				case 'Z':
+					row.push_back(BoardBox(_blueImg));
+					break;
+				case 'S':
+					row.push_back(BoardBox(_startImg));
+					break;
+				case 'E':
+					row.push_back(BoardBox(_endImg));
+					break;
+				default:
+					row.push_back(BoardBox(_floorImg));
+					break;
+				}
+			}
+			_board.push_back(row);
+		}
+	}
+
+	_amountOfBoxes = wxSize(_board.size(), _board[0].size());
+
+	// updating text
+	_xBoxesText->SetValue(wxString::Format(wxT("%i"), _amountOfBoxes.x));
+	_yBoxesText->SetValue(wxString::Format(wxT("%i"), _amountOfBoxes.y));
+
+	updatePosition();
+	draw();
 }
 
 void BoardFrame::saveButtonOnButtonClick(wxCommandEvent& event) {

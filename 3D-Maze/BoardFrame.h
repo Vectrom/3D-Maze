@@ -21,6 +21,7 @@ protected:
 	void onLeftDown(wxMouseEvent& event);
 	void onMotion(wxMouseEvent& event);
 	void prepareBoard();
+	void updatePosition();
 	void updateVariables();
 	void draw();
 
@@ -39,7 +40,7 @@ private:
 	wxPoint _translation;
 
 	struct BoardBox {
-		BoardBox(wxImage img, wxPoint pos) : _img(img), _position(pos) {}
+		BoardBox(wxImage img, wxPoint pos = wxPoint(0, 0)) : _img(img), _position(pos) {}
 		wxImage _img;
 		wxPoint _position;
 	};
