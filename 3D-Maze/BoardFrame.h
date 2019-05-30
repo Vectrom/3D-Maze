@@ -40,10 +40,16 @@ private:
 	wxSize _boxSize;
 	wxSize _amountOfBoxes;
 	wxPoint _translation;
+	char _currentSign;
+	bool _isStart;
+	bool _isEnd;
+
+	static enum SIGN {FLOOR = ' ', RED = 'X', GREEN = 'Y', BLUE = 'Z', END = 'E', START = 'S'};
 
 	struct BoardBox {
-		BoardBox(wxImage img, wxPoint pos = wxPoint(0, 0)) : _img(img), _position(pos) {}
+		BoardBox(wxImage img, char sign = SIGN::FLOOR, wxPoint pos = wxPoint(0, 0)) : _img(img), _sign(sign), _position(pos) {}
 		wxImage _img;
+		char _sign;
 		wxPoint _position;
 	};
 

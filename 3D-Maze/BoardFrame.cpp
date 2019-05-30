@@ -7,8 +7,6 @@
 
 BoardFrame::BoardFrame( wxWindow* parent ) : 
 BaseBoardFrame( parent ), _parent(parent) {
-	_amountOfBoxes = wxSize(10, 10);
-
 	// loading images
 	_redImg.LoadFile(wxT("Textures/RedWall.png"), wxBITMAP_TYPE_ANY);
 	_greenImg.LoadFile(wxT("Textures/GreenWall.png"), wxBITMAP_TYPE_ANY);
@@ -17,7 +15,12 @@ BaseBoardFrame( parent ), _parent(parent) {
 	_endImg.LoadFile(wxT("Textures/End.png"), wxBITMAP_TYPE_ANY);
 	_floorImg.LoadFile(wxT("Textures/Floor.png"), wxBITMAP_TYPE_ANY);
 
+	_amountOfBoxes = wxSize(10, 10);
+	_currentSign = SIGN::FLOOR;
 	_currentImg = _redImg;
+	_isStart = false;
+	_isEnd = false;
+
 	prepareBoard();
 }
 
@@ -45,11 +48,13 @@ void BoardFrame::draw() {
 
 void BoardFrame::prepareBoard() {
 	updateVariables();
+	_isStart = false;
+	_isEnd = false;
 	_board.clear();
 	for (int x = 0; x < _amountOfBoxes.x; x++) {
 		std::vector<BoardBox> row;
 		for (int y = 0; y < _amountOfBoxes.y; y++) {
-			row.push_back(BoardBox(_floorImg, wxPoint(x * _boxSize.x, y * _boxSize.y)));
+			row.push_back(BoardBox(_floorImg, SIGN::FLOOR, wxPoint(x * _boxSize.x, y * _boxSize.y)));
 		}
 		_board.push_back(row);
 	}
@@ -79,10 +84,16 @@ bool BoardFrame::computeIndex(wxPoint &index, const wxPoint &position) {
 }
 
 void BoardFrame::onLeftDown(wxMouseEvent& event) {
+	if (_currentSign == SIGN::START && _isStart || _currentSign == SIGN::END && _isEnd) return;
 	wxPoint mousePosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
 	wxPoint index;
 	if (!computeIndex(index, mousePosition)) return;
+	if (_currentSign == SIGN::START) _isStart = true;
+	else if (_currentSign == SIGN::END) _isEnd = true;
+	if (_board[index.x][index.y]._sign == SIGN::START) _isStart = false;
+	else if (_board[index.x][index.y]._sign == SIGN::END) _isEnd = false;
 	_board[index.x][index.y]._img = _currentImg;
+	_board[index.x][index.y]._sign = _currentSign;
 	draw();
 }
 
@@ -90,7 +101,10 @@ void BoardFrame::onRightDown(wxMouseEvent& event) {
 	wxPoint mousePosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
 	wxPoint index;
 	if (!computeIndex(index, mousePosition)) return;
+	if (_board[index.x][index.y]._sign == SIGN::START) _isStart = false;
+	else if (_board[index.x][index.y]._sign == SIGN::END) _isEnd = false;
 	_board[index.x][index.y]._img = _floorImg;
+	_board[index.x][index.y]._sign = SIGN::FLOOR;
 	draw();
 }
 
@@ -100,19 +114,20 @@ void BoardFrame::onMotion(wxMouseEvent& event) {
 	if (!computeIndex(index, mousePosition)) return;
 
 	if (event.LeftIsDown()) {
+		if (_currentSign == SIGN::START && _isStart || _currentSign == SIGN::END && _isEnd) return;
+		if (_currentSign == SIGN::START) _isStart = true;
+		else if (_currentSign == SIGN::END) _isEnd = true;
+		if (_board[index.x][index.y]._sign == SIGN::START) _isStart = false;
+		else if (_board[index.x][index.y]._sign == SIGN::END) _isEnd = false;
 		_board[index.x][index.y]._img = _currentImg;
-		//for (int x = 0; x < _amountOfBoxes.x; x++) {
-		//	for (int y = 0; y < _amountOfBoxes.y; y++) {
-		//		if (_board[x][y]._position.x < mousePosition.x + _translation.x && _board[x][y]._position.y + _translation.y < mousePosition.y &&
-		//			_board[x][y]._position.x + _boxSize.x > mousePosition.x && _board[x][y]._position.y + _boxSize.y > mousePosition.y) {
-		//			_board[x][y]._img = _currentImg;
-		//		}
-		//	}
-		//}
+		_board[index.x][index.y]._sign = _currentSign;
 		draw();
 	}
 	else if (event.RightIsDown()) {
+		if (_board[index.x][index.y]._sign == SIGN::START) _isStart = false;
+		else if (_board[index.x][index.y]._sign == SIGN::END) _isEnd = false;
 		_board[index.x][index.y]._img = _floorImg;
+		_board[index.x][index.y]._sign = SIGN::FLOOR;
 		draw();
 	}
 }
@@ -125,7 +140,7 @@ void BoardFrame::setSizeButtonOnButtonClick(wxCommandEvent& event) {
 	bool tmp2 = _yBoxesText->GetValue().ToLong(&y);
 
 	if (!tmp1 || !tmp2 || x < 4 || x > 50 || y < 4 || y > 50) {
-		wxMessageBox("You have entered invalid value. Correct value have to be between 4 and 50.", "Invalid input!", wxOK, this);
+		wxMessageBox("You have entered invalid value! Correct value have to be between 4 and 50!", "Invalid input", wxOK, this);
 		return;
 	}
 
@@ -134,23 +149,32 @@ void BoardFrame::setSizeButtonOnButtonClick(wxCommandEvent& event) {
 }
 
 void BoardFrame::startButtonOnButtonClick(wxCommandEvent& event) {
-	_currentImg = _startImg;
+	if (!_isStart) {
+		_currentImg = _startImg;
+		_currentSign = SIGN::START;
+	}
 }
 
 void BoardFrame::endButtonOnButtonClick(wxCommandEvent& event) {
-	_currentImg = _endImg;
+	if (!_isEnd) {
+		_currentImg = _endImg;
+		_currentSign = SIGN::END;
+	}
 }
 
 void BoardFrame::redButtonOnButtonClick(wxCommandEvent& event) {
 	_currentImg = _redImg;
+	_currentSign = SIGN::RED;
 }
 
 void BoardFrame::greenButtonOnButtonClick(wxCommandEvent& event) {
 	_currentImg = _greenImg;
+	_currentSign = SIGN::GREEN;
 }
 
 void BoardFrame::blueButtonOnButtonClick(wxCommandEvent& event) {
 	_currentImg = _blueImg;
+	_currentSign = SIGN::BLUE;
 }
 
 void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
@@ -162,7 +186,7 @@ void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
 		return;
 
 	// disabling play button 
-	Settings::mapCreated = false;
+	Settings::_mapCreated = false;
 
 	filePath.Clear();
 	filePath = fileDialog.GetPath();
@@ -178,7 +202,7 @@ void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
 	if (!Settings::worldMap.empty()) {
 		Settings::worldMap.clear();
 	}
-
+	
 	for (std::string str = txtFile.GetFirstLine().ToStdString(); !txtFile.Eof(); str = txtFile.GetNextLine().ToStdString()) {
 		if (!str.empty()) {
 			Settings::worldMap.push_back(std::vector<char>(str.begin(), str.end()));
@@ -186,7 +210,14 @@ void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
 	}
 
 	if (!Settings::validateMaze()) {
-		wxMessageBox("Invalid maze scheme! Please choose file with correct scheme!", "Maze scheme fail", wxCENTRE | wxICON_ERROR | wxOK, this);
+		wxMessageBox("Invalid maze scheme! Please choose file with correct scheme!", "Failed loading maze scheme", wxCENTRE | wxICON_ERROR | wxOK, this);
+		return;
+	}
+
+	// checking map size
+	wxSize mapSize(Settings::worldMap[0].size(), Settings::worldMap.size());
+	if (mapSize.x < 4 || mapSize.x > 50 || mapSize.y < 4 || mapSize.y > 50) {
+		wxMessageBox("Invalid maze size! Board creation accepts only mazes with sizes between 4 and 50.", "Failed loading maze scheme", wxCENTRE | wxICON_ERROR | wxOK, this);
 		return;
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -197,23 +228,23 @@ void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
 			std::vector<BoardBox> row;
 			for (char &ele : str) {
 				switch (ele) {
-				case 'X':
-					row.push_back(BoardBox(_redImg));
+				case SIGN::RED:
+					row.push_back(BoardBox(_redImg, SIGN::RED));
 					break;
-				case 'Y':
-					row.push_back(BoardBox(_greenImg));
+				case SIGN::GREEN:
+					row.push_back(BoardBox(_greenImg, SIGN::GREEN));
 					break;
-				case 'Z':
-					row.push_back(BoardBox(_blueImg));
+				case SIGN::BLUE:
+					row.push_back(BoardBox(_blueImg, SIGN::BLUE));
 					break;
-				case 'S':
-					row.push_back(BoardBox(_startImg));
+				case SIGN::START:
+					row.push_back(BoardBox(_startImg, SIGN::START));
 					break;
-				case 'E':
-					row.push_back(BoardBox(_endImg));
+				case SIGN::END:
+					row.push_back(BoardBox(_endImg, SIGN::END));
 					break;
 				default:
-					row.push_back(BoardBox(_floorImg));
+					row.push_back(BoardBox(_floorImg, SIGN::FLOOR));
 					break;
 				}
 			}
