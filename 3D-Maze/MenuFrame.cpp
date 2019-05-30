@@ -2,14 +2,13 @@
 #include "MenuFrame.h"
 #include "Settings.h"
 
-MenuFrame::MenuFrame(wxWindow* parent)
-:
-BaseMenuFrame(parent),
-_mapCreated(false)
-{}
+MenuFrame::MenuFrame(wxWindow* parent) :
+BaseMenuFrame(parent) {
+	Settings::_mapCreated = false;
+}
 
 void MenuFrame::_playButtonOnButtonClick( wxCommandEvent& event ) {
-	if (_mapCreated) {
+	if (Settings::_mapCreated) {
 		auto gamePanel = new PanelFrame(this);
 		gamePanel->Show(true);
 		this->Show(false);
@@ -44,9 +43,9 @@ void MenuFrame::_loadBoardButtonOnButtonClick( wxCommandEvent& event ) {
 		}
 	}
 
-	_mapCreated = Settings::validateMaze();
-	if (!_mapCreated) {
-		wxMessageBox("Invalid maze scheme! Please choose file with correct scheme!", "Maze scheme fail", wxCENTRE | wxICON_ERROR | wxOK , this);
+	Settings::_mapCreated = Settings::validateMaze();
+	if (!Settings::_mapCreated) {
+		wxMessageBox("Invalid maze scheme! Please choose file with correct scheme!", "Maze scheme fail", wxCENTRE | wxICON_ERROR | wxOK, this);
 	}
 }
 

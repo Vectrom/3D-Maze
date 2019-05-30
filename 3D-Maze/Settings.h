@@ -10,6 +10,7 @@ enum direction {
 };
 
 struct Settings {
+	static bool _mapCreated;
 	static double FOV;
 	static std::vector<std::vector<char>> worldMap;
 
