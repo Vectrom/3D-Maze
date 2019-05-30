@@ -1,27 +1,39 @@
 #include <algorithm>
 #include "Settings.h"
 
-bool Settings::_mapCreated;
+bool Settings::mapCreated;
 double Settings::FOV = 66.0;
 std::vector<std::vector<char>> Settings::worldMap;
+sf::Vector2<double> Settings::start;
+sf::Vector2<double> Settings::end;
 
 void Settings::getStartEnd(sf::Vector2<double>& start, sf::Vector2<double>& end) {
+	start.x = Settings::start.x;
+	start.y = Settings::start.y;
+	end.x = Settings::end.x;
+	end.y = Settings::end.y;
+}
+
+bool Settings::checkStartEnd() {
+	bool isStart = false, isEnd = false;
 	for (int i = 0; i < static_cast<int>(Settings::worldMap.size()); i++) {
 		for (int j = 0; j < static_cast<int>(Settings::worldMap[i].size()); j++) {
 			if (Settings::worldMap[i][j] == 'S') {
-				start.x = i;
-				start.y = j;
+				Settings::start.x = i;
+				Settings::start.y = j;
+				isStart = true;
 			}
 			else if (Settings::worldMap[i][j] == 'E') {
-				end.x = i;
-				end.y = j;
+				Settings::end.x = i;
+				Settings::end.y = j;
+				isEnd = true;
 			}
 		}
 	}
+	return isStart && isEnd;
 }
 
 bool Settings::validateMaze() {
-	bool isStart = false, isEnd = false;
 	std::vector<char> signs = { 'X', 'Y', 'Z', 'E', 'S' };
 	bool searchingFirst = true;
 	bool checkingMazeFrame = true;
@@ -67,7 +79,7 @@ bool Settings::validateMaze() {
 			break;
 		}
 		if (x == firstX && y == firstY) {
-			return true;
+			return checkStartEnd();
 		}
 	}
 

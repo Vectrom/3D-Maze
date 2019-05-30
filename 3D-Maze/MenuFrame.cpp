@@ -4,11 +4,11 @@
 
 MenuFrame::MenuFrame(wxWindow* parent) :
 BaseMenuFrame(parent) {
-	Settings::_mapCreated = false;
+	Settings::mapCreated = false;
 }
 
 void MenuFrame::_playButtonOnButtonClick( wxCommandEvent& event ) {
-	if (Settings::_mapCreated) {
+	if (Settings::mapCreated) {
 		auto gamePanel = new PanelFrame(this);
 		gamePanel->Show(true);
 		this->Show(false);
@@ -43,8 +43,8 @@ void MenuFrame::_loadBoardButtonOnButtonClick( wxCommandEvent& event ) {
 		}
 	}
 
-	Settings::_mapCreated = Settings::validateMaze();
-	if (!Settings::_mapCreated) {
+	Settings::mapCreated = Settings::validateMaze();
+	if (!Settings::mapCreated) {
 		wxMessageBox("Invalid maze scheme! Please choose file with correct scheme!", "Maze scheme fail", wxCENTRE | wxICON_ERROR | wxOK, this);
 	}
 }

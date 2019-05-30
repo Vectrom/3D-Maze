@@ -201,7 +201,7 @@ sf::Color Canvas::pickColor(const sf::Vector2<int>& mapBox, int side) {
 		color = sf::Color(0, 0, 100 / denominator);
 		break;
 	default:
-		color = sf::Color::Yellow;
+		color = sf::Color(247, 202,	68);
 		break;
 	}
 	return color;

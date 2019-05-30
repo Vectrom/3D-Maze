@@ -162,7 +162,7 @@ void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
 		return;
 
 	// disabling play button 
-	Settings::_mapCreated = false;
+	Settings::mapCreated = false;
 
 	filePath.Clear();
 	filePath = fileDialog.GetPath();
