@@ -21,6 +21,7 @@ protected:
 	void onLeftDown(wxMouseEvent& event);
 	void onRightDown(wxMouseEvent& event);
 	void onMotion(wxMouseEvent& event);
+	void updateBox(const wxPoint &index, const wxImage &img, char sign);
 	void prepareBoard();
 	void updatePosition();
 	void updateVariables();
