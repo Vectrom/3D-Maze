@@ -1,10 +1,24 @@
-YYYYYYYYYY
-Y        Y
-Y ZZZZZZ Y
-Y        Y
-YE      SY
-Y        Y
-Y        Y
-Y ZZZZZZ Y
-Y        Y
-YYYYYYYYYY
+XXXXXXXXXXXXXXXXXXXXXXXX
+X       X              X
+X     XX           X   X
+X    X             X   X
+X   X YYYYY    Z Z X   X
+X  XXXX   Y         X  X
+X  XX YXXXY    Z S ZX  X
+X   X Y   YX X    XXX  X
+X  XX YYYYX XXXX ZXZ X X
+X  XX   XX       XX   XX
+X   X  X       X  X    X
+X   XXX         X XX  XX
+X    X          X X XX X
+X    X          X X XX X
+X     XX       X X  X  E
+X     XX XX XX X   XX  X
+X     X XXXXXXX XXXXX  X
+X     X        X   X   X
+X      X          XX   X
+X       X    X XXXX    X
+X      XX XXXX         X
+X       XX             X
+X                      X
+XXXXXXXXXXXXXXXXXXXXXXXX

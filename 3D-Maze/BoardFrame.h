@@ -3,8 +3,9 @@
 #include "BaseBoardFrame.h"
 #include <vector>
 
-const int MAX_SIZE = 40;
-const int MIN_SIZE = 4;
+#define MAX_SIZE 40
+#define MIN_SIZE 4
+
 enum SIGN { FLOOR = ' ', RED = 'X', GREEN = 'Y', BLUE = 'Z', END = 'E', START = 'S' };
 
 class BoardFrame : public BaseBoardFrame {
@@ -44,11 +45,12 @@ private:
 	wxImage _currentImg;
 	wxSize _panelSize;
 	wxSize _boxSize;
-	wxSize _amountOfBoxes;
 	wxPoint _translation;
 	char _currentSign;
 	bool _isStart;
 	bool _isEnd;
+	int _rows;
+	int _columns;
 
 	struct BoardBox {
 		BoardBox(wxImage img, char sign = SIGN::FLOOR, wxPoint pos = wxPoint(0, 0)) : _img(img), _sign(sign), _position(pos) {}
