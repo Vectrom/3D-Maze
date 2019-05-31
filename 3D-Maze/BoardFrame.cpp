@@ -17,7 +17,7 @@ BaseBoardFrame( parent ), _parent(parent) {
 	_floorImg.LoadFile(wxT("Textures/Floor.png"), wxBITMAP_TYPE_ANY);
 
 	_amountOfBoxes = wxSize(10, 10);
-	_currentSign = SIGN::FLOOR;
+	_currentSign = SIGN::RED;
 	_currentImg = _redImg;
 	_isStart = false;
 	_isEnd = false;

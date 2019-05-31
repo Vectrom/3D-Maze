@@ -12,8 +12,9 @@
 BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxSize( 800,600 ), wxSize( -1,-1 ) );
-	this->SetForegroundColour( wxColour( 153, 115, 0 ) );
-	this->SetBackgroundColour( wxColour( 153, 77, 0 ) );
+	this->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString ) );
+	this->SetForegroundColour( wxColour( 89, 17, 17 ) );
+	this->SetBackgroundColour( wxColour( 89, 17, 17 ) );
 
 	wxBoxSizer* _mainSizer;
 	_mainSizer = new wxBoxSizer( wxHORIZONTAL );
@@ -34,8 +35,9 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_controlsSizer->Add( bSizer4, 0, wxALIGN_CENTER, 5 );
 
 	_setSizeButton = new wxButton( this, wxID_ANY, wxT("Set size"), wxPoint( -1,-1 ), wxDefaultSize, wxBORDER_NONE );
-	_setSizeButton->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOWTEXT ) );
-	_setSizeButton->SetBackgroundColour( wxColour( 153, 115, 0 ) );
+	_setSizeButton->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
+	_setSizeButton->SetForegroundColour( wxColour( 242, 213, 0 ) );
+	_setSizeButton->SetBackgroundColour( wxColour( 17, 17, 89 ) );
 
 	_controlsSizer->Add( _setSizeButton, 0, wxALIGN_CENTER|wxALL, 5 );
 
@@ -100,14 +102,16 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_SLSizer = new wxBoxSizer( wxVERTICAL );
 
 	_loadButton = new wxButton( this, wxID_ANY, wxT("Save board"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
-	_loadButton->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOWTEXT ) );
-	_loadButton->SetBackgroundColour( wxColour( 153, 115, 0 ) );
+	_loadButton->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
+	_loadButton->SetForegroundColour( wxColour( 242, 232, 0 ) );
+	_loadButton->SetBackgroundColour( wxColour( 17, 17, 89 ) );
 
 	_SLSizer->Add( _loadButton, 0, wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
 	_saveButton = new wxButton( this, wxID_ANY, wxT("Load board"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
-	_saveButton->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOWTEXT ) );
-	_saveButton->SetBackgroundColour( wxColour( 153, 115, 0 ) );
+	_saveButton->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
+	_saveButton->SetForegroundColour( wxColour( 242, 232, 0 ) );
+	_saveButton->SetBackgroundColour( wxColour( 17, 17, 89 ) );
 
 	_SLSizer->Add( _saveButton, 0, wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
@@ -121,7 +125,7 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_boardSizer = new wxBoxSizer( wxVERTICAL );
 
 	_boardPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	_boardPanel->SetBackgroundColour( wxColour( 153, 77, 0 ) );
+	_boardPanel->SetBackgroundColour( wxColour( 89, 17, 17 ) );
 
 	_boardSizer->Add( _boardPanel, 1, wxEXPAND | wxALL, 5 );
 
