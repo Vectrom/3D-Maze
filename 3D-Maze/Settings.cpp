@@ -24,8 +24,8 @@ void Settings::getStartEnd(sf::Vector2<double>& start, sf::Vector2<double>& end)
 
 bool Settings::checkStartEnd() {
 	bool isStart = false, isEnd = false;
-	for (int i = 0; i < static_cast<int>(Settings::worldMap.size()); i++) {
-		for (int j = 0; j < static_cast<int>(Settings::worldMap[i].size()); j++) {
+	for (int i = 0; i < static_cast<int>(Settings::worldMap.size()); i++) { //moving around the rows
+		for (int j = 0; j < static_cast<int>(Settings::worldMap[i].size()); j++) { //moving around the columns
 			if (Settings::worldMap[i][j] == 'S') {
 				Settings::start.x = i;
 				Settings::start.y = j;
@@ -45,19 +45,19 @@ bool Settings::validateMaze() {
 	bool searchingFirst = true;
 	bool checkingMazeFrame = true;
 
-	int x = 0, y = 0;
+	int y = 0, x = 0;
 	while (searchingFirst) {
-		if (std::find(signs.begin(), signs.end(), Settings::worldMap[x][y]) != signs.end()) {
+		if (std::find(signs.begin(), signs.end(), Settings::worldMap[y][x]) != signs.end()) {
 			searchingFirst = false;
 			break;
 		}
-		if (y + 1 < Settings::worldMap[x].size()) {
-			y++;
+		if (x + 1 < Settings::worldMap[y].size()) {
+			x++;
 		}
 		else {
-			if (x + 1 < Settings::worldMap.size()) {
-				x++;
-				y = 0;
+			if (y + 1 < Settings::worldMap.size()) {
+				y++;
+				x = 0;
 			}
 			else {
 				return false;
@@ -68,21 +68,21 @@ bool Settings::validateMaze() {
 	direction dir = Left; 
 	int firstX = x, firstY = y;
 	while (checkingMazeFrame) {
-		if (x == -1) {
+		if (y == -1) {
 			return false;
 		}
 		switch (dir) {
 		case Up:
-			neighborUp(x, y, dir);
+			neighborUp(y, x, dir);
 			break;
 		case Down:
-			neighborDown(x, y, dir);
+			neighborDown(y, x, dir);
 			break;
 		case Left:
-			neighborLeft(x, y, dir);
+			neighborLeft(y, x, dir);
 			break;
 		case Right:
-			neighborRight(x, y, dir);
+			neighborRight(y, x, dir);
 			break;
 		}
 		if (x == firstX && y == firstY) {

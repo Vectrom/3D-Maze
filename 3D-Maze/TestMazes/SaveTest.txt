@@ -1,10 +1,10 @@
-XXXXXZZZX 
-  ZZ Z ZZX
-   ZZZ  ZZ
-ZZZZ     X
-ZXXZ     X
-ZZXZZZZ  X
- ZZZXXXZ X
-X XZ   ZZX
- XXZ  ZZZ 
-   ZZZZ   
+YYYYYYYYYY
+Y        Y
+Y ZZZZZZ Y
+Y        Y
+YE      SY
+Y        Y
+Y        Y
+Y ZZZZZZ Y
+Y        Y
+YYYYYYYYYY

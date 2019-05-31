@@ -6,8 +6,8 @@
 #include "BoardFrame.h"
 #include "Settings.h"
 
-BoardFrame::BoardFrame( wxWindow* parent ) : 
-BaseBoardFrame( parent ), _parent(parent) {
+BoardFrame::BoardFrame(wxWindow* parent) :
+	BaseBoardFrame(parent), _parent(parent) {
 	// loading images
 	_redImg.LoadFile(wxT("Textures/RedWall.png"), wxBITMAP_TYPE_ANY);
 	_greenImg.LoadFile(wxT("Textures/GreenWall.png"), wxBITMAP_TYPE_ANY);
@@ -196,7 +196,7 @@ void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
 	std::string str;
 	int size;
 	for (str = txtFile.GetFirstLine().ToStdString(), size = str.length(); !txtFile.Eof(); str = txtFile.GetNextLine().ToStdString()) {
-		if(str.length() != size) {
+		if (str.length() != size) {
 			failedLoadingScheme("Maze has invalid size! Maze map have to be rectangular!");
 			return;
 		}
