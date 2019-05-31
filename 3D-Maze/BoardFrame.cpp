@@ -16,7 +16,8 @@ BaseBoardFrame( parent ), _parent(parent) {
 	_endImg.LoadFile(wxT("Textures/End.png"), wxBITMAP_TYPE_ANY);
 	_floorImg.LoadFile(wxT("Textures/Floor.png"), wxBITMAP_TYPE_ANY);
 
-	_amountOfBoxes = wxSize(10, 10);
+	_rows = 10;
+	_columns = 10;
 	_currentSign = SIGN::RED;
 	_currentImg = _redImg;
 	_isStart = false;
@@ -32,17 +33,17 @@ void BoardFrame::frameOnClose(wxCloseEvent& event) {
 
 void BoardFrame::updateVariables() {
 	_panelSize = wxSize(_boardPanel->GetSize().x, _boardPanel->GetSize().y);
-	_boxSize = wxSize(_panelSize.x / _amountOfBoxes.x, _panelSize.y / _amountOfBoxes.y);
-	_translation = wxPoint((_panelSize.x - _boxSize.x * _amountOfBoxes.x) / 2, (_panelSize.y - _boxSize.y * _amountOfBoxes.y) / 2);
+	_boxSize = wxSize(_panelSize.x / _columns, _panelSize.y / _rows);
+	_translation = wxPoint((_panelSize.x - _boxSize.x * _columns) / 2, (_panelSize.y - _boxSize.y * _rows) / 2);
 }
 
 void BoardFrame::draw() {
 	wxClientDC DC(_boardPanel);
 	wxBufferedDC buffDC(&DC);
 	buffDC.Clear();
-	for (int x = 0; x < _amountOfBoxes.x; x++) {
-		for (int y = 0; y < _amountOfBoxes.y; y++) {
-			buffDC.DrawBitmap(_board[x][y]._img.Scale(_boxSize.x, _boxSize.y), _board[x][y]._position + _translation);
+	for (int i = 0; i < _rows; i++) {
+		for (int j = 0; j < _columns; j++) {
+			buffDC.DrawBitmap(_board[i][j]._img.Scale(_boxSize.x, _boxSize.y), _board[i][j]._position + _translation);
 		}
 	}
 }
@@ -52,10 +53,10 @@ void BoardFrame::prepareBoard() {
 	_isStart = false;
 	_isEnd = false;
 	_board.clear();
-	for (int x = 0; x < _amountOfBoxes.x; x++) {
+	for (int i = 0; i < _rows; i++) {
 		std::vector<BoardBox> row;
-		for (int y = 0; y < _amountOfBoxes.y; y++) {
-			row.push_back(BoardBox(_floorImg, SIGN::FLOOR, wxPoint(x * _boxSize.x, y * _boxSize.y)));
+		for (int j = 0; j < _columns; j++) {
+			row.push_back(BoardBox(_floorImg, SIGN::FLOOR, wxPoint(j * _boxSize.x, i * _boxSize.y)));
 		}
 		_board.push_back(row);
 	}
@@ -64,9 +65,9 @@ void BoardFrame::prepareBoard() {
 
 void BoardFrame::updatePosition() {
 	updateVariables();
-	for (int x = 0; x < _amountOfBoxes.x; x++) {
-		for (int y = 0; y < _amountOfBoxes.y; y++) {
-			_board[x][y]._position = wxPoint(x * _boxSize.x, y * _boxSize.y);
+	for (int i = 0; i < _rows; i++) {
+		for (int j = 0; j < _columns; j++) {
+			_board[i][j]._position = wxPoint(j * _boxSize.x, i * _boxSize.y);
 		}
 	}
 }
@@ -78,9 +79,9 @@ void BoardFrame::onResize(wxSizeEvent& event) {
 }
 
 bool BoardFrame::computeIndex(wxPoint &index, const wxPoint &position) {
-	if (position.x >= _amountOfBoxes.x * _boxSize.x + _translation.x || position.y >= _amountOfBoxes.y * _boxSize.y + _translation.y || position.x <= _translation.x || position.y <= _translation.y) return false;
+	if (position.x >= _columns * _boxSize.x + _translation.x || position.y >= _rows * _boxSize.y + _translation.y || position.x <= _translation.x || position.y <= _translation.y) return false;
 	index = wxPoint(static_cast<int>((position.x - _translation.x) / _boxSize.x), static_cast<int>((position.y - _translation.y) / _boxSize.y));
-	if (index.x > _amountOfBoxes.x - 1 || index.y > _amountOfBoxes.y - 1) return false;
+	if (index.x > _columns - 1 || index.y > _rows - 1) return false;
 	return true;
 }
 
@@ -120,18 +121,19 @@ void BoardFrame::onMotion(wxMouseEvent& event) {
 }
 
 void BoardFrame::setSizeButtonOnButtonClick(wxCommandEvent& event) {
-	long x, y;
+	long rows, columns;
 
 	// returns true on success
-	bool tmp1 = _xBoxesText->GetValue().ToLong(&x);
-	bool tmp2 = _yBoxesText->GetValue().ToLong(&y);
+	bool tmp1 = _xBoxesText->GetValue().ToLong(&rows);
+	bool tmp2 = _yBoxesText->GetValue().ToLong(&columns);
 
-	if (!tmp1 || !tmp2 || x < MIN_SIZE || x > MAX_SIZE || y < MIN_SIZE || y > MAX_SIZE) {
+	if (!tmp1 || !tmp2 || rows < MIN_SIZE || rows > MAX_SIZE || columns < MIN_SIZE || columns > MAX_SIZE) {
 		wxMessageBox(wxString::Format("You have entered invalid value! Correct value have to be between %d and %d!", MIN_SIZE, MAX_SIZE), "Invalid input", wxOK, this);
 		return;
 	}
 
-	_amountOfBoxes = wxSize(x, y);
+	_rows = rows;
+	_columns = columns;
 	prepareBoard();
 }
 
@@ -241,15 +243,16 @@ void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
 		_board.push_back(row);
 	}
 
-	_amountOfBoxes = wxSize(_board.size(), _board[0].size());
-	if (_amountOfBoxes.x < MIN_SIZE || _amountOfBoxes.x > MAX_SIZE || _amountOfBoxes.y < MIN_SIZE || _amountOfBoxes.y > MAX_SIZE) {
+	_rows = _board.size();
+	_columns = _board[0].size();
+	if (_columns < MIN_SIZE || _columns > MAX_SIZE || _rows < MIN_SIZE || _rows > MAX_SIZE) {
 		failedLoadingScheme(std::string(wxString::Format("Invalid size of the maze! Board creator accepts only mazes with size between %dx%d and %dx%d!", MIN_SIZE, MIN_SIZE, MAX_SIZE, MAX_SIZE)));
 		return;
 	}
 
 	// updating text
-	_xBoxesText->SetValue(wxString::Format(wxT("%i"), _amountOfBoxes.x));
-	_yBoxesText->SetValue(wxString::Format(wxT("%i"), _amountOfBoxes.y));
+	_xBoxesText->SetValue(wxString::Format(wxT("%i"), _columns));
+	_yBoxesText->SetValue(wxString::Format(wxT("%i"), _rows));
 
 	updatePosition();
 	draw();
@@ -260,11 +263,11 @@ void BoardFrame::saveButtonOnButtonClick(wxCommandEvent& event) {
 	if (saveDialog.ShowModal() == wxID_OK) {
 		std::fstream file;
 		file.open(std::string(saveDialog.GetPath()), std::ios::out);
-		for (int x = 0; x < _amountOfBoxes.x; x++) {
+		for (int i = 0; i < _rows; i++) {
 			std::string str;
 			str.clear();
-			for (int y = 0; y < _amountOfBoxes.y; y++) {
-				str += _board[x][y]._sign;
+			for (int j = 0; j < _columns; j++) {
+				str += _board[i][j]._sign;
 			}
 			file << str << std::endl;
 		}
