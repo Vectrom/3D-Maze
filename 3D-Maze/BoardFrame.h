@@ -3,6 +3,10 @@
 #include "BaseBoardFrame.h"
 #include <vector>
 
+const int MAX_SIZE = 40;
+const int MIN_SIZE = 4;
+enum SIGN { FLOOR = ' ', RED = 'X', GREEN = 'Y', BLUE = 'Z', END = 'E', START = 'S' };
+
 class BoardFrame : public BaseBoardFrame {
 public:
 	BoardFrame(wxWindow* parent);
@@ -27,6 +31,7 @@ protected:
 	void updateVariables();
 	void draw();
 	bool computeIndex(wxPoint &index, const wxPoint &position);
+	void failedLoadingScheme(std::string);
 
 private:
 	wxWindow *_parent;
@@ -44,8 +49,6 @@ private:
 	char _currentSign;
 	bool _isStart;
 	bool _isEnd;
-
-	enum SIGN {FLOOR = ' ', RED = 'X', GREEN = 'Y', BLUE = 'Z', END = 'E', START = 'S'};
 
 	struct BoardBox {
 		BoardBox(wxImage img, char sign = SIGN::FLOOR, wxPoint pos = wxPoint(0, 0)) : _img(img), _sign(sign), _position(pos) {}

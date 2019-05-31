@@ -1,8 +1,9 @@
-#include "BoardFrame.h"
 #include <wx/dcbuffer.h>
 #include <wx/msgdlg.h> 
 #include <wx/filedlg.h>
 #include <wx/textfile.h>
+#include <fstream>
+#include "BoardFrame.h"
 #include "Settings.h"
 
 BoardFrame::BoardFrame( wxWindow* parent ) : 
@@ -125,8 +126,8 @@ void BoardFrame::setSizeButtonOnButtonClick(wxCommandEvent& event) {
 	bool tmp1 = _xBoxesText->GetValue().ToLong(&x);
 	bool tmp2 = _yBoxesText->GetValue().ToLong(&y);
 
-	if (!tmp1 || !tmp2 || x < 4 || x > 50 || y < 4 || y > 50) {
-		wxMessageBox("You have entered invalid value! Correct value have to be between 4 and 50!", "Invalid input", wxOK, this);
+	if (!tmp1 || !tmp2 || x < MIN_SIZE || x > MAX_SIZE || y < MIN_SIZE || y > MAX_SIZE) {
+		wxMessageBox(wxString::Format("You have entered invalid value! Correct value have to be between %d and %d!", MIN_SIZE, MAX_SIZE), "Invalid input", wxOK, this);
 		return;
 	}
 
@@ -163,6 +164,11 @@ void BoardFrame::blueButtonOnButtonClick(wxCommandEvent& event) {
 	_currentSign = SIGN::BLUE;
 }
 
+void BoardFrame::failedLoadingScheme(std::string info) {
+	wxMessageBox(info, "Failed loading maze scheme", wxCENTRE | wxICON_ERROR | wxOK, this);
+	_board.clear();
+}
+
 void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
 	wxString filePath;
 	wxFileDialog fileDialog(this, _("Open txt file"), "", "", "txt files (*.txt)|*.txt", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
@@ -183,63 +189,63 @@ void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
 
 	_board.clear();
 
-	// TODO: MERGE VALIDATION
-	////////////////////////////////////////////////////////////// TEMPORARY ////////////////////////////////////////////////////////////////////////////////
-	if (!Settings::worldMap.empty()) {
-		Settings::worldMap.clear();
-	}
-	
-	for (std::string str = txtFile.GetFirstLine().ToStdString(); !txtFile.Eof(); str = txtFile.GetNextLine().ToStdString()) {
-		if (!str.empty()) {
-			Settings::worldMap.push_back(std::vector<char>(str.begin(), str.end()));
+	_isStart = _isEnd = false;
+
+	// loading map; loads only first encountered start box, converts the rest of the start boxes to floor boxes (same for end box)
+	// the maze map have to be rectangular
+	std::string str;
+	int size;
+	for (str = txtFile.GetFirstLine().ToStdString(), size = str.length(); !txtFile.Eof(); str = txtFile.GetNextLine().ToStdString()) {
+		if(str.length() != size) {
+			failedLoadingScheme("Maze has invalid size! Maze map have to be rectangular!");
+			return;
 		}
-	}
-
-	if (!Settings::validateMaze()) {
-		wxMessageBox("Invalid maze scheme! Please choose file with correct scheme!", "Failed loading maze scheme", wxCENTRE | wxICON_ERROR | wxOK, this);
-		return;
-	}
-
-	// checking map size
-	wxSize mapSize(Settings::worldMap[0].size(), Settings::worldMap.size());
-	if (mapSize.x < 4 || mapSize.x > 50 || mapSize.y < 4 || mapSize.y > 50) {
-		wxMessageBox("Invalid maze size! Board creation accepts only mazes with sizes between 4 and 50!", "Failed loading maze scheme", wxCENTRE | wxICON_ERROR | wxOK, this);
-		return;
-	}
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	// loading map
-	for (std::string str = txtFile.GetFirstLine().ToStdString(); !txtFile.Eof(); str = txtFile.GetNextLine().ToStdString()) {
-		if (!str.empty()) {
-
-			std::vector<BoardBox> row;
-			for (char &ele : str) {
-				switch (ele) {
-				case SIGN::RED:
-					row.push_back(BoardBox(_redImg, SIGN::RED));
-					break;
-				case SIGN::GREEN:
-					row.push_back(BoardBox(_greenImg, SIGN::GREEN));
-					break;
-				case SIGN::BLUE:
-					row.push_back(BoardBox(_blueImg, SIGN::BLUE));
-					break;
-				case SIGN::START:
+		std::vector<BoardBox> row;
+		for (char &ele : str) {
+			switch (ele) {
+			case SIGN::RED:
+				row.push_back(BoardBox(_redImg, SIGN::RED));
+				break;
+			case SIGN::GREEN:
+				row.push_back(BoardBox(_greenImg, SIGN::GREEN));
+				break;
+			case SIGN::BLUE:
+				row.push_back(BoardBox(_blueImg, SIGN::BLUE));
+				break;
+			case SIGN::START:
+				if (!_isStart) {
 					row.push_back(BoardBox(_startImg, SIGN::START));
-					break;
-				case SIGN::END:
-					row.push_back(BoardBox(_endImg, SIGN::END));
-					break;
-				default:
-					row.push_back(BoardBox(_floorImg, SIGN::FLOOR));
-					break;
+					_isStart = true;
 				}
+				else {
+					row.push_back(BoardBox(_floorImg, SIGN::FLOOR));
+				}
+				break;
+			case SIGN::END:
+				if (!_isEnd) {
+					row.push_back(BoardBox(_endImg, SIGN::END));
+					_isEnd = true;
+				}
+				else {
+					row.push_back(BoardBox(_floorImg, SIGN::FLOOR));
+				}
+				break;
+			case SIGN::FLOOR:
+				row.push_back(BoardBox(_floorImg, SIGN::FLOOR));
+				break;
+			default:
+				failedLoadingScheme("Maze scheme contains invalid signs!");
+				return;
 			}
-			_board.push_back(row);
 		}
+		_board.push_back(row);
 	}
 
 	_amountOfBoxes = wxSize(_board.size(), _board[0].size());
+	if (_amountOfBoxes.x < MIN_SIZE || _amountOfBoxes.x > MAX_SIZE || _amountOfBoxes.y < MIN_SIZE || _amountOfBoxes.y > MAX_SIZE) {
+		failedLoadingScheme(std::string(wxString::Format("Invalid size of the maze! Board creator accepts only mazes with size between %dx%d and %dx%d!", MIN_SIZE, MIN_SIZE, MAX_SIZE, MAX_SIZE)));
+		return;
+	}
 
 	// updating text
 	_xBoxesText->SetValue(wxString::Format(wxT("%i"), _amountOfBoxes.x));
@@ -250,5 +256,18 @@ void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
 }
 
 void BoardFrame::saveButtonOnButtonClick(wxCommandEvent& event) {
-
+	wxFileDialog saveDialog(this, _("Choose a file"), _(""), _(""), _("text files (*.txt)|*.txt"), wxFD_SAVE);
+	if (saveDialog.ShowModal() == wxID_OK) {
+		std::fstream file;
+		file.open(std::string(saveDialog.GetPath()), std::ios::out);
+		for (int x = 0; x < _amountOfBoxes.x; x++) {
+			std::string str;
+			str.clear();
+			for (int y = 0; y < _amountOfBoxes.y; y++) {
+				str += _board[x][y]._sign;
+			}
+			file << str << std::endl;
+		}
+		file.close();
+	}
 }
