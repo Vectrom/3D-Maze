@@ -125,8 +125,8 @@ void BoardFrame::setSizeButtonOnButtonClick(wxCommandEvent& event) {
 	long rows, columns;
 
 	// returns true on success
-	bool tmp1 = _xBoxesText->GetValue().ToLong(&rows);
-	bool tmp2 = _yBoxesText->GetValue().ToLong(&columns);
+	bool tmp1 = _rowsText->GetValue().ToLong(&rows);
+	bool tmp2 = _columnsText->GetValue().ToLong(&columns);
 
 	if (!tmp1 || !tmp2 || rows < MIN_SIZE || rows > MAX_SIZE || columns < MIN_SIZE || columns > MAX_SIZE) {
 		wxMessageBox(wxString::Format("You have entered invalid value! Correct value have to be between %d and %d!", MIN_SIZE, MAX_SIZE), "Invalid input", wxOK, this);
@@ -252,8 +252,8 @@ void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
 	}
 
 	// updating text
-	_xBoxesText->SetValue(wxString::Format(wxT("%i"), _columns));
-	_yBoxesText->SetValue(wxString::Format(wxT("%i"), _rows));
+	_rowsText->SetValue(wxString::Format(wxT("%i"), _columns));
+	_columnsText->SetValue(wxString::Format(wxT("%i"), _rows));
 
 	updatePosition();
 	draw();

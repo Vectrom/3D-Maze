@@ -25,11 +25,11 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	wxBoxSizer* bSizer4;
 	bSizer4 = new wxBoxSizer( wxHORIZONTAL );
 
-	_xBoxesText = new wxTextCtrl( this, wxID_ANY, wxT("10"), wxDefaultPosition, wxSize( 50,-1 ), 0 );
-	bSizer4->Add( _xBoxesText, 0, wxALL, 5 );
+	_rowsText = new wxTextCtrl( this, wxID_ANY, wxT("10"), wxDefaultPosition, wxSize( 50,-1 ), 0 );
+	bSizer4->Add( _rowsText, 0, wxALL, 5 );
 
-	_yBoxesText = new wxTextCtrl( this, wxID_ANY, wxT("10"), wxDefaultPosition, wxSize( 50,-1 ), 0 );
-	bSizer4->Add( _yBoxesText, 0, wxALL, 5 );
+	_columnsText = new wxTextCtrl( this, wxID_ANY, wxT("10"), wxDefaultPosition, wxSize( 50,-1 ), 0 );
+	bSizer4->Add( _columnsText, 0, wxALL, 5 );
 
 
 	_controlsSizer->Add( bSizer4, 0, wxALIGN_CENTER, 5 );

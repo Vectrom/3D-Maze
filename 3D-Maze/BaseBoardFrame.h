@@ -35,8 +35,8 @@ class BaseBoardFrame : public wxFrame
 	private:
 
 	protected:
-		wxTextCtrl* _xBoxesText;
-		wxTextCtrl* _yBoxesText;
+		wxTextCtrl* _rowsText;
+		wxTextCtrl* _columnsText;
 		wxButton* _setSizeButton;
 		wxBitmapButton* _redButton;
 		wxBitmapButton* _greenButton;
