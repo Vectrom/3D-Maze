@@ -26,12 +26,13 @@ protected:
 	void onLeftDown(wxMouseEvent& event);
 	void onRightDown(wxMouseEvent& event);
 	void onMotion(wxMouseEvent& event);
-	void updateBox(const wxPoint &index, const wxImage &img, char sign);
+	// returns true if index was computed successfully
+	bool computeIndex(int &i, int &j, const wxPoint &position);
+	void updateBox(int i, int j, const wxImage &img, char sign);
 	void prepareBoard();
 	void updatePosition();
 	void updateVariables();
 	void draw();
-	bool computeIndex(wxPoint &index, const wxPoint &position);
 	void failedLoadingScheme(std::string);
 
 private:

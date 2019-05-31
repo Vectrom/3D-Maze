@@ -6,8 +6,8 @@
 #include "BoardFrame.h"
 #include "Settings.h"
 
-BoardFrame::BoardFrame(wxWindow* parent) :
-	BaseBoardFrame(parent), _parent(parent) {
+BoardFrame::BoardFrame( wxWindow* parent ) : 
+BaseBoardFrame( parent ), _parent(parent) {
 	// loading images
 	_redImg.LoadFile(wxT("Textures/RedWall.png"), wxBITMAP_TYPE_ANY);
 	_greenImg.LoadFile(wxT("Textures/GreenWall.png"), wxBITMAP_TYPE_ANY);
@@ -78,36 +78,37 @@ void BoardFrame::onResize(wxSizeEvent& event) {
 	draw();
 }
 
-bool BoardFrame::computeIndex(wxPoint &index, const wxPoint &position) {
+bool BoardFrame::computeIndex(int &i, int &j, const wxPoint &position) {
 	if (position.x >= _columns * _boxSize.x + _translation.x || position.y >= _rows * _boxSize.y + _translation.y || position.x <= _translation.x || position.y <= _translation.y) return false;
-	index = wxPoint(static_cast<int>((position.x - _translation.x) / _boxSize.x), static_cast<int>((position.y - _translation.y) / _boxSize.y));
-	if (index.x > _columns - 1 || index.y > _rows - 1) return false;
+	i = static_cast<int>((position.y - _translation.y) / _boxSize.y);
+	j = static_cast<int>((position.x - _translation.x) / _boxSize.x);
+	if (j > _columns - 1 || i > _rows - 1) return false;
 	return true;
 }
 
-void BoardFrame::updateBox(const wxPoint &index, const wxImage &img, char sign) {
-	if (_board[index.x][index.y]._sign == SIGN::START) _isStart = false;
-	else if (_board[index.x][index.y]._sign == SIGN::END) _isEnd = false;
-	_board[index.x][index.y]._img = img;
-	_board[index.x][index.y]._sign = sign;
+void BoardFrame::updateBox(int i, int j, const wxImage &img, char sign) {
+	if (_board[i][j]._sign == SIGN::START) _isStart = false;
+	else if (_board[i][j]._sign == SIGN::END) _isEnd = false;
+	_board[i][j]._img = img;
+	_board[i][j]._sign = sign;
 }
 
 void BoardFrame::onLeftDown(wxMouseEvent& event) {
 	if (_currentSign == SIGN::START && _isStart || _currentSign == SIGN::END && _isEnd) return;
 	wxPoint mousePosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
-	wxPoint index;
-	if (!computeIndex(index, mousePosition)) return;
+	int i, j;
+	if (!computeIndex(i, j, mousePosition)) return;
 	if (_currentSign == SIGN::START) _isStart = true;
 	else if (_currentSign == SIGN::END) _isEnd = true;
-	updateBox(index, _currentImg, _currentSign);
+	updateBox(i, j, _currentImg, _currentSign);
 	draw();
 }
 
 void BoardFrame::onRightDown(wxMouseEvent& event) {
 	wxPoint mousePosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
-	wxPoint index;
-	if (!computeIndex(index, mousePosition)) return;
-	updateBox(index, _floorImg, SIGN::FLOOR);
+	int i, j;
+	if (!computeIndex(i, j, mousePosition)) return;
+	updateBox(i, j, _floorImg, SIGN::FLOOR);
 	draw();
 }
 
@@ -198,7 +199,7 @@ void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
 	std::string str;
 	int size;
 	for (str = txtFile.GetFirstLine().ToStdString(), size = str.length(); !txtFile.Eof(); str = txtFile.GetNextLine().ToStdString()) {
-		if (str.length() != size) {
+		if(str.length() != size) {
 			failedLoadingScheme("Maze has invalid size! Maze map have to be rectangular!");
 			return;
 		}
