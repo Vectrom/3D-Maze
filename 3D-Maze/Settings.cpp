@@ -45,19 +45,19 @@ bool Settings::validateMaze() {
 	bool searchingFirst = true;
 	bool checkingMazeFrame = true;
 
-	int y = 0, x = 0;
+	int x = 0, y = 0;
 	while (searchingFirst) {
-		if (std::find(signs.begin(), signs.end(), Settings::worldMap[y][x]) != signs.end()) {
+		if (std::find(signs.begin(), signs.end(), Settings::worldMap[x][y]) != signs.end()) {
 			searchingFirst = false;
 			break;
 		}
-		if (x + 1 < Settings::worldMap[y].size()) {
-			x++;
+		if (y + 1 < Settings::worldMap[x].size()) {
+			y++;
 		}
 		else {
-			if (y + 1 < Settings::worldMap.size()) {
-				y++;
-				x = 0;
+			if (x + 1 < Settings::worldMap.size()) {
+				x++;
+				y = 0;
 			}
 			else {
 				return false;
@@ -68,21 +68,21 @@ bool Settings::validateMaze() {
 	direction dir = Left; 
 	int firstX = x, firstY = y;
 	while (checkingMazeFrame) {
-		if (y == -1) {
+		if (x == -1) {
 			return false;
 		}
 		switch (dir) {
 		case Up:
-			neighborUp(y, x, dir);
+			neighborUp(x, y, dir);
 			break;
 		case Down:
-			neighborDown(y, x, dir);
+			neighborDown(x, y, dir);
 			break;
 		case Left:
-			neighborLeft(y, x, dir);
+			neighborLeft(x, y, dir);
 			break;
 		case Right:
-			neighborRight(y, x, dir);
+			neighborRight(x, y, dir);
 			break;
 		}
 		if (x == firstX && y == firstY) {
