@@ -9,7 +9,7 @@ sf::Vector2<double> Settings::end;
 sf::Color Settings::wallX[2] = { sf::Color(100, 0, 0), sf::Color(50, 0, 0) };
 sf::Color Settings::wallY[2] = { sf::Color(0, 100, 0), sf::Color(0, 50, 0) };
 sf::Color Settings::wallZ[2] = { sf::Color(0, 0, 100), sf::Color(0, 0, 50) };
-sf::Color Settings::ceil(54, 51, 51);
+sf::Color Settings::ceil(79, 116, 175);
 sf::Color Settings::floor(39, 33, 33);
 sf::Color Settings::exit(247, 202, 68);
 

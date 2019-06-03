@@ -3,6 +3,7 @@
 #include <wx/wx.h>
 #include <vector>
 #include <utility>
+#include <SFML/Audio.hpp>
 #include "wxSfmlCanvas.h"
 #include "MinimapPanel.h"
 
@@ -33,4 +34,5 @@ private:
 	double _oldTime = 0.;
 	MinimapPanel*  _minimap;
 	bool _isActiveMinimap = false;
+	sf::Music _music;
 };

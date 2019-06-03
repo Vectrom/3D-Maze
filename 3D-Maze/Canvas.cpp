@@ -15,6 +15,14 @@ Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, 
 	_direction = sf::Vector2<double>(-1., 0.);
 	_plane = sf::Vector2<double>(0., tan(Settings::FOV/2 * M_PI/180));
 	_minimap = new MinimapPanel(this);
+
+	
+	if (!_music.openFromFile("Music/creepy.ogg")) {
+		// error...
+	}
+	_music.setVolume(5);
+	_music.setLoop(true);
+	_music.play();
 }
 
 Canvas::~Canvas() {
