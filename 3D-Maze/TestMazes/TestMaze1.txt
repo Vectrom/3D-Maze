@@ -12,11 +12,11 @@ X                      X
 X                      X
 X                      X
 X                      X
-X                      E
 X                      X
 X                      X
-X                      X
-X                      X
+X                 XXXXXX
+X                 E     
+X                 XXXXXX
 X                      X
 X                      X
 X                      X
