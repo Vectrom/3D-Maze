@@ -128,7 +128,7 @@ void Settings::neighborUp(int & x, int & y, direction &dir) {
 		dir = Right;
 		return;
 	}
-	if (x + 1 < Settings::worldMap.size() && y < 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y - 1]) != signs.end()) {
+	if (x + 1 < Settings::worldMap.size() && y > 0 && std::find(signs.begin(), signs.end(), Settings::worldMap[x + 1][y - 1]) != signs.end()) {
 		x += 1;
 		y -= 1;
 		dir = Right;
