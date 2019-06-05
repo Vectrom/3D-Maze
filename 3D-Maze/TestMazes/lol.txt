@@ -3,7 +3,7 @@
   XX XX   
  X X X    
  X XXX    
- XXXXX X  
+ X XXX X  
  XX X XX  
   XXXXXX  
     XX    

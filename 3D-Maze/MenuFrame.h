@@ -16,4 +16,5 @@ protected:
 	void _createBoardButtonOnButtonClick(wxCommandEvent& event);
 	void _exitButtonOnButtonClick(wxCommandEvent& event);
 	void _FOVSliderOnScroll(wxScrollEvent& event);
+	void _musicCheckBoxOnCheckBox(wxCommandEvent& event);
 };

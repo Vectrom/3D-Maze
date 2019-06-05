@@ -7,7 +7,7 @@
 Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, long style) :
 	wxSfmlCanvas(parent, id, position, size, style) {
 	_clock.restart();
-	_font.loadFromFile("andina.ttf");
+	_font.loadFromFile("Fonts/andina.ttf");
 	_timeText = new sf::Text("Time: 0", _font, 40);
 	_timeText->setFillColor(sf::Color::Yellow);
 	draw(*_timeText);
@@ -26,7 +26,8 @@ Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, 
 	}
 	_music.setVolume(5);
 	_music.setLoop(true);
-	_music.play();
+	if (Settings::music)
+		_music.play();
 }
 
 Canvas::~Canvas() {

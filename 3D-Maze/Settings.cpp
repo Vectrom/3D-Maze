@@ -2,6 +2,7 @@
 #include "Settings.h"
 
 bool Settings::mapCreated = false;
+bool Settings::music = true;
 double Settings::FOV = 66.0;
 std::vector<std::vector<char>> Settings::worldMap;
 sf::Vector2<double> Settings::start;
@@ -65,7 +66,7 @@ bool Settings::validateMaze() {
 		}
 	}
 	
-	direction dir = Left; 
+	direction dir = Down; 
 	int firstX = x, firstY = y;
 	while (checkingMazeFrame) {
 		if (x == -1) {

@@ -64,3 +64,7 @@ void MenuFrame::_FOVSliderOnScroll(wxScrollEvent & event) {
 	Settings::FOV = position;
 	_FOVText->SetLabel("FOV: " + std::to_string(position));
 }
+
+void MenuFrame::_musicCheckBoxOnCheckBox(wxCommandEvent & event) {
+	Settings::music = _musicCheckBox->GetValue();
+}

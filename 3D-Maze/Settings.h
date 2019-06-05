@@ -5,6 +5,7 @@
 
 struct Settings {
 	static bool mapCreated;
+	static bool music;
 	static sf::Vector2<double> start;
 	static sf::Vector2<double> end;
 	static double FOV;
