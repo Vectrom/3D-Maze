@@ -37,6 +37,7 @@ class BaseMenuFrame : public wxFrame
 		wxButton* _playButton;
 		wxButton* _loadBoardButton;
 		wxButton* _createBoardButton;
+		wxButton* _helpButton;
 		wxButton* _exitButton;
 		wxStaticText* _FOVText;
 		wxSlider* _FOVSlider;
@@ -51,7 +52,7 @@ class BaseMenuFrame : public wxFrame
 
 	public:
 
-		BaseMenuFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 327,310 ), long style = wxCAPTION|wxCLOSE_BOX|wxSYSTEM_MENU|wxTAB_TRAVERSAL );
+		BaseMenuFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 400,600 ), long style = wxCAPTION|wxCLOSE_BOX|wxSYSTEM_MENU|wxTAB_TRAVERSAL );
 
 		~BaseMenuFrame();
 
