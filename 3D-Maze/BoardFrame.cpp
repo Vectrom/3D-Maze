@@ -268,6 +268,7 @@ void BoardFrame::loadButtonOnButtonClick(wxCommandEvent& event) {
 	_rowsText->SetValue(wxString::Format(wxT("%i"), _columns));
 	_columnsText->SetValue(wxString::Format(wxT("%i"), _rows));
 
+	_boardChanged = false;
 	updatePosition();
 	draw();
 }

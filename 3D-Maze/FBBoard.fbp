@@ -46,13 +46,13 @@
             <property name="name">BaseBoardFrame</property>
             <property name="pos"></property>
             <property name="size">800,600</property>
-            <property name="style">wxDEFAULT_FRAME_STYLE</property>
+            <property name="style">wxCAPTION|wxCLOSE_BOX|wxMINIMIZE_BOX|wxRESIZE_BORDER|wxSYSTEM_MENU</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="title"></property>
             <property name="tooltip"></property>
             <property name="window_extra_style"></property>
             <property name="window_name"></property>
-            <property name="window_style">wxTAB_TRAVERSAL</property>
+            <property name="window_style">wxCLIP_CHILDREN|wxTAB_TRAVERSAL</property>
             <property name="xrc_skip_sizer">1</property>
             <event name="OnClose">frameOnClose</event>
             <event name="OnSize">onResize</event>
