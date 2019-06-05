@@ -11,7 +11,11 @@ Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, 
 	_timeText = new sf::Text("Time: 0", _font, 40);
 	_timeText->setFillColor(sf::Color::Yellow);
 	draw(*_timeText);
+
 	Settings::getStartEnd(_playerPosition, _end);
+	_playerPosition.x += 0.5; //spawn in the middle of box
+	_playerPosition.y += 0.5;
+
 	_direction = sf::Vector2<double>(-1., 0.);
 	_plane = sf::Vector2<double>(0., tan(Settings::FOV/2 * M_PI/180));
 	_minimap = new MinimapPanel(this);
