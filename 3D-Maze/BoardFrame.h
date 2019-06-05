@@ -21,6 +21,7 @@ protected:
 	void blueButtonOnButtonClick(wxCommandEvent& event);
 	void loadButtonOnButtonClick(wxCommandEvent& event);
 	void saveButtonOnButtonClick(wxCommandEvent& event);
+	void exitButtonOnButtonClick(wxCommandEvent& event);
 	void frameOnClose(wxCloseEvent& event);
 	void onResize(wxSizeEvent& event);
 	void onLeftDown(wxMouseEvent& event);
@@ -50,6 +51,7 @@ private:
 	char _currentSign;
 	bool _isStart;
 	bool _isEnd;
+	bool _boardChanged;
 	int _rows;
 	int _columns;
 

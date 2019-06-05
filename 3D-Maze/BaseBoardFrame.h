@@ -43,8 +43,9 @@ class BaseBoardFrame : public wxFrame
 		wxBitmapButton* _blueButton;
 		wxBitmapButton* _startButton;
 		wxBitmapButton* _endButton;
-		wxButton* _loadButton;
 		wxButton* _saveButton;
+		wxButton* _loadButton;
+		wxButton* _exitButton;
 		wxPanel* _boardPanel;
 
 		// Virtual event handlers, overide them in your derived class
@@ -58,6 +59,7 @@ class BaseBoardFrame : public wxFrame
 		virtual void endButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void saveButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void loadButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void exitButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void onLeftDown( wxMouseEvent& event ) { event.Skip(); }
 		virtual void onMotion( wxMouseEvent& event ) { event.Skip(); }
 		virtual void onRightDown( wxMouseEvent& event ) { event.Skip(); }

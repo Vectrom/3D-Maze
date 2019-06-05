@@ -22,11 +22,22 @@ BaseBoardFrame( parent ), _parent(parent) {
 	_currentImg = _redImg;
 	_isStart = false;
 	_isEnd = false;
+	_boardChanged = false;
 
 	prepareBoard();
 }
 
 void BoardFrame::frameOnClose(wxCloseEvent& event) {
+	if (_boardChanged) {
+		wxMessageDialog exitDialog(this, "Do you want to save the progress?", "Board has been changed", wxCENTRE | wxICON_EXCLAMATION | wxYES_NO | wxCANCEL);
+		int id = exitDialog.ShowModal();
+		if (id == wxID_YES) {
+			saveButtonOnButtonClick(wxCommandEvent());
+			return;
+		}
+		else if (id == wxID_CANCEL)
+			return;
+	}
 	_parent->Show(true);
 	this->Destroy();
 }
@@ -94,6 +105,7 @@ void BoardFrame::updateBox(int i, int j, const wxImage &img, char sign) {
 }
 
 void BoardFrame::onLeftDown(wxMouseEvent& event) {
+	if (!_boardChanged) _boardChanged = true;
 	if (_currentSign == SIGN::START && _isStart || _currentSign == SIGN::END && _isEnd) return;
 	wxPoint mousePosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
 	int i, j;
@@ -105,6 +117,7 @@ void BoardFrame::onLeftDown(wxMouseEvent& event) {
 }
 
 void BoardFrame::onRightDown(wxMouseEvent& event) {
+	if (!_boardChanged) _boardChanged = true;
 	wxPoint mousePosition = event.GetLogicalPosition(wxClientDC(_boardPanel));
 	int i, j;
 	if (!computeIndex(i, j, mousePosition)) return;
@@ -273,5 +286,10 @@ void BoardFrame::saveButtonOnButtonClick(wxCommandEvent& event) {
 			file << str << std::endl;
 		}
 		file.close();
+		_boardChanged = false;
 	}
+}
+
+void BoardFrame::exitButtonOnButtonClick(wxCommandEvent& event) {
+	frameOnClose(wxCloseEvent());
 }

@@ -36,7 +36,7 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 
 	_setSizeButton = new wxButton( this, wxID_ANY, wxT("Set size"), wxPoint( -1,-1 ), wxDefaultSize, wxBORDER_NONE );
 	_setSizeButton->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
-	_setSizeButton->SetForegroundColour( wxColour( 242, 213, 0 ) );
+	_setSizeButton->SetForegroundColour( wxColour( 242, 232, 0 ) );
 	_setSizeButton->SetBackgroundColour( wxColour( 17, 17, 89 ) );
 
 	_controlsSizer->Add( _setSizeButton, 0, wxALIGN_CENTER|wxALL, 5 );
@@ -101,19 +101,26 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	wxBoxSizer* _SLSizer;
 	_SLSizer = new wxBoxSizer( wxVERTICAL );
 
-	_loadButton = new wxButton( this, wxID_ANY, wxT("Save board"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
+	_saveButton = new wxButton( this, wxID_ANY, wxT("Save board"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
+	_saveButton->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
+	_saveButton->SetForegroundColour( wxColour( 242, 232, 0 ) );
+	_saveButton->SetBackgroundColour( wxColour( 17, 17, 89 ) );
+
+	_SLSizer->Add( _saveButton, 0, wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+
+	_loadButton = new wxButton( this, wxID_ANY, wxT("Load board"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
 	_loadButton->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
 	_loadButton->SetForegroundColour( wxColour( 242, 232, 0 ) );
 	_loadButton->SetBackgroundColour( wxColour( 17, 17, 89 ) );
 
 	_SLSizer->Add( _loadButton, 0, wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
-	_saveButton = new wxButton( this, wxID_ANY, wxT("Load board"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
-	_saveButton->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
-	_saveButton->SetForegroundColour( wxColour( 242, 232, 0 ) );
-	_saveButton->SetBackgroundColour( wxColour( 17, 17, 89 ) );
+	_exitButton = new wxButton( this, wxID_ANY, wxT("Exit"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
+	_exitButton->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
+	_exitButton->SetForegroundColour( wxColour( 242, 232, 0 ) );
+	_exitButton->SetBackgroundColour( wxColour( 17, 17, 89 ) );
 
-	_SLSizer->Add( _saveButton, 0, wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+	_SLSizer->Add( _exitButton, 0, wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
 
 	_controlsSizer->Add( _SLSizer, 1, wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxEXPAND, 5 );
@@ -147,8 +154,9 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_blueButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::blueButtonOnButtonClick ), NULL, this );
 	_startButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::startButtonOnButtonClick ), NULL, this );
 	_endButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::endButtonOnButtonClick ), NULL, this );
-	_loadButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::saveButtonOnButtonClick ), NULL, this );
-	_saveButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::loadButtonOnButtonClick ), NULL, this );
+	_saveButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::saveButtonOnButtonClick ), NULL, this );
+	_loadButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::loadButtonOnButtonClick ), NULL, this );
+	_exitButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::exitButtonOnButtonClick ), NULL, this );
 	_boardPanel->Connect( wxEVT_LEFT_DOWN, wxMouseEventHandler( BaseBoardFrame::onLeftDown ), NULL, this );
 	_boardPanel->Connect( wxEVT_MOTION, wxMouseEventHandler( BaseBoardFrame::onMotion ), NULL, this );
 	_boardPanel->Connect( wxEVT_RIGHT_DOWN, wxMouseEventHandler( BaseBoardFrame::onRightDown ), NULL, this );
@@ -165,8 +173,9 @@ BaseBoardFrame::~BaseBoardFrame()
 	_blueButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::blueButtonOnButtonClick ), NULL, this );
 	_startButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::startButtonOnButtonClick ), NULL, this );
 	_endButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::endButtonOnButtonClick ), NULL, this );
-	_loadButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::saveButtonOnButtonClick ), NULL, this );
-	_saveButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::loadButtonOnButtonClick ), NULL, this );
+	_saveButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::saveButtonOnButtonClick ), NULL, this );
+	_loadButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::loadButtonOnButtonClick ), NULL, this );
+	_exitButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseBoardFrame::exitButtonOnButtonClick ), NULL, this );
 	_boardPanel->Disconnect( wxEVT_LEFT_DOWN, wxMouseEventHandler( BaseBoardFrame::onLeftDown ), NULL, this );
 	_boardPanel->Disconnect( wxEVT_MOTION, wxMouseEventHandler( BaseBoardFrame::onMotion ), NULL, this );
 	_boardPanel->Disconnect( wxEVT_RIGHT_DOWN, wxMouseEventHandler( BaseBoardFrame::onRightDown ), NULL, this );
