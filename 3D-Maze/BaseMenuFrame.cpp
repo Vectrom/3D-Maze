@@ -12,7 +12,7 @@
 BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxSize( 800,600 ), wxSize( 800,600 ) );
-	this->SetBackgroundColour( wxColour( 33, 33, 33 ) );
+	this->SetBackgroundColour( wxColour( 48, 33, 77 ) );
 
 	wxBoxSizer* menuSizer;
 	menuSizer = new wxBoxSizer( wxHORIZONTAL );
@@ -25,32 +25,32 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 
 	_playButton = new wxButton( this, wxID_ANY, wxT("Play"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
 	_playButton->SetFont( wxFont( 18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_playButton->SetForegroundColour( wxColour( 13, 115, 119 ) );
-	_playButton->SetBackgroundColour( wxColour( 50, 50, 50 ) );
+	_playButton->SetForegroundColour( wxColour( 23, 255, 0 ) );
+	_playButton->SetBackgroundColour( wxColour( 0, 60, 119 ) );
 	_playButton->SetMinSize( wxSize( 200,60 ) );
 
 	leftPanelSizer->Add( _playButton, 0, wxALL, 5 );
 
 	_loadBoardButton = new wxButton( this, wxID_ANY, wxT("Load board"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
 	_loadBoardButton->SetFont( wxFont( 14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_loadBoardButton->SetForegroundColour( wxColour( 13, 115, 119 ) );
-	_loadBoardButton->SetBackgroundColour( wxColour( 50, 50, 50 ) );
+	_loadBoardButton->SetForegroundColour( wxColour( 23, 255, 0 ) );
+	_loadBoardButton->SetBackgroundColour( wxColour( 0, 60, 119 ) );
 	_loadBoardButton->SetMinSize( wxSize( 200,60 ) );
 
 	leftPanelSizer->Add( _loadBoardButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 	_createBoardButton = new wxButton( this, wxID_ANY, wxT("Create board"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
 	_createBoardButton->SetFont( wxFont( 14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_createBoardButton->SetForegroundColour( wxColour( 13, 115, 119 ) );
-	_createBoardButton->SetBackgroundColour( wxColour( 50, 50, 50 ) );
+	_createBoardButton->SetForegroundColour( wxColour( 23, 255, 0 ) );
+	_createBoardButton->SetBackgroundColour( wxColour( 0, 60, 119 ) );
 	_createBoardButton->SetMinSize( wxSize( 200,60 ) );
 
 	leftPanelSizer->Add( _createBoardButton, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
 	_exitButton = new wxButton( this, wxID_ANY, wxT("Exit"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
 	_exitButton->SetFont( wxFont( 18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_exitButton->SetForegroundColour( wxColour( 13, 115, 119 ) );
-	_exitButton->SetBackgroundColour( wxColour( 50, 50, 50 ) );
+	_exitButton->SetForegroundColour( wxColour( 23, 255, 0 ) );
+	_exitButton->SetBackgroundColour( wxColour( 0, 60, 119 ) );
 	_exitButton->SetMinSize( wxSize( 200,60 ) );
 
 	leftPanelSizer->Add( _exitButton, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
@@ -64,7 +64,7 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	_musicCheckBox = new wxCheckBox( this, wxID_ANY, wxT("Music"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
 	_musicCheckBox->SetValue(true);
 	_musicCheckBox->SetFont( wxFont( 18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_musicCheckBox->SetForegroundColour( wxColour( 13, 115, 119 ) );
+	_musicCheckBox->SetForegroundColour( wxColour( 23, 255, 0 ) );
 
 	musicSizer->Add( _musicCheckBox, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
@@ -83,7 +83,7 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	_FOVText = new wxStaticText( this, wxID_ANY, wxT("FOV: 66"), wxDefaultPosition, wxDefaultSize, 0 );
 	_FOVText->Wrap( -1 );
 	_FOVText->SetFont( wxFont( 14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_FOVText->SetForegroundColour( wxColour( 13, 115, 119 ) );
+	_FOVText->SetForegroundColour( wxColour( 23, 255, 0 ) );
 
 	sliderSizer->Add( _FOVText, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
@@ -99,7 +99,7 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	wxBoxSizer* rightPanelSizer;
 	rightPanelSizer = new wxBoxSizer( wxVERTICAL );
 
-	_logo = new wxStaticBitmap( this, wxID_ANY, wxBitmap( wxT("Textures/example-logo.bmp"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, 0 );
+	_logo = new wxStaticBitmap( this, wxID_ANY, wxBitmap( wxT("Textures/logo.bmp"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, 0 );
 	rightPanelSizer->Add( _logo, 0, wxALL, 5 );
 
 	wxBoxSizer* textSizer;
@@ -108,21 +108,21 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	_description = new wxStaticText( this, wxID_ANY, wxT("Welcome to the 3D-Maze game.\nYour goal is to find a way out in the shortest possible time.  Load existing mazes or create your own board. Move using \"wsad\" or arrows on the keyboard. Holding \"Shift\" multiplie your speed twice.  Click \"m\" during the game if you want to see the map."), wxDefaultPosition, wxDefaultSize, 0 );
 	_description->Wrap( -1 );
 	_description->SetFont( wxFont( 12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_description->SetForegroundColour( wxColour( 13, 115, 119 ) );
+	_description->SetForegroundColour( wxColour( 23, 255, 0 ) );
 
 	textSizer->Add( _description, 1, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 	_authors = new wxStaticText( this, wxID_ANY, wxT("Authors:"), wxDefaultPosition, wxDefaultSize, 0 );
 	_authors->Wrap( -1 );
 	_authors->SetFont( wxFont( 14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_authors->SetForegroundColour( wxColour( 13, 115, 119 ) );
+	_authors->SetForegroundColour( wxColour( 23, 255, 0 ) );
 
 	textSizer->Add( _authors, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 	_names = new wxStaticText( this, wxID_ANY, wxT("Konrad Malski | Radoslaw Leluk | Damian Plociennik"), wxDefaultPosition, wxDefaultSize, 0 );
 	_names->Wrap( -1 );
 	_names->SetFont( wxFont( 11, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_names->SetForegroundColour( wxColour( 13, 115, 119 ) );
+	_names->SetForegroundColour( wxColour( 23, 255, 0 ) );
 
 	textSizer->Add( _names, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
