@@ -23,37 +23,27 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 
 	leftPanelSizer->Add( 0, 0, 5, wxEXPAND, 5 );
 
-	_playButton = new wxButton( this, wxID_ANY, wxT("Play"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
-	_playButton->SetFont( wxFont( 18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_playButton->SetForegroundColour( wxColour( 23, 255, 0 ) );
-	_playButton->SetBackgroundColour( wxColour( 0, 60, 119 ) );
-	_playButton->SetMinSize( wxSize( 200,60 ) );
+	_playButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
-	leftPanelSizer->Add( _playButton, 0, wxALL, 5 );
+	_playButton->SetBitmap( wxBitmap( wxT("Textures/Play.bmp"), wxBITMAP_TYPE_ANY ) );
+	_playButton->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
 
-	_loadBoardButton = new wxButton( this, wxID_ANY, wxT("Load board"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
-	_loadBoardButton->SetFont( wxFont( 14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_loadBoardButton->SetForegroundColour( wxColour( 23, 255, 0 ) );
-	_loadBoardButton->SetBackgroundColour( wxColour( 0, 60, 119 ) );
-	_loadBoardButton->SetMinSize( wxSize( 200,60 ) );
+	leftPanelSizer->Add( _playButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
-	leftPanelSizer->Add( _loadBoardButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+	_loadBoardButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
-	_createBoardButton = new wxButton( this, wxID_ANY, wxT("Create board"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
-	_createBoardButton->SetFont( wxFont( 14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_createBoardButton->SetForegroundColour( wxColour( 23, 255, 0 ) );
-	_createBoardButton->SetBackgroundColour( wxColour( 0, 60, 119 ) );
-	_createBoardButton->SetMinSize( wxSize( 200,60 ) );
+	_loadBoardButton->SetBitmap( wxBitmap( wxT("Textures/LoadBoard.bmp"), wxBITMAP_TYPE_ANY ) );
+	leftPanelSizer->Add( _loadBoardButton, 0, wxALL, 5 );
 
-	leftPanelSizer->Add( _createBoardButton, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+	_createBoardButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
-	_exitButton = new wxButton( this, wxID_ANY, wxT("Exit"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
-	_exitButton->SetFont( wxFont( 18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_exitButton->SetForegroundColour( wxColour( 23, 255, 0 ) );
-	_exitButton->SetBackgroundColour( wxColour( 0, 60, 119 ) );
-	_exitButton->SetMinSize( wxSize( 200,60 ) );
+	_createBoardButton->SetBitmap( wxBitmap( wxT("Textures/CreateBoard.bmp"), wxBITMAP_TYPE_ANY ) );
+	leftPanelSizer->Add( _createBoardButton, 0, wxALL, 5 );
 
-	leftPanelSizer->Add( _exitButton, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+	_exitButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
+
+	_exitButton->SetBitmap( wxBitmap( wxT("Textures/Exit.bmp"), wxBITMAP_TYPE_ANY ) );
+	leftPanelSizer->Add( _exitButton, 0, wxALL, 5 );
 
 
 	leftPanelSizer->Add( 0, 0, 10, wxEXPAND, 5 );
@@ -64,7 +54,7 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	_musicCheckBox = new wxCheckBox( this, wxID_ANY, wxT("Music"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
 	_musicCheckBox->SetValue(true);
 	_musicCheckBox->SetFont( wxFont( 18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_musicCheckBox->SetForegroundColour( wxColour( 23, 255, 0 ) );
+	_musicCheckBox->SetForegroundColour( wxColour( 255, 255, 255 ) );
 
 	musicSizer->Add( _musicCheckBox, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
@@ -83,7 +73,7 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	_FOVText = new wxStaticText( this, wxID_ANY, wxT("FOV: 66"), wxDefaultPosition, wxDefaultSize, 0 );
 	_FOVText->Wrap( -1 );
 	_FOVText->SetFont( wxFont( 14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_FOVText->SetForegroundColour( wxColour( 23, 255, 0 ) );
+	_FOVText->SetForegroundColour( wxColour( 255, 255, 255 ) );
 
 	sliderSizer->Add( _FOVText, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
@@ -105,24 +95,24 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	wxBoxSizer* textSizer;
 	textSizer = new wxBoxSizer( wxVERTICAL );
 
-	_description = new wxStaticText( this, wxID_ANY, wxT("Welcome to the 3D-Maze game.\nYour goal is to find a way out in the shortest possible time.  Load existing mazes or create your own board. Move using \"wsad\" or arrows on the keyboard. Holding \"Shift\" multiplie your speed twice.  Click \"m\" during the game if you want to see the map."), wxDefaultPosition, wxDefaultSize, 0 );
+	_description = new wxStaticText( this, wxID_ANY, wxT("Welcome to the 3D-Maze game.\nYour goal is to find a way out in the shortest possible time.  Load existing mazes or create your own board. Move using \"wsad\" or arrows on the keyboard. Holding \"Shift\" multiplie your speed twice.  Click \"m\" during the game if you want to see the map."), wxDefaultPosition, wxSize( 500,-1 ), 0 );
 	_description->Wrap( -1 );
 	_description->SetFont( wxFont( 12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_description->SetForegroundColour( wxColour( 23, 255, 0 ) );
+	_description->SetForegroundColour( wxColour( 255, 255, 255 ) );
 
 	textSizer->Add( _description, 1, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 	_authors = new wxStaticText( this, wxID_ANY, wxT("Authors:"), wxDefaultPosition, wxDefaultSize, 0 );
 	_authors->Wrap( -1 );
 	_authors->SetFont( wxFont( 14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_authors->SetForegroundColour( wxColour( 23, 255, 0 ) );
+	_authors->SetForegroundColour( wxColour( 255, 255, 255 ) );
 
 	textSizer->Add( _authors, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 	_names = new wxStaticText( this, wxID_ANY, wxT("Konrad Malski | Radoslaw Leluk | Damian Plociennik"), wxDefaultPosition, wxDefaultSize, 0 );
 	_names->Wrap( -1 );
 	_names->SetFont( wxFont( 11, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_names->SetForegroundColour( wxColour( 23, 255, 0 ) );
+	_names->SetForegroundColour( wxColour( 255, 255, 255 ) );
 
 	textSizer->Add( _names, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
@@ -142,7 +132,6 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	_playButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseMenuFrame::_playButtonOnButtonClick ), NULL, this );
 	_loadBoardButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseMenuFrame::_loadBoardButtonOnButtonClick ), NULL, this );
 	_createBoardButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseMenuFrame::_createBoardButtonOnButtonClick ), NULL, this );
-	_exitButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseMenuFrame::_exitButtonOnButtonClick ), NULL, this );
 	_musicCheckBox->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( BaseMenuFrame::_musicCheckBoxOnCheckBox ), NULL, this );
 	_FOVSlider->Connect( wxEVT_SCROLL_TOP, wxScrollEventHandler( BaseMenuFrame::_FOVSliderOnScroll ), NULL, this );
 	_FOVSlider->Connect( wxEVT_SCROLL_BOTTOM, wxScrollEventHandler( BaseMenuFrame::_FOVSliderOnScroll ), NULL, this );
@@ -161,7 +150,6 @@ BaseMenuFrame::~BaseMenuFrame()
 	_playButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseMenuFrame::_playButtonOnButtonClick ), NULL, this );
 	_loadBoardButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseMenuFrame::_loadBoardButtonOnButtonClick ), NULL, this );
 	_createBoardButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseMenuFrame::_createBoardButtonOnButtonClick ), NULL, this );
-	_exitButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( BaseMenuFrame::_exitButtonOnButtonClick ), NULL, this );
 	_musicCheckBox->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( BaseMenuFrame::_musicCheckBoxOnCheckBox ), NULL, this );
 	_FOVSlider->Disconnect( wxEVT_SCROLL_TOP, wxScrollEventHandler( BaseMenuFrame::_FOVSliderOnScroll ), NULL, this );
 	_FOVSlider->Disconnect( wxEVT_SCROLL_BOTTOM, wxScrollEventHandler( BaseMenuFrame::_FOVSliderOnScroll ), NULL, this );

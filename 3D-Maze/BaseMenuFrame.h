@@ -9,15 +9,16 @@
 
 #include <wx/artprov.h>
 #include <wx/xrc/xmlres.h>
+#include <wx/bmpbuttn.h>
+#include <wx/gdicmn.h>
+#include <wx/font.h>
+#include <wx/colour.h>
+#include <wx/settings.h>
 #include <wx/string.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
-#include <wx/gdicmn.h>
 #include <wx/button.h>
-#include <wx/font.h>
-#include <wx/colour.h>
-#include <wx/settings.h>
 #include <wx/checkbox.h>
 #include <wx/sizer.h>
 #include <wx/slider.h>
@@ -36,10 +37,10 @@ class BaseMenuFrame : public wxFrame
 	private:
 
 	protected:
-		wxButton* _playButton;
-		wxButton* _loadBoardButton;
-		wxButton* _createBoardButton;
-		wxButton* _exitButton;
+		wxBitmapButton* _playButton;
+		wxBitmapButton* _loadBoardButton;
+		wxBitmapButton* _createBoardButton;
+		wxBitmapButton* _exitButton;
 		wxCheckBox* _musicCheckBox;
 		wxSlider* _FOVSlider;
 		wxStaticText* _FOVText;
@@ -52,7 +53,6 @@ class BaseMenuFrame : public wxFrame
 		virtual void _playButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void _loadBoardButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void _createBoardButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
-		virtual void _exitButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void _musicCheckBoxOnCheckBox( wxCommandEvent& event ) { event.Skip(); }
 		virtual void _FOVSliderOnScroll( wxScrollEvent& event ) { event.Skip(); }
 
