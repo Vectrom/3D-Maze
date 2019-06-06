@@ -72,6 +72,10 @@ void Canvas::onUpdate() {
 			_minimap->Show(!_isActiveMinimap);
 			_isActiveMinimap = !_isActiveMinimap;
 		}
+		//if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::R) {
+		//	_playerPosition.x = Settings::start.x + 0.5;
+		//	_playerPosition.y = Settings::start.y + 0.5;
+		//}
 	}
 
 	drawBackground();

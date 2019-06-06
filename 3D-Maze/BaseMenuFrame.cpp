@@ -106,7 +106,7 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	wxBoxSizer* textSizer;
 	textSizer = new wxBoxSizer( wxVERTICAL );
 
-	_description = new wxStaticText( this, wxID_ANY, wxT("Welcome to the 3D-Maze game.\nYour goal is to find a way out in the shortest possible time.  Load existing mazes or create your own board. Move using \"wsad\" or arrows on the keyboard. Holding \"Shift\" multiplie your speed twice.  Click \"m\" during the game if you want to see the map."), wxDefaultPosition, wxSize( 500,-1 ), 0 );
+	_description = new wxStaticText( this, wxID_ANY, wxT("Welcome to the 3D-Maze game.\nYour goal is to find a way out in the shortest possible time.  Load existing mazes or create your own board. Move using \"wsad\" or arrows on the keyboard. Holding \"Shift\" multiplies your speed twice.  Click \"m\" during the game if you want to see the map."), wxDefaultPosition, wxSize( 500,-1 ), 0 );
 	_description->Wrap( -1 );
 	_description->SetFont( wxFont( 12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
 	_description->SetForegroundColour( wxColour( 255, 255, 255 ) );

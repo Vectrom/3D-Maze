@@ -630,7 +630,7 @@
                     <property name="border">5</property>
                     <property name="flag">wxEXPAND|wxALIGN_CENTER_VERTICAL</property>
                     <property name="proportion">7</property>
-                    <object class="wxBoxSizer" expanded="0">
+                    <object class="wxBoxSizer" expanded="1">
                         <property name="minimum_size"></property>
                         <property name="name">rightPanelSizer</property>
                         <property name="orient">wxVERTICAL</property>
@@ -693,11 +693,11 @@
                                 <property name="window_style"></property>
                             </object>
                         </object>
-                        <object class="sizeritem" expanded="0">
+                        <object class="sizeritem" expanded="1">
                             <property name="border">5</property>
                             <property name="flag">wxEXPAND</property>
                             <property name="proportion">1</property>
-                            <object class="wxBoxSizer" expanded="0">
+                            <object class="wxBoxSizer" expanded="1">
                                 <property name="minimum_size"></property>
                                 <property name="name">textSizer</property>
                                 <property name="orient">wxVERTICAL</property>
@@ -734,7 +734,7 @@
                                         <property name="gripper">0</property>
                                         <property name="hidden">0</property>
                                         <property name="id">wxID_ANY</property>
-                                        <property name="label">Welcome to the 3D-Maze game.&#x0A;Your goal is to find a way out in the shortest possible time.  Load existing mazes or create your own board. Move using &quot;wsad&quot; or arrows on the keyboard. Holding &quot;Shift&quot; multiplie your speed twice.  Click &quot;m&quot; during the game if you want to see the map.</property>
+                                        <property name="label">Welcome to the 3D-Maze game.&#x0A;Your goal is to find a way out in the shortest possible time.  Load existing mazes or create your own board. Move using &quot;wsad&quot; or arrows on the keyboard. Holding &quot;Shift&quot; multiplies your speed twice.  Click &quot;m&quot; during the game if you want to see the map.</property>
                                         <property name="markup">0</property>
                                         <property name="max_size"></property>
                                         <property name="maximize_button">0</property>

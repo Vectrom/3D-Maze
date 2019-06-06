@@ -1,0 +1,18 @@
+   YYYYYYYYY   
+  YYYYYYYYYYY  
+ YYYYYYYYYYYYY 
+YYYY    Y  YYYY
+YYYY Y YY Y  YY
+YY Y YYY     YY
+YY           YY
+YY           YY
+YY ZZ     ZZ YY
+ZY ZZZ   ZZZ YZ
+Z   ZZ   ZZ   Z
+Z             Z
+Z  S      E   Z
+ Z XXXXXXXX  Z 
+ Z  X    X   Z 
+  Z  XXXX   Z  
+   ZZ     ZZ   
+     ZZZZZ     
