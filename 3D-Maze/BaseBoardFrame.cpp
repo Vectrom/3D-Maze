@@ -37,6 +37,8 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_setSizeButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
 	_setSizeButton->SetBitmap( wxBitmap( wxT("Textures/SetSizeSmall.bmp"), wxBITMAP_TYPE_ANY ) );
+	_setSizeButton->SetBitmapPressed( wxBitmap( wxT("Textures/SetSizeSmallPressed.bmp"), wxBITMAP_TYPE_ANY ) );
+	_setSizeButton->SetBitmapCurrent( wxBitmap( wxT("Textures/SetSizeSmallCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
 	_controlsSizer->Add( _setSizeButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 
@@ -109,11 +111,15 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_loadButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
 	_loadButton->SetBitmap( wxBitmap( wxT("Textures/LoadBoardSmall.bmp"), wxBITMAP_TYPE_ANY ) );
+	_loadButton->SetBitmapPressed( wxBitmap( wxT("Textures/LoadBoardSmallPressed.bmp"), wxBITMAP_TYPE_ANY ) );
+	_loadButton->SetBitmapCurrent( wxBitmap( wxT("Textures/LoadBoardSmallCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
 	_SLSizer->Add( _loadButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 	_exitButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
 	_exitButton->SetBitmap( wxBitmap( wxT("Textures/ExitSmall.bmp"), wxBITMAP_TYPE_ANY ) );
+	_exitButton->SetBitmapPressed( wxBitmap( wxT("Textures/ExitSmallPressed.bmp"), wxBITMAP_TYPE_ANY ) );
+	_exitButton->SetBitmapCurrent( wxBitmap( wxT("Textures/ExitSmallCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
 	_SLSizer->Add( _exitButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 

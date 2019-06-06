@@ -26,6 +26,8 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	_playButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
 	_playButton->SetBitmap( wxBitmap( wxT("Textures/Play.bmp"), wxBITMAP_TYPE_ANY ) );
+	_playButton->SetBitmapPressed( wxBitmap( wxT("Textures/PlayPressed.bmp"), wxBITMAP_TYPE_ANY ) );
+	_playButton->SetBitmapCurrent( wxBitmap( wxT("Textures/PlayCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
 	_playButton->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOW ) );
 
 	leftPanelSizer->Add( _playButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
@@ -33,16 +35,22 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	_loadBoardButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
 	_loadBoardButton->SetBitmap( wxBitmap( wxT("Textures/LoadBoard.bmp"), wxBITMAP_TYPE_ANY ) );
+	_loadBoardButton->SetBitmapPressed( wxBitmap( wxT("Textures/LoadBoardPressed.bmp"), wxBITMAP_TYPE_ANY ) );
+	_loadBoardButton->SetBitmapCurrent( wxBitmap( wxT("Textures/LoadBoardCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
 	leftPanelSizer->Add( _loadBoardButton, 0, wxALL, 5 );
 
 	_createBoardButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
 	_createBoardButton->SetBitmap( wxBitmap( wxT("Textures/CreateBoard.bmp"), wxBITMAP_TYPE_ANY ) );
+	_createBoardButton->SetBitmapPressed( wxBitmap( wxT("Textures/CreateBoardPressed.bmp"), wxBITMAP_TYPE_ANY ) );
+	_createBoardButton->SetBitmapCurrent( wxBitmap( wxT("Textures/CreateBoardCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
 	leftPanelSizer->Add( _createBoardButton, 0, wxALL, 5 );
 
 	_exitButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
 	_exitButton->SetBitmap( wxBitmap( wxT("Textures/Exit.bmp"), wxBITMAP_TYPE_ANY ) );
+	_exitButton->SetBitmapPressed( wxBitmap( wxT("Textures/ExitPressed.bmp"), wxBITMAP_TYPE_ANY ) );
+	_exitButton->SetBitmapCurrent( wxBitmap( wxT("Textures/ExitCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
 	leftPanelSizer->Add( _exitButton, 0, wxALL, 5 );
 
 

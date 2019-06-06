@@ -231,7 +231,7 @@
                                 <property name="close_button">1</property>
                                 <property name="context_help"></property>
                                 <property name="context_menu">1</property>
-                                <property name="current"></property>
+                                <property name="current">Load From File; Textures/SetSizeSmallCurrent.bmp</property>
                                 <property name="default">0</property>
                                 <property name="default_pane">0</property>
                                 <property name="disabled"></property>
@@ -264,7 +264,7 @@
                                 <property name="pin_button">1</property>
                                 <property name="pos"></property>
                                 <property name="position"></property>
-                                <property name="pressed"></property>
+                                <property name="pressed">Load From File; Textures/SetSizeSmallPressed.bmp</property>
                                 <property name="resize">Resizable</property>
                                 <property name="show">1</property>
                                 <property name="size"></property>
@@ -782,7 +782,7 @@
                                         <property name="close_button">1</property>
                                         <property name="context_help"></property>
                                         <property name="context_menu">1</property>
-                                        <property name="current"></property>
+                                        <property name="current">Load From File; Textures/LoadBoardSmallCurrent.bmp</property>
                                         <property name="default">0</property>
                                         <property name="default_pane">0</property>
                                         <property name="disabled"></property>
@@ -815,7 +815,7 @@
                                         <property name="pin_button">1</property>
                                         <property name="pos"></property>
                                         <property name="position"></property>
-                                        <property name="pressed"></property>
+                                        <property name="pressed">Load From File; Textures/LoadBoardSmallPressed.bmp</property>
                                         <property name="resize">Resizable</property>
                                         <property name="show">1</property>
                                         <property name="size"></property>
@@ -855,7 +855,7 @@
                                         <property name="close_button">1</property>
                                         <property name="context_help"></property>
                                         <property name="context_menu">1</property>
-                                        <property name="current"></property>
+                                        <property name="current">Load From File; Textures/ExitSmallCurrent.bmp</property>
                                         <property name="default">0</property>
                                         <property name="default_pane">0</property>
                                         <property name="disabled"></property>
@@ -888,7 +888,7 @@
                                         <property name="pin_button">1</property>
                                         <property name="pos"></property>
                                         <property name="position"></property>
-                                        <property name="pressed"></property>
+                                        <property name="pressed">Load From File; Textures/ExitSmallPressed.bmp</property>
                                         <property name="resize">Resizable</property>
                                         <property name="show">1</property>
                                         <property name="size"></property>
