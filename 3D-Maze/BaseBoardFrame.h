@@ -16,11 +16,11 @@
 #include <wx/colour.h>
 #include <wx/settings.h>
 #include <wx/sizer.h>
+#include <wx/bmpbuttn.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/button.h>
-#include <wx/bmpbuttn.h>
 #include <wx/panel.h>
 #include <wx/frame.h>
 
@@ -37,15 +37,15 @@ class BaseBoardFrame : public wxFrame
 	protected:
 		wxTextCtrl* _rowsText;
 		wxTextCtrl* _columnsText;
-		wxButton* _setSizeButton;
+		wxBitmapButton* _setSizeButton;
 		wxBitmapButton* _redButton;
 		wxBitmapButton* _greenButton;
 		wxBitmapButton* _blueButton;
 		wxBitmapButton* _startButton;
 		wxBitmapButton* _endButton;
-		wxButton* _saveButton;
-		wxButton* _loadButton;
-		wxButton* _exitButton;
+		wxBitmapButton* _saveButton;
+		wxBitmapButton* _loadButton;
+		wxBitmapButton* _exitButton;
 		wxPanel* _boardPanel;
 
 		// Virtual event handlers, overide them in your derived class

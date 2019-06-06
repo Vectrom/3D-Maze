@@ -14,7 +14,7 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	this->SetSizeHints( wxSize( 800,600 ), wxSize( -1,-1 ) );
 	this->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxEmptyString ) );
 	this->SetForegroundColour( wxColour( 89, 17, 17 ) );
-	this->SetBackgroundColour( wxColour( 89, 17, 17 ) );
+	this->SetBackgroundColour( wxColour( 48, 33, 77 ) );
 
 	wxBoxSizer* _mainSizer;
 	_mainSizer = new wxBoxSizer( wxHORIZONTAL );
@@ -34,12 +34,10 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 
 	_controlsSizer->Add( bSizer4, 0, wxALIGN_CENTER, 5 );
 
-	_setSizeButton = new wxButton( this, wxID_ANY, wxT("Set size"), wxPoint( -1,-1 ), wxDefaultSize, wxBORDER_NONE );
-	_setSizeButton->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
-	_setSizeButton->SetForegroundColour( wxColour( 242, 232, 0 ) );
-	_setSizeButton->SetBackgroundColour( wxColour( 17, 17, 89 ) );
+	_setSizeButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
-	_controlsSizer->Add( _setSizeButton, 0, wxALIGN_CENTER|wxALL, 5 );
+	_setSizeButton->SetBitmap( wxBitmap( wxT("Textures/SetSizeSmall.bmp"), wxBITMAP_TYPE_ANY ) );
+	_controlsSizer->Add( _setSizeButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 
 	_controlsSizer->Add( 120, 0, 6, wxEXPAND, 5 );
@@ -101,26 +99,20 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	wxBoxSizer* _SLSizer;
 	_SLSizer = new wxBoxSizer( wxVERTICAL );
 
-	_saveButton = new wxButton( this, wxID_ANY, wxT("Save board"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
-	_saveButton->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
-	_saveButton->SetForegroundColour( wxColour( 242, 232, 0 ) );
-	_saveButton->SetBackgroundColour( wxColour( 17, 17, 89 ) );
+	_saveButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
-	_SLSizer->Add( _saveButton, 0, wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+	_saveButton->SetBitmap( wxBitmap( wxT("Textures/SaveBoardSmall.bmp"), wxBITMAP_TYPE_ANY ) );
+	_SLSizer->Add( _saveButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
-	_loadButton = new wxButton( this, wxID_ANY, wxT("Load board"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
-	_loadButton->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
-	_loadButton->SetForegroundColour( wxColour( 242, 232, 0 ) );
-	_loadButton->SetBackgroundColour( wxColour( 17, 17, 89 ) );
+	_loadButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
-	_SLSizer->Add( _loadButton, 0, wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+	_loadButton->SetBitmap( wxBitmap( wxT("Textures/LoadBoardSmall.bmp"), wxBITMAP_TYPE_ANY ) );
+	_SLSizer->Add( _loadButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
-	_exitButton = new wxButton( this, wxID_ANY, wxT("Exit"), wxDefaultPosition, wxDefaultSize, wxBORDER_NONE );
-	_exitButton->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), wxFONTFAMILY_DEFAULT, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_BOLD, false, wxEmptyString ) );
-	_exitButton->SetForegroundColour( wxColour( 242, 232, 0 ) );
-	_exitButton->SetBackgroundColour( wxColour( 17, 17, 89 ) );
+	_exitButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
-	_SLSizer->Add( _exitButton, 0, wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
+	_exitButton->SetBitmap( wxBitmap( wxT("Textures/ExitSmall.bmp"), wxBITMAP_TYPE_ANY ) );
+	_SLSizer->Add( _exitButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 
 	_controlsSizer->Add( _SLSizer, 1, wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxEXPAND, 5 );
@@ -132,9 +124,9 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_boardSizer = new wxBoxSizer( wxVERTICAL );
 
 	_boardPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	_boardPanel->SetBackgroundColour( wxColour( 89, 17, 17 ) );
+	_boardPanel->SetBackgroundColour( wxColour( 48, 33, 77 ) );
 
-	_boardSizer->Add( _boardPanel, 1, wxEXPAND | wxALL, 5 );
+	_boardSizer->Add( _boardPanel, 1, wxALL|wxEXPAND, 5 );
 
 
 	_mainSizer->Add( _boardSizer, 1, wxALIGN_CENTER|wxEXPAND, 5 );

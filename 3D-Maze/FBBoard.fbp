@@ -30,7 +30,7 @@
         <object class="Frame" expanded="1">
             <property name="aui_managed">0</property>
             <property name="aui_manager_style">wxAUI_MGR_DEFAULT</property>
-            <property name="bg">89,17,17</property>
+            <property name="bg">48,33,77</property>
             <property name="center">wxBOTH</property>
             <property name="context_help"></property>
             <property name="context_menu">1</property>
@@ -211,9 +211,9 @@
                         </object>
                         <object class="sizeritem" expanded="1">
                             <property name="border">5</property>
-                            <property name="flag">wxALIGN_CENTER|wxALL</property>
+                            <property name="flag">wxALL|wxALIGN_CENTER_HORIZONTAL</property>
                             <property name="proportion">0</property>
-                            <object class="wxButton" expanded="1">
+                            <object class="wxBitmapButton" expanded="1">
                                 <property name="BottomDockable">1</property>
                                 <property name="LeftDockable">1</property>
                                 <property name="RightDockable">1</property>
@@ -223,8 +223,8 @@
                                 <property name="aui_position"></property>
                                 <property name="aui_row"></property>
                                 <property name="best_size"></property>
-                                <property name="bg">17,17,89</property>
-                                <property name="bitmap"></property>
+                                <property name="bg"></property>
+                                <property name="bitmap">Load From File; Textures/SetSizeSmall.bmp</property>
                                 <property name="caption"></property>
                                 <property name="caption_visible">1</property>
                                 <property name="center_pane">0</property>
@@ -239,14 +239,14 @@
                                 <property name="dock_fixed">0</property>
                                 <property name="docking">Left</property>
                                 <property name="enabled">1</property>
-                                <property name="fg">242,232,0</property>
+                                <property name="fg"></property>
                                 <property name="floatable">1</property>
                                 <property name="focus"></property>
-                                <property name="font">,94,92,-1,70,0</property>
+                                <property name="font"></property>
                                 <property name="gripper">0</property>
                                 <property name="hidden">0</property>
                                 <property name="id">wxID_ANY</property>
-                                <property name="label">Set size</property>
+                                <property name="label">MyButton</property>
                                 <property name="margins"></property>
                                 <property name="markup">0</property>
                                 <property name="max_size"></property>
@@ -262,7 +262,7 @@
                                 <property name="pane_size"></property>
                                 <property name="permission">protected</property>
                                 <property name="pin_button">1</property>
-                                <property name="pos">-1,-1</property>
+                                <property name="pos"></property>
                                 <property name="position"></property>
                                 <property name="pressed"></property>
                                 <property name="resize">Resizable</property>
@@ -689,9 +689,9 @@
                                 <property name="permission">none</property>
                                 <object class="sizeritem" expanded="1">
                                     <property name="border">5</property>
-                                    <property name="flag">wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALL</property>
+                                    <property name="flag">wxALL|wxALIGN_CENTER_HORIZONTAL</property>
                                     <property name="proportion">0</property>
-                                    <object class="wxButton" expanded="1">
+                                    <object class="wxBitmapButton" expanded="1">
                                         <property name="BottomDockable">1</property>
                                         <property name="LeftDockable">1</property>
                                         <property name="RightDockable">1</property>
@@ -701,8 +701,8 @@
                                         <property name="aui_position"></property>
                                         <property name="aui_row"></property>
                                         <property name="best_size"></property>
-                                        <property name="bg">17,17,89</property>
-                                        <property name="bitmap"></property>
+                                        <property name="bg"></property>
+                                        <property name="bitmap">Load From File; Textures/SaveBoardSmall.bmp</property>
                                         <property name="caption"></property>
                                         <property name="caption_visible">1</property>
                                         <property name="center_pane">0</property>
@@ -717,14 +717,14 @@
                                         <property name="dock_fixed">0</property>
                                         <property name="docking">Left</property>
                                         <property name="enabled">1</property>
-                                        <property name="fg">242,232,0</property>
+                                        <property name="fg"></property>
                                         <property name="floatable">1</property>
                                         <property name="focus"></property>
-                                        <property name="font">,94,92,-1,70,0</property>
+                                        <property name="font"></property>
                                         <property name="gripper">0</property>
                                         <property name="hidden">0</property>
                                         <property name="id">wxID_ANY</property>
-                                        <property name="label">Save board</property>
+                                        <property name="label">MyButton</property>
                                         <property name="margins"></property>
                                         <property name="markup">0</property>
                                         <property name="max_size"></property>
@@ -762,9 +762,9 @@
                                 </object>
                                 <object class="sizeritem" expanded="1">
                                     <property name="border">5</property>
-                                    <property name="flag">wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALL</property>
+                                    <property name="flag">wxALL|wxALIGN_CENTER_HORIZONTAL</property>
                                     <property name="proportion">0</property>
-                                    <object class="wxButton" expanded="1">
+                                    <object class="wxBitmapButton" expanded="1">
                                         <property name="BottomDockable">1</property>
                                         <property name="LeftDockable">1</property>
                                         <property name="RightDockable">1</property>
@@ -774,8 +774,8 @@
                                         <property name="aui_position"></property>
                                         <property name="aui_row"></property>
                                         <property name="best_size"></property>
-                                        <property name="bg">17,17,89</property>
-                                        <property name="bitmap"></property>
+                                        <property name="bg"></property>
+                                        <property name="bitmap">Load From File; Textures/LoadBoardSmall.bmp</property>
                                         <property name="caption"></property>
                                         <property name="caption_visible">1</property>
                                         <property name="center_pane">0</property>
@@ -790,14 +790,14 @@
                                         <property name="dock_fixed">0</property>
                                         <property name="docking">Left</property>
                                         <property name="enabled">1</property>
-                                        <property name="fg">242,232,0</property>
+                                        <property name="fg"></property>
                                         <property name="floatable">1</property>
                                         <property name="focus"></property>
-                                        <property name="font">,94,92,-1,70,0</property>
+                                        <property name="font"></property>
                                         <property name="gripper">0</property>
                                         <property name="hidden">0</property>
                                         <property name="id">wxID_ANY</property>
-                                        <property name="label">Load board</property>
+                                        <property name="label">MyButton</property>
                                         <property name="margins"></property>
                                         <property name="markup">0</property>
                                         <property name="max_size"></property>
@@ -835,9 +835,9 @@
                                 </object>
                                 <object class="sizeritem" expanded="1">
                                     <property name="border">5</property>
-                                    <property name="flag">wxALIGN_BOTTOM|wxALIGN_CENTER_HORIZONTAL|wxALL</property>
+                                    <property name="flag">wxALL|wxALIGN_CENTER_HORIZONTAL</property>
                                     <property name="proportion">0</property>
-                                    <object class="wxButton" expanded="1">
+                                    <object class="wxBitmapButton" expanded="1">
                                         <property name="BottomDockable">1</property>
                                         <property name="LeftDockable">1</property>
                                         <property name="RightDockable">1</property>
@@ -847,8 +847,8 @@
                                         <property name="aui_position"></property>
                                         <property name="aui_row"></property>
                                         <property name="best_size"></property>
-                                        <property name="bg">17,17,89</property>
-                                        <property name="bitmap"></property>
+                                        <property name="bg"></property>
+                                        <property name="bitmap">Load From File; Textures/ExitSmall.bmp</property>
                                         <property name="caption"></property>
                                         <property name="caption_visible">1</property>
                                         <property name="center_pane">0</property>
@@ -863,14 +863,14 @@
                                         <property name="dock_fixed">0</property>
                                         <property name="docking">Left</property>
                                         <property name="enabled">1</property>
-                                        <property name="fg">242,232,0</property>
+                                        <property name="fg"></property>
                                         <property name="floatable">1</property>
                                         <property name="focus"></property>
-                                        <property name="font">,94,92,-1,70,0</property>
+                                        <property name="font"></property>
                                         <property name="gripper">0</property>
                                         <property name="hidden">0</property>
                                         <property name="id">wxID_ANY</property>
-                                        <property name="label">Exit</property>
+                                        <property name="label">MyButton</property>
                                         <property name="margins"></property>
                                         <property name="markup">0</property>
                                         <property name="max_size"></property>
@@ -921,7 +921,7 @@
                         <property name="permission">none</property>
                         <object class="sizeritem" expanded="1">
                             <property name="border">5</property>
-                            <property name="flag">wxEXPAND | wxALL</property>
+                            <property name="flag">wxALL|wxEXPAND</property>
                             <property name="proportion">1</property>
                             <object class="wxPanel" expanded="1">
                                 <property name="BottomDockable">1</property>
@@ -933,7 +933,7 @@
                                 <property name="aui_position"></property>
                                 <property name="aui_row"></property>
                                 <property name="best_size"></property>
-                                <property name="bg">89,17,17</property>
+                                <property name="bg">48,33,77</property>
                                 <property name="caption"></property>
                                 <property name="caption_visible">1</property>
                                 <property name="center_pane">0</property>
