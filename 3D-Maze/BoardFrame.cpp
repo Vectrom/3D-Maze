@@ -8,6 +8,7 @@
 
 BoardFrame::BoardFrame( wxWindow* parent ) : 
 BaseBoardFrame( parent ), _parent(parent) {
+	SetIcon(wxICON(APRI_ICON));
 	// loading images
 	_redImg.LoadFile(wxT("Textures/RedWall.png"), wxBITMAP_TYPE_ANY);
 	_greenImg.LoadFile(wxT("Textures/GreenWall.png"), wxBITMAP_TYPE_ANY);

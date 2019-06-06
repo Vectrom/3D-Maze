@@ -7,6 +7,7 @@ class App : public wxApp {
 public:
 	virtual bool OnInit() {
 		auto menu = new MenuFrame(nullptr);
+		menu->SetIcon(wxICON(APRI_ICON));
 		menu->Show(true);
 		return true;
 	}
