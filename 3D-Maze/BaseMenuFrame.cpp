@@ -37,21 +37,21 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	_loadBoardButton->SetBitmap( wxBitmap( wxT("Textures/LoadBoard.bmp"), wxBITMAP_TYPE_ANY ) );
 	_loadBoardButton->SetBitmapPressed( wxBitmap( wxT("Textures/LoadBoardPressed.bmp"), wxBITMAP_TYPE_ANY ) );
 	_loadBoardButton->SetBitmapCurrent( wxBitmap( wxT("Textures/LoadBoardCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
-	leftPanelSizer->Add( _loadBoardButton, 0, wxALL, 5 );
+	leftPanelSizer->Add( _loadBoardButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 	_createBoardButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
 	_createBoardButton->SetBitmap( wxBitmap( wxT("Textures/CreateBoard.bmp"), wxBITMAP_TYPE_ANY ) );
 	_createBoardButton->SetBitmapPressed( wxBitmap( wxT("Textures/CreateBoardPressed.bmp"), wxBITMAP_TYPE_ANY ) );
 	_createBoardButton->SetBitmapCurrent( wxBitmap( wxT("Textures/CreateBoardCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
-	leftPanelSizer->Add( _createBoardButton, 0, wxALL, 5 );
+	leftPanelSizer->Add( _createBoardButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 	_exitButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
 	_exitButton->SetBitmap( wxBitmap( wxT("Textures/Exit.bmp"), wxBITMAP_TYPE_ANY ) );
 	_exitButton->SetBitmapPressed( wxBitmap( wxT("Textures/ExitPressed.bmp"), wxBITMAP_TYPE_ANY ) );
 	_exitButton->SetBitmapCurrent( wxBitmap( wxT("Textures/ExitCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
-	leftPanelSizer->Add( _exitButton, 0, wxALL, 5 );
+	leftPanelSizer->Add( _exitButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 
 	leftPanelSizer->Add( 0, 0, 10, wxEXPAND, 5 );
@@ -92,7 +92,10 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	leftPanelSizer->Add( 0, 0, 3, wxEXPAND, 5 );
 
 
-	menuSizer->Add( leftPanelSizer, 1, wxEXPAND, 5 );
+	menuSizer->Add( leftPanelSizer, 2, wxALIGN_CENTER_VERTICAL|wxEXPAND, 5 );
+
+
+	menuSizer->Add( 0, 0, 0, wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
 
 	wxBoxSizer* rightPanelSizer;
 	rightPanelSizer = new wxBoxSizer( wxVERTICAL );
@@ -128,7 +131,7 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	rightPanelSizer->Add( textSizer, 1, wxEXPAND, 5 );
 
 
-	menuSizer->Add( rightPanelSizer, 1, wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
+	menuSizer->Add( rightPanelSizer, 2, wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
 
 
 	this->SetSizer( menuSizer );
