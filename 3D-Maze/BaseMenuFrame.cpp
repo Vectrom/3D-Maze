@@ -92,7 +92,7 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	leftPanelSizer->Add( 0, 0, 3, wxEXPAND, 5 );
 
 
-	menuSizer->Add( leftPanelSizer, 2, wxALIGN_CENTER_VERTICAL|wxEXPAND, 5 );
+	menuSizer->Add( leftPanelSizer, 3, wxALIGN_CENTER_VERTICAL|wxEXPAND, 5 );
 
 
 	menuSizer->Add( 0, 0, 0, wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
@@ -131,7 +131,7 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	rightPanelSizer->Add( textSizer, 1, wxEXPAND, 5 );
 
 
-	menuSizer->Add( rightPanelSizer, 2, wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
+	menuSizer->Add( rightPanelSizer, 7, wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
 
 
 	this->SetSizer( menuSizer );

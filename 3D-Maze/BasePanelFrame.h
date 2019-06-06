@@ -37,7 +37,7 @@ class BasePanelFrame : public wxFrame
 
 	public:
 
-		BasePanelFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1024,800 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		BasePanelFrame( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Maze 3D"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 1024,800 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
 		~BasePanelFrame();
 
