@@ -102,6 +102,8 @@ BaseBoardFrame::BaseBoardFrame( wxWindow* parent, wxWindowID id, const wxString&
 	_saveButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
 	_saveButton->SetBitmap( wxBitmap( wxT("Textures/SaveBoardSmall.bmp"), wxBITMAP_TYPE_ANY ) );
+	_saveButton->SetBitmapPressed( wxBitmap( wxT("Textures/SaveBoardSmallPressed.bmp"), wxBITMAP_TYPE_ANY ) );
+	_saveButton->SetBitmapCurrent( wxBitmap( wxT("Textures/SaveBoardSmallCurrent.bmp"), wxBITMAP_TYPE_ANY ) );
 	_SLSizer->Add( _saveButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 	_loadButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
