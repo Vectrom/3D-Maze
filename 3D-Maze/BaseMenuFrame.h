@@ -53,6 +53,7 @@ class BaseMenuFrame : public wxFrame
 		virtual void _playButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void _loadBoardButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void _createBoardButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
+		virtual void _exitButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }
 		virtual void _musicCheckBoxOnCheckBox( wxCommandEvent& event ) { event.Skip(); }
 		virtual void _FOVSliderOnScroll( wxScrollEvent& event ) { event.Skip(); }
 
