@@ -43,7 +43,7 @@
             <property name="minimum_size"></property>
             <property name="name">BaseMinimapPanel</property>
             <property name="pos"></property>
-            <property name="size">300,300</property>
+            <property name="size">250,250</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="tooltip"></property>
             <property name="window_extra_style"></property>
@@ -56,7 +56,7 @@
                 <property name="permission">none</property>
                 <object class="sizeritem" expanded="1">
                     <property name="border">0</property>
-                    <property name="flag">wxEXPAND | wxALL</property>
+                    <property name="flag">wxALL|wxEXPAND</property>
                     <property name="proportion">1</property>
                     <object class="wxPanel" expanded="1">
                         <property name="BottomDockable">1</property>

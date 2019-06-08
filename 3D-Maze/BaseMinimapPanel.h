@@ -36,7 +36,7 @@ class BaseMinimapPanel : public wxPanel
 
 	public:
 
-		BaseMinimapPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 300,300 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
+		BaseMinimapPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 250,250 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
 		~BaseMinimapPanel();
 
 };

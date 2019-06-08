@@ -99,7 +99,7 @@ void Canvas::onResize(wxSizeEvent &event) {
 	this->SetSize({ newCanvasWidth, newCanvasHeight });
 	createRenderWindow();
 
-	_minimap->SetPosition(wxPoint(this->GetSize().x - _minimap->GetSize().x - 24, 0));
+	_minimap->SetPosition(wxPoint(this->GetSize().x - _minimap->GetSize().x - 28, 0));
 }
 
 void Canvas::drawMaze() {

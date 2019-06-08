@@ -57,7 +57,7 @@ void MinimapPanel::draw() {
 			buffDC.DrawRectangle(_fields[x][y]._position + _translation, _boxSize);
 		}
 	}
-	buffDC.SetPen(wxPen(wxColour(255, 20, 147)));
-	buffDC.SetBrush(wxBrush(wxColour(255, 20, 147)));
-	buffDC.DrawCircle(wxPoint(_playerPosition.y * _boxSize.x, _playerPosition.x * _boxSize.y) + _translation, 5);
+	buffDC.SetPen(wxPen(wxColour(48, 33, 77)));
+	buffDC.SetBrush(wxBrush(wxColour(48, 33, 77)));
+	buffDC.DrawCircle(wxPoint(_playerPosition.y * _boxSize.x, _playerPosition.x * _boxSize.y) + _translation, 3);
 }

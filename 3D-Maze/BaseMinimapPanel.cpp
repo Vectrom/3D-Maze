@@ -17,7 +17,7 @@ BaseMinimapPanel::BaseMinimapPanel( wxWindow* parent, wxWindowID id, const wxPoi
 	_sizer = new wxBoxSizer( wxVERTICAL );
 
 	_minimapPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	_sizer->Add( _minimapPanel, 1, wxEXPAND | wxALL, 0 );
+	_sizer->Add( _minimapPanel, 1, wxALL|wxEXPAND, 0 );
 
 
 	this->SetSizer( _sizer );
