@@ -37,13 +37,13 @@
             <property name="event_handler">impl_virtual</property>
             <property name="fg"></property>
             <property name="font"></property>
-            <property name="hidden">0</property>
+            <property name="hidden">1</property>
             <property name="id">wxID_ANY</property>
             <property name="maximum_size"></property>
             <property name="minimum_size"></property>
-            <property name="name">MinimapPanel</property>
+            <property name="name">BaseMinimapPanel</property>
             <property name="pos"></property>
-            <property name="size">450,450</property>
+            <property name="size">300,300</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="tooltip"></property>
             <property name="window_extra_style"></property>
@@ -55,7 +55,7 @@
                 <property name="orient">wxVERTICAL</property>
                 <property name="permission">none</property>
                 <object class="sizeritem" expanded="1">
-                    <property name="border">5</property>
+                    <property name="border">0</property>
                     <property name="flag">wxEXPAND | wxALL</property>
                     <property name="proportion">1</property>
                     <object class="wxPanel" expanded="1">
@@ -109,6 +109,7 @@
                         <property name="window_extra_style"></property>
                         <property name="window_name"></property>
                         <property name="window_style">wxTAB_TRAVERSAL</property>
+                        <event name="OnEraseBackground">_minimapPanelOnEraseBackground</event>
                     </object>
                 </object>
             </object>

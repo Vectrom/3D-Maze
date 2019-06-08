@@ -17,13 +17,19 @@ BaseMinimapPanel::BaseMinimapPanel( wxWindow* parent, wxWindowID id, const wxPoi
 	_sizer = new wxBoxSizer( wxVERTICAL );
 
 	_minimapPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	_sizer->Add( _minimapPanel, 1, wxEXPAND | wxALL, 5 );
+	_sizer->Add( _minimapPanel, 1, wxEXPAND | wxALL, 0 );
 
 
 	this->SetSizer( _sizer );
 	this->Layout();
+
+	// Connect Events
+	_minimapPanel->Connect( wxEVT_ERASE_BACKGROUND, wxEraseEventHandler( BaseMinimapPanel::_minimapPanelOnEraseBackground ), NULL, this );
 }
 
 BaseMinimapPanel::~BaseMinimapPanel()
 {
+	// Disconnect Events
+	_minimapPanel->Disconnect( wxEVT_ERASE_BACKGROUND, wxEraseEventHandler( BaseMinimapPanel::_minimapPanelOnEraseBackground ), NULL, this );
+
 }

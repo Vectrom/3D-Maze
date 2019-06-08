@@ -30,9 +30,13 @@ class BaseMinimapPanel : public wxPanel
 	protected:
 		wxPanel* _minimapPanel;
 
+		// Virtual event handlers, overide them in your derived class
+		virtual void _minimapPanelOnEraseBackground( wxEraseEvent& event ) { event.Skip(); }
+
+
 	public:
 
-		BaseMinimapPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 350,350 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
+		BaseMinimapPanel( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 300,300 ), long style = wxTAB_TRAVERSAL, const wxString& name = wxEmptyString );
 		~BaseMinimapPanel();
 
 };

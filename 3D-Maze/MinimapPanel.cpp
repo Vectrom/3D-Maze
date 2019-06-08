@@ -2,10 +2,10 @@
 #include "MinimapPanel.h"
 #include "Settings.h"
 
-MinimapPanel::MinimapPanel(wxWindow* parent) :
+MinimapPanel::MinimapPanel(wxWindow* parent, const sf::Vector2<double>& playerPosition) :
+	_playerPosition(playerPosition),
 	BaseMinimapPanel(parent) {
-	_floorImg.LoadFile(wxT("Textures/Floor.png"), wxBITMAP_TYPE_ANY);
-
+	
 	int sizeY = Settings::worldMap.size();
 	int sizeX = Settings::worldMap[0].size();
 	_boxSize = wxSize(GetSize().x / sizeX, GetSize().y / sizeY);
@@ -13,14 +13,34 @@ MinimapPanel::MinimapPanel(wxWindow* parent) :
 
 	for (int x = 0; x < sizeX; x++) {
 		std::vector<FieldBox> row;
-		for (int y = 0; y < sizeY; y++)
-			row.push_back(FieldBox(_floorImg, wxPoint(x * _boxSize.x, y * _boxSize.y)));
-
+		for (int y = 0; y < sizeY; y++) {
+			switch (Settings::worldMap[y][x]) {
+			case 'X':
+				row.push_back(FieldBox(wxColour(100, 0, 0), wxPoint(x * _boxSize.x, y * _boxSize.y)));
+				break;
+			case 'Y':
+				row.push_back(FieldBox(wxColour(0, 100, 0), wxPoint(x * _boxSize.x, y * _boxSize.y)));
+				break;
+			case 'Z':
+				row.push_back(FieldBox(wxColour(0, 0, 100), wxPoint(x * _boxSize.x, y * _boxSize.y)));
+				break;
+			/*case 'S':
+				row.push_back(FieldBox(wxColour(55, 123, 43), wxPoint(x * _boxSize.x, y * _boxSize.y)));
+				break;*/
+			case 'E':
+				row.push_back(FieldBox(wxColour(247, 202, 68), wxPoint(x * _boxSize.x, y * _boxSize.y)));
+				break;
+			default:
+				row.push_back(FieldBox(wxColour(255, 255, 255), wxPoint(x * _boxSize.x, y * _boxSize.y)));
+				break;
+			}
+		}
 		_fields.push_back(row);
 	}
-	Layout();
-	draw();
+
 }
+
+void MinimapPanel::_minimapPanelOnEraseBackground(wxEraseEvent& event) {}
 
 void MinimapPanel::draw() {
 	int sizeY = Settings::worldMap.size();
@@ -32,7 +52,12 @@ void MinimapPanel::draw() {
 
 	for (int x = 0; x < sizeX; x++) {
 		for (int y = 0; y < sizeY; y++) {
-			buffDC.DrawBitmap(_fields[x][y]._img.Scale(_boxSize.x, _boxSize.y), _fields[x][y]._position + _translation);
+			buffDC.SetPen(wxPen(_fields[x][y]._colour));
+			buffDC.SetBrush(wxBrush(_fields[x][y]._colour));
+			buffDC.DrawRectangle(_fields[x][y]._position + _translation, _boxSize);
 		}
 	}
+	buffDC.SetPen(wxPen(wxColour(255, 20, 147)));
+	buffDC.SetBrush(wxBrush(wxColour(255, 20, 147)));
+	buffDC.DrawCircle(wxPoint(_playerPosition.y * _boxSize.x, _playerPosition.x * _boxSize.y) + _translation, 5);
 }

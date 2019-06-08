@@ -1,20 +1,22 @@
 #pragma once
-#include "BaseMinimapPanel.h"
+#include <SFML/Graphics.hpp>
 #include <vector>
+#include "BaseMinimapPanel.h"
 
 class MinimapPanel : public BaseMinimapPanel {
 public:
-	MinimapPanel(wxWindow* parent);
+	MinimapPanel(wxWindow* parent, const sf::Vector2<double>& playerPosition);
+	void _minimapPanelOnEraseBackground(wxEraseEvent& event);
 	void draw();
 
 private:
 	wxSize _boxSize;
 	wxPoint _translation;
-	wxImage _floorImg;
+	const sf::Vector2<double>& _playerPosition;
 
 	struct FieldBox {
-		FieldBox(wxImage img, wxPoint pos = wxPoint(0, 0)) : _img(img), _position(pos) {}
-		wxImage _img;
+		FieldBox(wxColour colour, wxPoint position) : _colour(colour), _position(position) {}
+		wxColour _colour;
 		wxPoint _position;
 	};
 

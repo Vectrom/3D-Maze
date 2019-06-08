@@ -18,8 +18,7 @@ Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, 
 
 	_direction = sf::Vector2<double>(-1., 0.);
 	_plane = sf::Vector2<double>(0., tan(Settings::FOV/2 * M_PI/180));
-	_minimap = new MinimapPanel(this);
-
+	_minimap = new MinimapPanel(this, _playerPosition);
 	
 	if (!_music.openFromFile("Music/creepy.ogg")) {
 		// error...
@@ -81,6 +80,8 @@ void Canvas::onUpdate() {
 	drawBackground();
 	drawMaze();
 	draw(*_timeText);
+	if (_isActiveMinimap)
+		_minimap->draw();
 }
 
 void Canvas::drawBackground() {
@@ -98,7 +99,7 @@ void Canvas::onResize(wxSizeEvent &event) {
 	this->SetSize({ newCanvasWidth, newCanvasHeight });
 	createRenderWindow();
 
-	_minimap->SetPosition(wxPoint(this->GetSize().x - _minimap->GetSize().x, 0));
+	_minimap->SetPosition(wxPoint(this->GetSize().x - _minimap->GetSize().x - 24, 0));
 }
 
 void Canvas::drawMaze() {
