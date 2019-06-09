@@ -20,10 +20,10 @@
 #include <wx/icon.h>
 #include <wx/button.h>
 #include <wx/checkbox.h>
+#include <wx/statbmp.h>
 #include <wx/sizer.h>
 #include <wx/slider.h>
 #include <wx/stattext.h>
-#include <wx/statbmp.h>
 #include <wx/frame.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -42,12 +42,11 @@ class BaseMenuFrame : public wxFrame
 		wxBitmapButton* _createBoardButton;
 		wxBitmapButton* _exitButton;
 		wxCheckBox* _musicCheckBox;
+		wxStaticBitmap* _musicLabel;
 		wxSlider* _FOVSlider;
 		wxStaticText* _FOVText;
 		wxStaticBitmap* _logo;
-		wxStaticText* _description;
-		wxStaticText* _authors;
-		wxStaticText* _names;
+		wxStaticBitmap* _description;
 
 		// Virtual event handlers, overide them in your derived class
 		virtual void _playButtonOnButtonClick( wxCommandEvent& event ) { event.Skip(); }

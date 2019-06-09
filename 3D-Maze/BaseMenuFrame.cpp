@@ -21,7 +21,7 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	leftPanelSizer = new wxBoxSizer( wxVERTICAL );
 
 
-	leftPanelSizer->Add( 0, 0, 5, wxEXPAND, 5 );
+	leftPanelSizer->Add( 0, 0, 10, wxEXPAND, 5 );
 
 	_playButton = new wxBitmapButton( this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBORDER_NONE );
 
@@ -54,20 +54,23 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	leftPanelSizer->Add( _exitButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 
 
-	leftPanelSizer->Add( 0, 0, 10, wxEXPAND, 5 );
+	leftPanelSizer->Add( 0, 0, 5, wxEXPAND, 5 );
 
 	wxBoxSizer* musicSizer;
-	musicSizer = new wxBoxSizer( wxVERTICAL );
+	musicSizer = new wxBoxSizer( wxHORIZONTAL );
 
-	_musicCheckBox = new wxCheckBox( this, wxID_ANY, wxT("Music"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
+	_musicCheckBox = new wxCheckBox( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( -1,-1 ), 0 );
 	_musicCheckBox->SetValue(true);
 	_musicCheckBox->SetFont( wxFont( 18, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
 	_musicCheckBox->SetForegroundColour( wxColour( 255, 255, 255 ) );
 
-	musicSizer->Add( _musicCheckBox, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+	musicSizer->Add( _musicCheckBox, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5 );
+
+	_musicLabel = new wxStaticBitmap( this, wxID_ANY, wxBitmap( wxT("Textures/Music.bmp"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, 0 );
+	musicSizer->Add( _musicLabel, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 
 
-	leftPanelSizer->Add( musicSizer, 1, wxEXPAND, 5 );
+	leftPanelSizer->Add( musicSizer, 1, wxALIGN_CENTER_HORIZONTAL, 5 );
 
 
 	leftPanelSizer->Add( 0, 0, 3, wxEXPAND, 5 );
@@ -103,32 +106,8 @@ BaseMenuFrame::BaseMenuFrame( wxWindow* parent, wxWindowID id, const wxString& t
 	_logo = new wxStaticBitmap( this, wxID_ANY, wxBitmap( wxT("Textures/logo.bmp"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, 0 );
 	rightPanelSizer->Add( _logo, 0, wxALL, 5 );
 
-	wxBoxSizer* textSizer;
-	textSizer = new wxBoxSizer( wxVERTICAL );
-
-	_description = new wxStaticText( this, wxID_ANY, wxT("Welcome to the 3D-Maze game.\nYour goal is to find a way out in the shortest possible time.  Load existing mazes or create your own board. Move using \"wsad\" or arrows on the keyboard. Holding \"Shift\" multiplies your speed twice. Click \"m\" during the game if you want to see the map."), wxDefaultPosition, wxSize( 500,-1 ), 0 );
-	_description->Wrap( -1 );
-	_description->SetFont( wxFont( 12, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_description->SetForegroundColour( wxColour( 255, 255, 255 ) );
-
-	textSizer->Add( _description, 1, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
-
-	_authors = new wxStaticText( this, wxID_ANY, wxT("Authors:"), wxDefaultPosition, wxDefaultSize, 0 );
-	_authors->Wrap( -1 );
-	_authors->SetFont( wxFont( 14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_authors->SetForegroundColour( wxColour( 255, 255, 255 ) );
-
-	textSizer->Add( _authors, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
-
-	_names = new wxStaticText( this, wxID_ANY, wxT("Konrad Malski | Radoslaw Leluk | Damian Plociennik"), wxDefaultPosition, wxDefaultSize, 0 );
-	_names->Wrap( -1 );
-	_names->SetFont( wxFont( 11, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Andina") ) );
-	_names->SetForegroundColour( wxColour( 255, 255, 255 ) );
-
-	textSizer->Add( _names, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
-
-
-	rightPanelSizer->Add( textSizer, 1, wxEXPAND, 5 );
+	_description = new wxStaticBitmap( this, wxID_ANY, wxBitmap( wxT("Textures/Description.bmp"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, 0 );
+	rightPanelSizer->Add( _description, 0, wxALL, 5 );
 
 
 	menuSizer->Add( rightPanelSizer, 7, wxEXPAND|wxALIGN_CENTER_VERTICAL, 5 );
