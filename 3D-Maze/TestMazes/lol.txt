@@ -1,10 +1,10 @@
           
-  XX X    
-  XX XX   
- X X X    
- X XXX    
- X XXX X  
- XX X XX  
-  XXXXXX  
-    XX    
+          
+ XXXXXXXX 
+ X   XX   
+ X    X   
+ X    XX  
+ X    XX  
+ XXXXXX   
+          
           

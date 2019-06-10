@@ -43,6 +43,8 @@ void Canvas::onUpdate() {
 	double rotSpeed = frameTime * 3.; 
 
 	_timeText->setString(prepareTimeString(_time));
+
+	SetFocus();
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
 		moveSpeed *= 2.;
