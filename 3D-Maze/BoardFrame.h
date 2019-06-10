@@ -35,8 +35,6 @@ protected:
 	void updateVariables();
 	void draw();
 	void failedLoadingScheme(std::string);
-	// returns false when user wants to discard changes
-	bool saveMessageBox(std::string);
 
 private:
 	wxWindow *_parent;
