@@ -25,7 +25,7 @@ struct Settings {
 	};
 
 	static void getStartEnd(sf::Vector2<double> &start, sf::Vector2<double> &end);
-	static bool checkStartEnd();
+	static bool checkSigns();
 	static bool validateMaze();
 	static void neighborDown(int &x, int &y, direction &dir);
 	static void neighborUp(int &x, int &y, direction &dir);
