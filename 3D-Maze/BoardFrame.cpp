@@ -28,17 +28,20 @@ BaseBoardFrame( parent ), _parent(parent) {
 	prepareBoard();
 }
 
-void BoardFrame::frameOnClose(wxCloseEvent& event) {
-	if (_boardChanged) {
-		wxMessageDialog exitDialog(this, "Do you want to save the progress?", "Board has been changed", wxCENTRE | wxICON_EXCLAMATION | wxYES_NO | wxCANCEL);
-		int id = exitDialog.ShowModal();
-		if (id == wxID_YES) {
-			saveButtonOnButtonClick(wxCommandEvent());
-			return;
-		}
-		else if (id == wxID_CANCEL)
-			return;
+bool BoardFrame::saveMessageBox(std::string str) {
+	wxMessageDialog exitDialog(this, str, "Board has been changed", wxCENTRE | wxICON_EXCLAMATION | wxYES_NO | wxCANCEL);
+	int id = exitDialog.ShowModal();
+	if (id == wxID_YES) {
+		saveButtonOnButtonClick(wxCommandEvent());
+		return true;
 	}
+	else if (id == wxID_CANCEL)
+		return true;
+	return false;
+}
+
+void BoardFrame::frameOnClose(wxCloseEvent& event) {
+	if (_boardChanged && saveMessageBox("Do you want to save the progress?")) return;
 	_parent->Show(true);
 	this->Destroy();
 }
@@ -136,6 +139,8 @@ void BoardFrame::onMotion(wxMouseEvent& event) {
 }
 
 void BoardFrame::setSizeButtonOnButtonClick(wxCommandEvent& event) {
+	if (_boardChanged && saveMessageBox("Setting new size will clear your current board. Do you want to save the changes?")) return;
+
 	long rows, columns;
 
 	// returns true on success
@@ -147,6 +152,7 @@ void BoardFrame::setSizeButtonOnButtonClick(wxCommandEvent& event) {
 		return;
 	}
 
+	_boardChanged = false;
 	_rows = rows;
 	_columns = columns;
 	prepareBoard();
