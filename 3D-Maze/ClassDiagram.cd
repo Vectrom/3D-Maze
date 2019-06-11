@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BaseBoardFrame" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAKkABAgAACBESJIAAAAAACoAAAAAAAIgEAEgQ=</HashCode>
+      <FileName>BaseBoardFrame.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseMenuFrame" Collapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEBAAAAgAAAAEAKAAAAAQEAAAAAIgAEAAACARAhE=</HashCode>
+      <FileName>BaseMenuFrame.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseMinimapPanel" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAIAIAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>BaseMinimapPanel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasePanelFrame" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAIAAAAAAAAAAAAAAAAAAIAgAAAAA=</HashCode>
+      <FileName>BasePanelFrame.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoardFrame" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="BoardFrame::BoardBox" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>BoardFrame.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQACQAKAABCgAqCFAYJAEIwAIACgCiAAFBEAgECgAE=</HashCode>
+      <FileName>BoardFrame.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Canvas" Collapsed="true">
+    <Position X="3.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQAgAAADBABgAgCAAAYQAACEAACAQAQAAEAIAARAAAQ=</HashCode>
+      <FileName>Canvas.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuFrame" Collapsed="true">
+    <Position X="2.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAIAAAAAAEAAAIAIAAAAAAAABABA=</HashCode>
+      <FileName>MenuFrame.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MinimapPanel" Collapsed="true">
+    <Position X="4.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAgAAAKAAAAAIAAAAAgACAAAAAAAAAA=</HashCode>
+      <FileName>MinimapPanel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PanelFrame" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAIAAAAAAAAAQAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>PanelFrame.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="wxSfmlCanvas" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAQAAAgAAAAAAAAIAAAACAEAAABAAAAAAAAAAAAAg=</HashCode>
+      <FileName>wxSfmlCanvas.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Settings">
+    <Position X="6.5" Y="3" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Settings::direction" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Settings.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAEAAACCIAADAFQgAABoAAAICAAQAAAAAAAAACCAAAA=</HashCode>
+      <FileName>Settings.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
