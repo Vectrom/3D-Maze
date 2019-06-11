@@ -17,11 +17,11 @@ Canvas::Canvas(wxWindow * parent, wxWindowID id, wxPoint position, wxSize size, 
 	_playerPosition.y += 0.5;
 
 	_direction = sf::Vector2<double>(-1., 0.);
-	_plane = sf::Vector2<double>(0., tan(Settings::FOV/2 * M_PI/180));
+	_cameraPlane = sf::Vector2<double>(0., tan(Settings::FOV/2 * M_PI/180));
 	_minimap = new MinimapPanel(this, _playerPosition);
 	
 	if (!_music.openFromFile("Music/creepy.ogg")) {
-		// error...
+		// TODO error...
 	}
 	_music.setVolume(5);
 	_music.setLoop(true);
@@ -73,10 +73,6 @@ void Canvas::onUpdate() {
 			_minimap->Show(!_isActiveMinimap);
 			_isActiveMinimap = !_isActiveMinimap;
 		}
-		//if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::R) {
-		//	_playerPosition.x = Settings::start.x + 0.5;
-		//	_playerPosition.y = Settings::start.y + 0.5;
-		//}
 	}
 
 	drawBackground();
@@ -107,27 +103,27 @@ void Canvas::onResize(wxSizeEvent &event) {
 void Canvas::drawMaze() {
 	for (int x = 0; x < this->GetSize().x; x++) {
 		double cameraX = 2 * x / static_cast<double>(this->GetSize().x) - 1;
-		sf::Vector2<double> rayDirection(_direction.x + _plane.x * cameraX, _direction.y + _plane.y * cameraX);
+		sf::Vector2<double> rayDirection(_direction.x + _cameraPlane.x * cameraX, _direction.y + _cameraPlane.y * cameraX);
 		sf::Vector2<int> mapBox(static_cast<int>(_playerPosition.x), static_cast<int>(_playerPosition.y));
 		sf::Vector2<double> deltaDistance(std::abs(1 / rayDirection.x), std::abs(1 / rayDirection.y));
 		sf::Vector2<double> sideDistance;
 		sf::Vector2<int> step;
-		double perpWallDist;
-		int hit = 0; //was there a wall hit?
-		int side; //was a NS or a EW wall hit?
+		double perpendicularWallDist;
+		bool hit = false;
+		int side; 
 
 		calculateStepAndSideDist(sideDistance, step, deltaDistance, mapBox, rayDirection);
 
 		findCollision(sideDistance, step, deltaDistance, mapBox, hit, side);
 
 		if (side == 0) {
-			perpWallDist = (mapBox.x - _playerPosition.x + (1 - step.x) / 2) / rayDirection.x;
+			perpendicularWallDist = (mapBox.x - _playerPosition.x + (1 - step.x) / 2) / rayDirection.x;
 		}
 		else {
-			perpWallDist = (mapBox.y - _playerPosition.y + (1 - step.y) / 2) / rayDirection.y;
+			perpendicularWallDist = (mapBox.y - _playerPosition.y + (1 - step.y) / 2) / rayDirection.y;
 		}
 
-		int lineHeight = static_cast<int>(this->GetSize().y / perpWallDist);
+		int lineHeight = static_cast<int>(this->GetSize().y / perpendicularWallDist);
 
 		int drawStart = -lineHeight / 2 + this->GetSize().y / 2;
 		if (drawStart < 0) 
@@ -165,9 +161,9 @@ void Canvas::rotate(double rotSpeed, int multiplier) {
 	double oldDirX = _direction.x;
 	_direction.x = _direction.x * cos(multiplier * rotSpeed) - _direction.y * sin(multiplier * rotSpeed);
 	_direction.y = oldDirX * sin(multiplier * rotSpeed) + _direction.y * cos(multiplier * rotSpeed);
-	double oldPlaneX = _plane.x;
-	_plane.x = _plane.x * cos(multiplier * rotSpeed) - _plane.y * sin(multiplier * rotSpeed);
-	_plane.y = oldPlaneX * sin(multiplier * rotSpeed) + _plane.y * cos(multiplier * rotSpeed);
+	double oldCameraPlaneX = _cameraPlane.x;
+	_cameraPlane.x = _cameraPlane.x * cos(multiplier * rotSpeed) - _cameraPlane.y * sin(multiplier * rotSpeed);
+	_cameraPlane.y = oldCameraPlaneX * sin(multiplier * rotSpeed) + _cameraPlane.y * cos(multiplier * rotSpeed);
 }
 
 void Canvas::calculateStepAndSideDist(sf::Vector2<double>& sideDistance, sf::Vector2<int>& step, const sf::Vector2<double>& deltaDistance, const sf::Vector2<int>& mapBox, const sf::Vector2<double> &rayDirection) {
@@ -189,8 +185,8 @@ void Canvas::calculateStepAndSideDist(sf::Vector2<double>& sideDistance, sf::Vec
 	}
 }
 
-void Canvas::findCollision(sf::Vector2<double>& sideDistance, const sf::Vector2<int>& step, const sf::Vector2<double>& deltaDistance, sf::Vector2<int>& mapBox, int & hit, int & side) {
-	while (hit == 0) {
+void Canvas::findCollision(sf::Vector2<double>& sideDistance, const sf::Vector2<int>& step, const sf::Vector2<double>& deltaDistance, sf::Vector2<int>& mapBox, bool & hit, int & side) {
+	while (!hit) {
 		if (sideDistance.x < sideDistance.y) {
 			sideDistance.x += deltaDistance.x;
 			mapBox.x += step.x;
@@ -201,7 +197,7 @@ void Canvas::findCollision(sf::Vector2<double>& sideDistance, const sf::Vector2<
 			mapBox.y += step.y;
 			side = 1;
 		}
-		if (Settings::worldMap[mapBox.x][mapBox.y] != ' ' && Settings::worldMap[mapBox.x][mapBox.y] != 'S') hit = 1;
+		if (Settings::worldMap[mapBox.x][mapBox.y] != ' ' && Settings::worldMap[mapBox.x][mapBox.y] != 'S') hit = true;
 	}
 }
 
