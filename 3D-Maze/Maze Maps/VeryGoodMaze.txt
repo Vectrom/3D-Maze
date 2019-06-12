@@ -1,0 +1,20 @@
+XXXXXXXXXXXXXXXXXXXX
+E    Y   Y       Z X
+X YXYXY YZYZYZ Z X X
+X X      Y   YZY Z X
+X YXY YX   X     X X
+X   X ZY Y ZXZXZXZ X
+XZX Y    X         X
+X   XYXYXYXY YXYXY X
+X YXY      X X   X X
+X   X Z XYXY Y X Y X
+X Z Y Y Y    X Z   X
+X   X Z XYXYXY XZXZX
+XZY Y Y        Z   X
+X Z X ZYZY YZY XZX X
+X Y Y    Z   Z   Z X
+X Z XYXY YZ ZY XZX X
+X Y       Y Y  Z Z X
+X ZYZYZ ZYZ Z ZX X X
+X           Y     SX
+XXXXXXXXXXXXXXXXXXXX
