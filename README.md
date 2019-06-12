@@ -8,11 +8,11 @@ Project made for university course called "Fundamentals of Computer Graphics".
 
 ## Screenshots from the game
 
-![Menu](Doc/Screenshots/menu.jpg)
+<img src="./Doc/Screenshots/menu.jpg" alt="Menu" width="600"/>
 
-![Board](Doc/Screenshots/board.jpg)
+<img src="./Doc/Screenshots/board.jpg" alt="Board" width="600"/>
 
-![Game](Doc/Screenshots/joker.jpg)
+<img src="./Doc/Screenshots/joker.jpg" alt="Game" width="600"/>
 
 ## Credits:
 - Music from  [Bensound.com](https://www.bensound.com)
